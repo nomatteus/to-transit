@@ -6,7 +6,7 @@
 
 // Get route from $_GET['r'] variable, or set to default
 // TODO: Add in check for valid route
-$route = (isset($_GET['r']) && (int) $_GET['r'] != 0) ? (int) $_GET['r'] : '510';
+$route = (isset($_GET['r']) && (int) $_GET['r'] != 0) ? (int) $_GET['r'] : '501';
 
 $filename = "cache/vehicleLocations.".$route.".xml";
 
@@ -30,6 +30,10 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     $direction = "S";
   else if (stripos($dirTag, "northbound") !== false)
     $direction = "N";
+  else if (stripos($dirTag, "westbound") !== false)
+    $direction = "W";
+  else if (stripos($dirTag, "eastbound") !== false)
+    $direction = "E";
   else
     $direction = "null"; //default
 

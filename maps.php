@@ -13,6 +13,8 @@
   #map_canvas { height: 100%;width: 100%; }
 
   #controls {position:absolute;top:15px;left:100px;width:10px;height:10px;}
+
+  #show-routes {}
 </style> 
 <title>TTC</title> 
 <script type="text/javascript"> 
@@ -35,7 +37,10 @@
 
 
   <div id="controls">
-    <a href="#">Update</a>
+    <a href="#" id="update">Update</a>
+    <div id="show-routes">
+      <input type="checkbox" name="route[]" value="501">daskf
+    </div>
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>

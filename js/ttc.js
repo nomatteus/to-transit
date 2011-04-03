@@ -6,7 +6,7 @@
 var Route = {};
 
 Route.List = {
-	'501': '501- Queen',
+	'501': '501 - Queen',
 	'502': '502 - Downtowner',
 	'503': '503 - Kingston Rd',
 	'504': '504 - King',
@@ -21,10 +21,22 @@ Route.List = {
 Route.Handler = (function(){
 	return {
 		init: function() {
-			
+			Route.Items = {};
+			this.createRoutes();
 		},
-		createSomething: function() {
-			
+		createRoutes: function() {
+			_.each(Route.List, function(value, key, list){
+				Route.Items[key] - new Route.Instance({id: key});
+				// Check if vehicle exists in vehicle array already
+				// 	If it exists, update its info
+				// 	If doesn't exist
+				/*if (element.id in Vehicle.Items) {
+					// Exists already, so update info
+					Vehicle.Items[element.id].update(element);
+				} else {
+					Vehicle.Items[element.id] = new Vehicle.Instance(element);
+				}*/
+			});
 		}
 	}
 })();
@@ -39,7 +51,7 @@ Route.Instance = function(o) {
 Route.Instance.prototype = {
 	init: function() {
 		this.createMarkers();
-		
+		console.log(this.id);
 	},
 	createMarkers: function() {
 		
@@ -59,7 +71,8 @@ Vehicle.Handler = (function(){
 			$.ajax({
 				url: "json.php",
 				dataType: 'json', // Note: could use $.getJSON() as shortcut, but won't
-				data: {},
+				data: {r: 510},
+				cache: false, // Need to set this for IE especially, to cachebust
 				success: function(data, textStatus, jqXHR) {
 					//console.log(data.vehicles);
 					_.each(data.vehicles, function(element, index, list){
@@ -72,7 +85,6 @@ Vehicle.Handler = (function(){
 						} else {
 							Vehicle.Items[element.id] = new Vehicle.Instance(element);
 						}
-						
 					});
 				}
 			});
@@ -184,12 +196,31 @@ var Controls = (function() {
 	return {
 		init: function() {
 			this.addListeners();
+			this.startAutoUpdate();
+			this.createShowRoutes();
+		},
+		createShowRoutes: function() {
+			// Populate "Show routes:" box to allow toggling display of routes on/off
+			$showRoutes = $("#show-routes");
+			$showRoutes.append('Show:<br>');
+			_.each(Route.List, function(value, key, list){
+				$showRoutes.append('<input type="checkbox" name="route[]" id="'+key+'"><label for="'+key+'">'+value+'</label>');
+			});
 		},
 		addListeners: function() {
-			$("#controls a.update").live("click", function(e) {
-				e.preventDefault();
+			$("#update").live("click", function(e) {
+				//e.preventDefault();
 				Vehicle.Handler.updateVehicles();
 			});
+		},
+		startAutoUpdate: function() {
+			// Set interval to auto-update every 8 seconds
+			window.interval = window.setInterval(function(){Vehicle.Handler.updateVehicles();}, 1000*8);
+			// Clear interval after 15 minutes to avoid people leaving window open and refreshing from server for hours
+			window.setTimeout(function(){
+				clearInterval(window.interval);
+				alert("This page has been open for 15 minutes, auto-update is now turned off.\nPlease reload to activate auto-update, or hit the update button to manually update.");
+			}, 1000*60*15);
 		}
 	}
 })();
@@ -307,7 +338,9 @@ function init() {
     };
 
 	// Init vehicles    
+    Route.Handler.init();
     Vehicle.Handler.init();
     Controls.init();
+
 
 }
