@@ -28,7 +28,7 @@
                 }
       #update {display:none;float:left;color:black;text-decoration:none;margin-right:13px;}
       #update:hover {color:#666;}
-      #show-hide-controls {display:block;float:left;text-indent:-999px;overflow:hidden;width:26px;height:20px;background:url(streetcar-post-bg.png) 0 -118px no-repeat;margin-left:0px;}
+      #show-hide-controls {display:block;float:left;text-indent:-999px;overflow:hidden;width:26px;height:20px;background:url(img/streetcar-post-bg.png) 0 -118px no-repeat;margin-left:0px;}
       #show-hide-controls:hover {background-position:-27px -118px;}
       #show-hide-controls.open {background-position:-54px -118px;}
       #show-hide-controls.open:hover {background-position:-81px -118px;}
