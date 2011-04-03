@@ -26,16 +26,7 @@ Route.Handler = (function(){
 		},
 		createRoutes: function() {
 			_.each(Route.List, function(value, key, list){
-				Route.Items[key] - new Route.Instance({id: key});
-				// Check if vehicle exists in vehicle array already
-				// 	If it exists, update its info
-				// 	If doesn't exist
-				/*if (element.id in Vehicle.Items) {
-					// Exists already, so update info
-					Vehicle.Items[element.id].update(element);
-				} else {
-					Vehicle.Items[element.id] = new Vehicle.Instance(element);
-				}*/
+				Route.Items[key] = new Route.Instance({id: key, name: value});
 			});
 		}
 	}
@@ -50,17 +41,96 @@ Route.Instance = function(o) {
 
 Route.Instance.prototype = {
 	init: function() {
-		this.createMarkers();
-		console.log(this.id);
+		this.vehicles = {};
+		this.isVisible = false;
+		this.updateVehicles();
+		//console.log(this);
 	},
-	createMarkers: function() {
-		
+	setVisible: function(isVisible) {
+		// Update visibility (boolean)
+		if (_.isBoolean(isVisible)){
+			this.isVisible = isVisible;
+			// Call update vehicles 
+			this.updateVehicles();
+			return true;
+		} else {
+			// Must pass a boolean!
+			return false;
+		}
+	},
+	updateVehicles: function() {
+		var that = this;
+		// Only update/create if set to visible
+		if (this.isVisible) {
+			$.ajax({
+				url: "json.php",
+				dataType: 'json', // Note: could use $.getJSON() as shortcut, but won't
+				data: {r: this.id},
+				cache: false, // Need to set this for IE especially, to cachebust
+				success: function(data, textStatus, jqXHR) {
+					_.each(data.vehicles, function(element, index, list){
+						// Check if vehicle exists in vehicle array already
+						// 	If it exists, update its info
+						// 	If doesn't exist
+						if (element.id in that.vehicles) {
+							// Exists already, so update info
+							that.vehicles[element.id].update(element);
+						} else {
+							that.vehicles[element.id] = new Vehicle.Instance(element);
+						}
+					});
+				}
+			});
+		} else {
+			// Hide all vehicles in route
+			_.each(this.vehicles, function(element, index, list){
+				element.hideMarker();
+			});
+		}
 	}
 };
 
 var Vehicle = {};
 
-Vehicle.Handler = (function(){
+/*Vehicle.Group = function(o) {
+	for (var prop in o) {
+		this[prop] = o[prop];
+	}
+	this.init();
+}
+
+Vehicle.Group.prototype = {
+	init: function() {
+		this.vehicles = {};
+		this.updateVehicles();
+	},
+		updateVehicles: function() {
+			that = this;
+			// Get vehicle info for this route (json)
+			$.ajax({
+				url: "json.php",
+				dataType: 'json', // Note: could use $.getJSON() as shortcut, but won't
+				data: {r: this.id},
+				cache: false, // Need to set this for IE especially, to cachebust
+				success: function(data, textStatus, jqXHR) {
+					//console.log(data.vehicles);
+					_.each(data.vehicles, function(element, index, list){
+						// Check if vehicle exists in vehicle array already
+						// 	If it exists, update its info
+						// 	If doesn't exist
+						if (element.id in that.vehicles) {
+							// Exists already, so update info
+							that.vehicles[element.id].update(element);
+						} else {
+							that.vehicles[element.id] = new Vehicle.Instance(element);
+						}
+					});
+				}
+			});
+		}
+};*/
+
+/*Vehicle.Handler = (function(){
 	return {
 		init: function() {
 			Vehicle.Items = {};
@@ -90,7 +160,7 @@ Vehicle.Handler = (function(){
 			});
 		}
 	}
-})();
+})();*/
 
 Vehicle.Instance = function(o) {
 	for (var prop in o) {
@@ -112,12 +182,8 @@ Vehicle.Instance.prototype = {
 		if (el.lat != this.lat || el.lng != this.lng) {
 			// Position has changed -- Hide marker
 			this.hideMarker();
-		} else {
-			// Position is same -- return true, no need to do anything else
-			// NOTE: Might want to check if the direction has changed, even if position hasn't? Dunno, but leave this for now.
-			return true;
 		}
-		// Update lat/lng
+		// Update lat/lng -- even if it's the same
 		this.lat = el.lat;
 		this.lng = el.lng;
 		this.dir = el.dir;
@@ -200,22 +266,46 @@ var Controls = (function() {
 			this.createShowRoutes();
 		},
 		createShowRoutes: function() {
+			var that = this;
 			// Populate "Show routes:" box to allow toggling display of routes on/off
 			$showRoutes = $("#show-routes");
 			$showRoutes.append('Show:<br>');
 			_.each(Route.List, function(value, key, list){
 				$showRoutes.append('<input type="checkbox" name="route[]" id="'+key+'"><label for="'+key+'">'+value+'</label>');
 			});
+			$showRoutes.find("input").live("change", function(){
+				var isChecked = $(this).attr("checked");
+				var routeId = this.id; // don't need jquery to get id, right?
+				if (isChecked) {
+					// Set visible => true
+					Route.Items[routeId].setVisible(true);
+				} else {
+					// Set visible => false
+					Route.Items[routeId].setVisible(false);
+				}
+				that.updateVehicles();
+				//console.log(that);
+			});
 		},
 		addListeners: function() {
+			var that = this;
 			$("#update").live("click", function(e) {
 				//e.preventDefault();
-				Vehicle.Handler.updateVehicles();
+				that.updateVehicles();
+			});
+		},
+		updateVehicles: function() {
+			//console.log(Route.Items);
+			_.each(Route.Items, function(element, index, list){
+				//console.log(element);
+				// Call the Route.Instance updateVehicles method -- this will update all vehicles for route
+				element.updateVehicles();
 			});
 		},
 		startAutoUpdate: function() {
+			var that = this;
 			// Set interval to auto-update every 8 seconds
-			window.interval = window.setInterval(function(){Vehicle.Handler.updateVehicles();}, 1000*8);
+			window.interval = window.setInterval(function(){that.updateVehicles();}, 1000*8);
 			// Clear interval after 15 minutes to avoid people leaving window open and refreshing from server for hours
 			window.setTimeout(function(){
 				clearInterval(window.interval);
@@ -337,10 +427,10 @@ function init() {
       type: 'poly'
     };
 
-	// Init vehicles    
-    Route.Handler.init();
-    Vehicle.Handler.init();
-    Controls.init();
+	// Init
+	Route.Handler.init();
+	//Vehicle.Handler.init();
+	Controls.init();
 
 
 }
