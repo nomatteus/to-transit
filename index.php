@@ -1,8 +1,11 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <style type="text/css"> 
   html { height: 100% }
   body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, sans-serif; text-shadow: #ffffff 1px 1px, #ffffff 2px 2px}
@@ -45,6 +48,9 @@
     script.type = "text/javascript";
     script.src = "http://maps.google.com/maps/api/js?v=3&sensor=true&callback=init";
     document.body.appendChild(script);
+
+    // For iphone
+    window.top.scrollTo(0, 1);
   }
   
   window.onload = loadScript;
@@ -65,7 +71,8 @@
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.5.2.min.js">\x3C/script>')</script>
   <script type="text/javascript" src="js/libs/cookies.js"></script> 
   <script type="text/javascript" src="js/libs/underscore.js"></script> 
-  <script type="text/javascript" src="js/libs/underscore.string.js"></script> 
+  <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script> 
+  <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
   <script type="text/javascript" src="js/ttc.js"></script> 
 
   <script>
