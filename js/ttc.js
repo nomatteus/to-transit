@@ -309,16 +309,20 @@ var Controls = (function() {
 			if (checkedBoxes) {
 				var routeArray = checkedBoxes.split(",");
 				//console.log(routeArray);
-
-				_.each(routeArray, function(routeId){
-					console.log(routeId);
-					var $checkbox = $("#"+routeId);
-					if (!$checkbox.is(":checked")) {
-						// Trigger click, but only if it's not checked already
-						$checkbox.click();
-					}
-				});
+			} else {
+				// Set default routes!
+				var routeArray = ["504", "510"]; // how about king & spadina
 			}
+
+			_.each(routeArray, function(routeId){
+				//console.log(routeId);
+				var $checkbox = $("#"+routeId);
+				if (!$checkbox.is(":checked")) {
+					// Trigger click, but only if it's not checked already
+					$checkbox.click();
+				}
+			});
+			
 		},
 		addListeners: function() {
 			var that = this;
@@ -326,6 +330,11 @@ var Controls = (function() {
 				//e.preventDefault();
 				that.updateVehicles();
 			});
+			$("#show-hide-controls").live("click", function(e) {
+				$("#show-routes").toggle();
+				$("#update").toggle();
+				$(this).toggleClass("open");
+			})
 		},
 		updateVehicles: function() {
 			//console.log(Route.Items);
@@ -364,6 +373,11 @@ function init() {
     var myOptions = {
       zoom: 14,
       center: myLatlng,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);

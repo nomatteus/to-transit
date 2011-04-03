@@ -5,10 +5,10 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
 <style type="text/css"> 
   html { height: 100% }
-  body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, sans-serif; }
+  body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, sans-serif; text-shadow: #ffffff 1px 1px, #ffffff 2px 2px}
   #map_canvas { height: 100%;width: 100%; }
 
-  #controls {position:absolute;top:15px;left:100px;border:1px solid #ccc;padding:5px 10px;
+  #controls {position:absolute;top:10px;left:10px;border:1px solid #ccc;padding:5px 10px;
                 /* rounded corners */
                    -moz-border-radius: 5px; 
                 -webkit-border-radius: 5px; 
@@ -26,8 +26,14 @@
                 -webkit-box-shadow: 2px 2px 4px #999; 
                         box-shadow: 2px 2px 4px #999; 
                 }
-      #update {}
-      #show-routes {}
+      #update {display:none;float:left;color:black;text-decoration:none;margin-right:13px;}
+      #update:hover {color:#666;}
+      #show-hide-controls {display:block;float:left;text-indent:-999px;overflow:hidden;width:26px;height:20px;background:url(streetcar-post-bg.png) 0 -118px no-repeat;margin-left:0px;}
+      #show-hide-controls:hover {background-position:-27px -118px;}
+      #show-hide-controls.open {background-position:-54px -118px;}
+      #show-hide-controls.open:hover {background-position:-81px -118px;}
+      #last-updated {display:none;clear:both;}
+      #show-routes {display:none;clear:both;}
       #show-routes input {float:left;margin:4px 5px 0 0;clear:left;}
       #show-routes label {display:block;float:left;}
 </style> 
@@ -49,7 +55,9 @@
 
 
   <div id="controls">
-    <a href="#" id="update">Update</a>
+    <a href="#" id="update">Manual Update</a>
+    <a href="#" id="show-hide-controls">Show/Hide Route Selection</a>
+    <span href="#" id="last-updated">Last Updated: 10 seconds ago</span>
     <div id="show-routes"></div>
   </div>
 
