@@ -55,6 +55,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.5.2.min.js">\x3C/script>')</script>
+  <script type="text/javascript" src="js/libs/cookies.js"></script> 
   <script type="text/javascript" src="js/libs/underscore.js"></script> 
   <script type="text/javascript" src="js/libs/underscore.string.js"></script> 
   <script type="text/javascript" src="js/ttc.js"></script> 

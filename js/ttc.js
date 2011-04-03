@@ -264,6 +264,7 @@ var Controls = (function() {
 			this.addListeners();
 			this.startAutoUpdate();
 			this.createShowRoutes();
+			this.readPrefsFromCookie();
 		},
 		createShowRoutes: function() {
 			var that = this;
@@ -284,8 +285,40 @@ var Controls = (function() {
 					Route.Items[routeId].setVisible(false);
 				}
 				that.updateVehicles();
+				that.writePrefsToCookie();
 				//console.log(that);
 			});
+		},
+		writePrefsToCookie: function() {
+			// Remember checked boxes in a string of route #'s separated by commas
+			var checkedBoxes = [];
+			$("#show-routes input").each(function(){
+				if ($(this).attr("checked") == true) {
+					//console.log(this.id);
+					checkedBoxes[checkedBoxes.length] = this.id;
+				}
+				//console.log(checkedBoxes);
+			});
+			// Save for 30 days
+			//console.log(checkedBoxes.join(","));
+			createCookie("checkedBoxes", checkedBoxes.join(","), 30);
+		},
+		readPrefsFromCookie: function() {
+			// "Check" boxes that were checked and saved in cookie
+			var checkedBoxes = readCookie("checkedBoxes");
+			if (checkedBoxes) {
+				var routeArray = checkedBoxes.split(",");
+				//console.log(routeArray);
+
+				_.each(routeArray, function(routeId){
+					console.log(routeId);
+					var $checkbox = $("#"+routeId);
+					if (!$checkbox.is(":checked")) {
+						// Trigger click, but only if it's not checked already
+						$checkbox.click();
+					}
+				});
+			}
 		},
 		addListeners: function() {
 			var that = this;
