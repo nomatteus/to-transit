@@ -39,6 +39,13 @@
       #show-routes {display:none;clear:both;}
       #show-routes input {float:left;margin:4px 5px 0 0;clear:left;}
       #show-routes label {display:block;float:left;}
+
+      /* Info Window Styles (And almost time to move this to external CSS file!!!) */
+      .info-window {}
+      .info-window h1 {font-size:14px;font-weight:bold;margin:0 0 5px;}
+      .info-window div {font-size:10px;line-height:16px;}
+      .info-window a {color:black;font-size:10px;line-height:16px;}
+      .info-window .reveal {display:none;}
 </style> 
 <title>TTC</title> 
 <script type="text/javascript"> 

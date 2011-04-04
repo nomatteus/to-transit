@@ -71,7 +71,7 @@ Route.Instance.prototype = {
 					_.each(data.vehicles, function(element, index, list){
 						// Check if vehicle exists in vehicle array already
 						// 	If it exists, update its info
-						// 	If doesn't exist
+						// 	If doesn't exist, create it
 						if (element.id in that.vehicles) {
 							// Exists already, so update info
 							that.vehicles[element.id].update(element);
@@ -87,6 +87,14 @@ Route.Instance.prototype = {
 				element.hideMarker();
 			});
 		}
+	},
+	closeInfoWindows: function() {
+		// Close all info windows of vehicles
+		_.each(this.vehicles, function(element, index, list){
+			if (element.infoWindow) {
+				element.infoWindow.close();
+			}
+		});
 	}
 };
 
@@ -191,6 +199,7 @@ Vehicle.Instance.prototype = {
 		// Call update functions
 		this.updateMarkerIcon();
 		this.updateMarkerPosition();
+		this.updateMarkerInfoWindow();
 		// Show Marker Again
 		this.showMarker();
 	},
@@ -202,6 +211,38 @@ Vehicle.Instance.prototype = {
 	},
 	updateMarkerPosition: function() {
 		this.marker.position = new google.maps.LatLng(this.lat, this.lng);
+	},
+	updateMarkerInfoWindow: function() {
+		var that = this;
+		this.marker.title = 'Vechicle #:' + this.id;
+		var contentString = '<div class="info-window">' + 
+			'<h1 class="vehicle-id">Vechicle #: ' + this.id + '</h1>' +
+			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
+			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
+			'<div class="headingId">Heading: ' + this.heading + '</div>' +
+			'<a href="#" class="what-does-this-mean">What does this mean?</a>' +
+			'<div class="reveal">Um, more info coming soon?</div>'
+			'<br></div>';
+		$(".what-does-this-mean").live("click", function(){
+			$(this).hide();
+			$(this).siblings(".reveal").show();
+		});
+		if (!this.infoWindow) {
+			// If it doesn't exist yet create it
+			this.infoWindow = new google.maps.InfoWindow({
+				content: contentString
+			});
+		} else {
+			// Otherwise, just update content
+			this.infoWindow.content = contentString;
+		}
+		//console.log(this.infoWindow);
+		google.maps.event.addListener(this.marker, 'click', function() {
+			// Close any existing info windows first
+			Controls.closeInfoWindows();
+			// Then display the current one!
+  			that.infoWindow.open(window.map, that.marker);
+		});
 	},
 	updateMarkerIcon: function() {
 		// Marker icon is based on direction only, for now
@@ -341,7 +382,15 @@ var Controls = (function() {
 			_.each(Route.Items, function(element, index, list){
 				//console.log(element);
 				// Call the Route.Instance updateVehicles method -- this will update all vehicles for route
+				// console.log(element);
 				element.updateVehicles();
+			});
+		},
+		closeInfoWindows: function() {
+			// Used to clean up info windows, probably only allow one at a time for now
+			_.each(Route.Items, function(element, index, list){
+				//console.log(element);
+				element.closeInfoWindows();
 			});
 		},
 		startAutoUpdate: function() {
@@ -384,7 +433,7 @@ function init() {
     var initialLocation;
     var browserSupportFlag = new Boolean();
 
-    // Try W3 Geolocation
+    // W3 Geolocation (HTML5)
     /*if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         browserSupportFlag = true;

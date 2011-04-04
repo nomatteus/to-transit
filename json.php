@@ -39,11 +39,13 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
 
   $vehicles[] = array(
     // Need to cast attributes to a (string), else it will be treated as an object
-    'id'      => (string) $vehicle['id'],
-    'lat'     => (string) $vehicle['lat'],
-    'lng'     => (string) $vehicle['lon'],
-    'dirTag'  => $dirTag,
-    'dir'     => $direction
+    'id'      			=> (string) $vehicle['id'],
+    'lat'     			=> (string) $vehicle['lat'],
+    'lng'     			=> (string) $vehicle['lon'],
+    'dirTag'  			=> $dirTag,
+    'dir'     			=> $direction,
+    'heading' 			=> (string) $vehicle['heading'],
+    'secsSinceReport' 	=> (string) $vehicle['secsSinceReport']
     );
   /*$vechicle->id;
   $vechicle->routeTag;
