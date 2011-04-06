@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="css/style.css?v=1">
-<title>TOTransit&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;View TTC Streetcars Live on a Map</title> 
+<title>TOTransit - View TTC Streetcars Live on a Map</title> 
 <script type="text/javascript"> 
   // Loads the Google Map API and runs callback function (init()) when done
   function loadScript() {

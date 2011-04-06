@@ -287,14 +287,23 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
  */
 
+/* Grade-A Mobile Browsers (Opera Mobile, Mobile Safari, Android Chrome)
+   consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
+@media screen and (max-device-width: 480px) {
+  #about-content {display:none;}
+}
+/* Small Screens & Landscape: Format the menus to be wider and not as tall */
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+  #show-routes {width:270px;}
+  #show-routes div.check {width:125px;}
+}
 
 /* Styles for desktop and large screen ----------- */
 
 /*styles for 800px and up!*/
 @media only screen and (min-width: 800px) {
   /* Styles */
-  /* Show about box by default (we have room!) */
-  #about-content {display:block;}
+
 }/*/mediaquery*/
 
 

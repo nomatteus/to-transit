@@ -228,7 +228,7 @@ google.bookmarkbubble.Bubble.prototype.IMAGE_CLOSE_DATA_URL_ = 'data:image/png;b
  * @private
  */
 google.bookmarkbubble.Bubble.prototype.REL_ICON_ =
-    'apple-touch-icon-precomposed';
+    'apple-touch-icon';
 
 
 /**

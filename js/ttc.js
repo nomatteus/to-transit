@@ -315,7 +315,7 @@ var Controls = (function() {
 			$showRoutes = $("#show-routes");
 			$showRoutes.append('Show:<br>');
 			_.each(Route.List, function(value, key, list){
-				$showRoutes.append('<input type="checkbox" name="route[]" id="'+key+'" onclick="_gaq.push([\'_trackEvent\', \'Controls\', \'Click\', \'Show/hide Route - ' + value + '\']);"><label for="'+key+'">'+value+'</label>');
+				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+key+'" onclick="_gaq.push([\'_trackEvent\', \'Controls\', \'Click\', \'Show/hide Route - ' + value + '\']);"><label for="'+key+'">'+value+'</label></div>');
 			});
 			$showRoutes.find("input").live("change", function(){
 				var isChecked = $(this).attr("checked");
