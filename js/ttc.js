@@ -223,10 +223,6 @@ Vehicle.Instance.prototype = {
 			'<a href="#" class="what-does-this-mean">What does this mean?</a>' +
 			'<div class="reveal">Um, more info coming soon?</div>'
 			'<br></div>';
-		$(".what-does-this-mean").live("click", function(){
-			$(this).hide();
-			$(this).siblings(".reveal").show();
-		});
 		if (!this.infoWindow) {
 			// If it doesn't exist yet create it
 			this.infoWindow = new google.maps.InfoWindow({
@@ -237,12 +233,6 @@ Vehicle.Instance.prototype = {
 			this.infoWindow.content = contentString;
 		}
 		//console.log(this.infoWindow);
-		google.maps.event.addListener(this.marker, 'click', function() {
-			// Close any existing info windows first
-			Controls.closeInfoWindows();
-			// Then display the current one!
-  			that.infoWindow.open(window.map, that.marker);
-		});
 	},
 	updateMarkerIcon: function() {
 		// Marker icon is based on direction only, for now
@@ -290,6 +280,18 @@ Vehicle.Instance.prototype = {
 		this.updateMarkerIcon();
 		this.updateMarkerPosition();
 		this.showMarker();
+		this.addEventListeners();
+	},
+	addEventListeners: function() {
+		/* Move event listeners from updateMarker method, so we don't add a new listener each time marker is updated. */
+		var that = this;
+		google.maps.event.addListener(this.marker, 'click', function() {
+			_gaq.push(['_trackEvent', 'Marker', 'Click', 'Marker - '+that.marker.title]);
+			// Close any existing info windows first
+			Controls.closeInfoWindows();
+			// Then display the current one!
+  			that.infoWindow.open(window.map, that.marker);
+		});
 	},
 	getId: function() {return this.id;},
 	getLat: function() {return this.lat;},
@@ -313,7 +315,7 @@ var Controls = (function() {
 			$showRoutes = $("#show-routes");
 			$showRoutes.append('Show:<br>');
 			_.each(Route.List, function(value, key, list){
-				$showRoutes.append('<input type="checkbox" name="route[]" id="'+key+'"><label for="'+key+'">'+value+'</label>');
+				$showRoutes.append('<input type="checkbox" name="route[]" id="'+key+'" onclick="_gaq.push([\'_trackEvent\', \'Controls\', \'Click\', \'Show/hide Route - ' + value + '\']);"><label for="'+key+'">'+value+'</label>');
 			});
 			$showRoutes.find("input").live("change", function(){
 				var isChecked = $(this).attr("checked");
@@ -368,6 +370,7 @@ var Controls = (function() {
 		addListeners: function() {
 			var that = this;
 			$("#update").live("click", function(e) {
+				_gaq.push(['_trackEvent', 'Controls', 'Click', 'Manual Update']);
 				//e.preventDefault();
 				that.updateVehicles();
 			});
@@ -375,7 +378,12 @@ var Controls = (function() {
 				$("#show-routes").toggle();
 				$("#update").toggle();
 				$(this).toggleClass("open");
-			})
+			});
+			$(".what-does-this-mean").live("click", function(){
+				_gaq.push(['_trackEvent', 'InfoWindow', 'Click', 'What Does This Mean?']);
+				$(this).hide();
+				$(this).siblings(".reveal").show();
+			});
 		},
 		updateVehicles: function() {
 			//console.log(Route.Items);
