@@ -384,6 +384,10 @@ var Controls = (function() {
 				$(this).hide();
 				$(this).siblings(".reveal").show();
 			});
+			$("#about-show").live("click", function(e){
+				//e.preventDefault();
+				$("#about-content").toggle();
+			});
 		},
 		updateVehicles: function() {
 			//console.log(Route.Items);
