@@ -185,23 +185,27 @@ Vehicle.Instance.prototype = {
 		//console.log(this.marker);
 	},
 	update: function(el) {
-		// Update vehicle info
+		/* Update vehicle info */
+
 		// If position has changed, remove current marker from map
 		if (el.lat != this.lat || el.lng != this.lng) {
+			// Update latlng
+			this.lat = el.lat;
+			this.lng = el.lng;
 			// Position has changed -- Hide marker
-			this.hideMarker();
+			//this.hideMarker();
+			// And then update position
+			this.updateMarkerPosition();
+			this.updateMarkerIcon();
+			//this.showMarker();
 		}
-		// Update lat/lng -- even if it's the same
-		this.lat = el.lat;
-		this.lng = el.lng;
+
 		this.dir = el.dir;
 		this.dirTag = el.dirTag;
-		// Call update functions
-		this.updateMarkerIcon();
-		this.updateMarkerPosition();
+
 		this.updateMarkerInfoWindow();
 		// Show Marker Again
-		this.showMarker();
+		
 	},
 	hideMarker: function() {
 		this.marker.setMap(null);
@@ -210,7 +214,8 @@ Vehicle.Instance.prototype = {
 		this.marker.setMap(window.map);
 	},
 	updateMarkerPosition: function() {
-		this.marker.position = new google.maps.LatLng(this.lat, this.lng);
+		//this.marker.position = new google.maps.LatLng(this.lat, this.lng);
+		this.marker.setPosition(new google.maps.LatLng(this.lat, this.lng));
 	},
 	updateMarkerInfoWindow: function() {
 		var that = this;
