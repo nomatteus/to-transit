@@ -24,25 +24,63 @@ $vehicles = array();
 
 foreach ($vehicle_locations_xml->vehicle as $vehicle) {
   //print_r($vehicle);
-  // Set a simpler direction tag with "N", "S", "E", or "W". 
+  /* Set a simpler direction tag with "N", "S", "E", or "W".
+   * April 6, 2011 - Direction tags now look like this: 510_0_510A
+   * Depending on the route (east/west or north/south route), dir tag means:
+   * _1_ is Westbound OR Northbound
+   * _0_ is Eastbound OR Southbound
+   * 
+   * 510 Spadina & 511 Bathurst are only North/South Routes
+   * The rest are East/West
+   */
   $dirTag = (string) $vehicle['dirTag'];
-  if (stripos($dirTag, "southbound") !== false)
-    $direction = "S";
-  else if (stripos($dirTag, "northbound") !== false)
-    $direction = "N";
-  else if (stripos($dirTag, "westbound") !== false)
-    $direction = "W";
-  else if (stripos($dirTag, "eastbound") !== false)
-    $direction = "E";
-  else
-    $direction = "null"; //default
+  $dirTagParts = explode("_", $dirTag);
+  
+  if (is_array($dirTagParts) && count($dirTagParts) > 1) {
+    $direction_num = (int) $dirTagParts[1]; // 1 or 0
+    $routeSub = $dirTagParts[2];
+  } else {
+    $direction_num = null;
+    $routeSub = null;
+  }
+
+  switch($route) {
+    case 510:
+    case 511:
+      if ($direction_num === 0)
+        $direction = "S";
+      else if ($direction_num === 1)
+        $direction = "N";
+      else
+        $direction = "null"; //default
+      break;
+    case 501:
+    case 502:
+    case 503:
+    case 504:
+    case 505:
+    case 506:
+    case 507:
+    case 508:
+    case 509:
+    case 512:
+    default:
+      if ($direction_num === 1)
+        $direction = "W";
+      else if ($direction_num === 0)
+        $direction = "E";
+      else
+        $direction = "null"; //default
+      break;
+  }
 
   $vehicles[] = array(
     // Need to cast attributes to a (string), else it will be treated as an object
     'id'      			=> (string) $vehicle['id'],
     'lat'     			=> (string) $vehicle['lat'],
     'lng'     			=> (string) $vehicle['lon'],
-    'dirTag'  			=> $dirTag,
+    'dirTag'        => $dirTag,
+    'routeSub' 			=> $routeSub,
     'dir'     			=> $direction,
     'heading' 			=> (string) $vehicle['heading'],
     'secsSinceReport' 	=> (string) $vehicle['secsSinceReport']

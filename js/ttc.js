@@ -223,6 +223,7 @@ Vehicle.Instance.prototype = {
 		var contentString = '<div class="info-window">' + 
 			'<h1 class="vehicle-id">Vechicle #: ' + this.id + '</h1>' +
 			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
+			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
 			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
 			'<div class="headingId">Heading: ' + this.heading + '</div>' +
 			'<a href="#" class="what-does-this-mean">What does this mean?</a>' +
@@ -415,10 +416,10 @@ var Controls = (function() {
 			// Set interval to auto-update every 8 seconds
 			window.interval = window.setInterval(function(){that.updateVehicles();}, 1000*8);
 			// Clear interval after 15 minutes to avoid people leaving window open and refreshing from server for hours
-			window.setTimeout(function(){
+			/*window.setTimeout(function(){
 				clearInterval(window.interval);
 				alert("This page has been open for 15 minutes, auto-update is now turned off.\nPlease reload to activate auto-update, or hit the update button to manually update.");
-			}, 1000*60*15);
+			}, 1000*60*15);*/
 		}
 	}
 })();
