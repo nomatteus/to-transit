@@ -268,7 +268,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
           }
 #about-show {display:block;color:black;font-weight:bold;text-decoration:none;}
 #about-show:hover {color:#666;}
-#about-content {display:block;width:130px;}
+#about-content {display:block;width:140px;}
 #about-content a {color:black;text-decoration:none;font-weight:bold;}
 #about-content a:hover {color:#666;}
 
@@ -291,11 +291,13 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
    consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
 @media screen and (max-device-width: 480px) {
   #about-content {display:none;}
+  .mobile-only {display:block;}
+  .desktop-only {display:none;}
 }
 /* Small Screens & Landscape: Format the menus to be wider and not as tall */
 @media screen and (max-device-width: 480px) and (orientation:landscape) {
   #show-routes {width:270px;}
-  #show-routes div.check {width:125px;}
+  #show-routes div.check {width:125px;float:left;}
 }
 
 /* Styles for desktop and large screen ----------- */
@@ -303,6 +305,8 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 /*styles for 800px and up!*/
 @media only screen and (min-width: 800px) {
   /* Styles */
+  .mobile-only {display:none;}
+  .desktop-only {display:block;}
 
 }/*/mediaquery*/
 

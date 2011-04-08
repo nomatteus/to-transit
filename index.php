@@ -37,6 +37,10 @@
   <div id="about">
     <a href="#" id="about-show">About</a>
     <div id="about-content">
+      <div class="desktop-only">
+        Mobile friendly! Just visit totransit.ca 
+        on your device.
+      </div>
       Feedback? Email
       <a href="mailto:matt@matthewruten.com" title="Email matt@matthewruten.com">matt@matthewruten.com</a>
       or 
