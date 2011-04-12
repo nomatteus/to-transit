@@ -187,7 +187,7 @@ Vehicle.Instance.prototype = {
 	update: function(el) {
 		/* Update vehicle info */
 
-		// If position has changed, remove current marker from map
+		// If position has changed, update marker position
 		if (el.lat != this.lat || el.lng != this.lng) {
 			// Update latlng
 			this.lat = el.lat;
@@ -197,21 +197,25 @@ Vehicle.Instance.prototype = {
 			// And then update position
 			this.updateMarkerPosition();
 			this.updateMarkerIcon();
-			//this.showMarker();
 		}
 
 		this.dir = el.dir;
 		this.dirTag = el.dirTag;
 
 		this.updateMarkerInfoWindow();
-		// Show Marker Again
-		
+
+		// Make sure marker is showing
+		this.showMarker();
+		//console.log();	
 	},
 	hideMarker: function() {
 		this.marker.setMap(null);
 	},
 	showMarker: function() {
-		this.marker.setMap(window.map);
+		// Check to make sure it's not already on map
+		if (this.marker.getMap() == null) {
+			this.marker.setMap(window.map);	
+		}
 	},
 	updateMarkerPosition: function() {
 		//this.marker.position = new google.maps.LatLng(this.lat, this.lng);
