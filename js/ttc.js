@@ -327,7 +327,7 @@ var Controls = (function() {
 			_.each(Route.List, function(value, key, list){
 				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+key+'" onclick="_gaq.push([\'_trackEvent\', \'Controls\', \'Click\', \'Show/hide Route - ' + value + '\']);"><label for="'+key+'">'+value+'</label></div>');
 			});
-			$showRoutes.find("input").live("change", function(){
+			$showRoutes.find("input").bind($.browser.msie? "propertychange": "change", function(){
 				var isChecked = $(this).attr("checked");
 				var routeId = this.id; // don't need jquery to get id, right?
 				if (isChecked) {
@@ -572,42 +572,44 @@ function init() {
 
 /** @fileoverview Example of how to use the bookmark bubble. */
 
-window.addEventListener('load', function() {
-  window.setTimeout(function() {
-    var bubble = new google.bookmarkbubble.Bubble();
+if (window.addEventListener) {
+	window.addEventListener('load', function() {
+	  window.setTimeout(function() {
+	    var bubble = new google.bookmarkbubble.Bubble();
 
-    var parameter = 'bmb=1';
+	    var parameter = 'bmb=1';
 
-    bubble.hasHashParameter = function() {
-      return window.location.hash.indexOf(parameter) != -1;
-    };
+	    bubble.hasHashParameter = function() {
+	      return window.location.hash.indexOf(parameter) != -1;
+	    };
 
-    bubble.setHashParameter = function() {
-      if (!this.hasHashParameter()) {
-        window.location.hash += parameter;
-      }
-    };
+	    bubble.setHashParameter = function() {
+	      if (!this.hasHashParameter()) {
+	        window.location.hash += parameter;
+	      }
+	    };
 
-    bubble.getViewportHeight = function() {
-      window.console.log('Example of how to override getViewportHeight.');
-      return window.innerHeight;
-    };
+	    bubble.getViewportHeight = function() {
+	      window.console.log('Example of how to override getViewportHeight.');
+	      return window.innerHeight;
+	    };
 
-    bubble.getViewportScrollY = function() {
-      window.console.log('Example of how to override getViewportScrollY.');
-      return window.pageYOffset;
-    };
+	    bubble.getViewportScrollY = function() {
+	      window.console.log('Example of how to override getViewportScrollY.');
+	      return window.pageYOffset;
+	    };
 
-    bubble.registerScrollHandler = function(handler) {
-      window.console.log('Example of how to override registerScrollHandler.');
-      window.addEventListener('scroll', handler, false);
-    };
+	    bubble.registerScrollHandler = function(handler) {
+	      window.console.log('Example of how to override registerScrollHandler.');
+	      window.addEventListener('scroll', handler, false);
+	    };
 
-    bubble.deregisterScrollHandler = function(handler) {
-      window.console.log('Example of how to override deregisterScrollHandler.');
-      window.removeEventListener('scroll', handler, false);
-    };
+	    bubble.deregisterScrollHandler = function(handler) {
+	      window.console.log('Example of how to override deregisterScrollHandler.');
+	      window.removeEventListener('scroll', handler, false);
+	    };
 
-    bubble.showIfAllowed();
-  }, 1000);
-}, false);
+	    bubble.showIfAllowed();
+	  }, 1000);
+	}, false);
+}
