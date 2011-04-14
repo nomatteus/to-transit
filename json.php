@@ -83,7 +83,8 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     'routeSub' 			=> $routeSub,
     'dir'     			=> $direction,
     'heading' 			=> (string) $vehicle['heading'],
-    'secsSinceReport' 	=> (string) $vehicle['secsSinceReport']
+    'secsSinceReport' 	=> (string) $vehicle['secsSinceReport'],
+    'route'         => (string) $route
     );
   /*$vechicle->id;
   $vechicle->routeTag;

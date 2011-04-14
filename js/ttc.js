@@ -1,6 +1,72 @@
-//var markers = {};
+/*
+ * Initialize App - This function is called right
+ * 	after the Google Maps API is loaded.
+ */
+function init() {
 
 
+/* 
+ *	See: http://www.tdmarketing.co.nz/blog/2011/03/09/create-marker-with-custom-labels-in-google-maps-api-v3/
+ *		and http://blog.mridey.com/2009/09/label-overlay-example-for-google-maps.html
+*/
+function Label(opt_options) {
+     // Initialization
+     this.setValues(opt_options);
+ 
+     // Here go the label styles
+     var span = this.span_ = document.createElement('span');
+     span.style.cssText = 'position: relative; left: -50%; top: -10px; ' +
+                          'white-space: nowrap;color:#000000;' +
+                          'padding: 2px;font-family: Arial; font-weight: bold;' +
+                          'font-size: 12px;';
+ 
+     var div = this.div_ = document.createElement('div');
+     div.appendChild(span);
+     div.style.cssText = 'position: absolute; display: none';
+};
+
+Label.prototype = new google.maps.OverlayView;
+ 
+Label.prototype.onAdd = function() {
+     var pane = this.getPanes().overlayImage;
+     pane.appendChild(this.div_);
+ 
+     // Ensures the label is redrawn if the text or position is changed.
+     var me = this;
+     this.listeners_ = [
+          google.maps.event.addListener(this, 'position_changed',
+               function() { me.draw(); }),
+          google.maps.event.addListener(this, 'text_changed',
+               function() { me.draw(); }),
+          google.maps.event.addListener(this, 'zindex_changed',
+               function() { me.draw(); })
+     ];
+};
+ 
+// Implement onRemove
+Label.prototype.onRemove = function() {
+     this.div_.parentNode.removeChild(this.div_);
+ 
+     // Label is removed from the map, stop updating its position/text.
+     for (var i = 0, I = this.listeners_.length; i < I; ++i) {
+          google.maps.event.removeListener(this.listeners_[i]);
+     }
+};
+ 
+// Implement draw
+Label.prototype.draw = function() {
+     var projection = this.getProjection();
+     var position = projection.fromLatLngToDivPixel(this.get('position'));
+     var div = this.div_;
+     div.style.left = position.x + 'px';
+     div.style.top = position.y + 'px';
+     div.style.display = 'block';
+     div.style.zIndex = this.get('zIndex'); //ALLOW LABEL TO OVERLAY MARKER
+     //console.log(this);
+     var text = this.get('text') || "...";
+     this.span_.innerHTML = text;
+
+};
 
 
 var Route = {};
@@ -100,76 +166,6 @@ Route.Instance.prototype = {
 
 var Vehicle = {};
 
-/*Vehicle.Group = function(o) {
-	for (var prop in o) {
-		this[prop] = o[prop];
-	}
-	this.init();
-}
-
-Vehicle.Group.prototype = {
-	init: function() {
-		this.vehicles = {};
-		this.updateVehicles();
-	},
-		updateVehicles: function() {
-			that = this;
-			// Get vehicle info for this route (json)
-			$.ajax({
-				url: "json.php",
-				dataType: 'json', // Note: could use $.getJSON() as shortcut, but won't
-				data: {r: this.id},
-				cache: false, // Need to set this for IE especially, to cachebust
-				success: function(data, textStatus, jqXHR) {
-					//console.log(data.vehicles);
-					_.each(data.vehicles, function(element, index, list){
-						// Check if vehicle exists in vehicle array already
-						// 	If it exists, update its info
-						// 	If doesn't exist
-						if (element.id in that.vehicles) {
-							// Exists already, so update info
-							that.vehicles[element.id].update(element);
-						} else {
-							that.vehicles[element.id] = new Vehicle.Instance(element);
-						}
-					});
-				}
-			});
-		}
-};*/
-
-/*Vehicle.Handler = (function(){
-	return {
-		init: function() {
-			Vehicle.Items = {};
-			this.updateVehicles();
-		},
-		updateVehicles: function() {
-			// Get vehicle info for this route (json)
-			$.ajax({
-				url: "json.php",
-				dataType: 'json', // Note: could use $.getJSON() as shortcut, but won't
-				data: {r: 510},
-				cache: false, // Need to set this for IE especially, to cachebust
-				success: function(data, textStatus, jqXHR) {
-					//console.log(data.vehicles);
-					_.each(data.vehicles, function(element, index, list){
-						// Check if vehicle exists in vehicle array already
-						// 	If it exists, update its info
-						// 	If doesn't exist
-						if (element.id in Vehicle.Items) {
-							// Exists already, so update info
-							Vehicle.Items[element.id].update(element);
-						} else {
-							Vehicle.Items[element.id] = new Vehicle.Instance(element);
-						}
-					});
-				}
-			});
-		}
-	}
-})();*/
-
 Vehicle.Instance = function(o) {
 	for (var prop in o) {
 		this[prop] = o[prop];
@@ -196,12 +192,13 @@ Vehicle.Instance.prototype = {
 			//this.hideMarker();
 			// And then update position
 			this.updateMarkerPosition();
-			this.updateMarkerIcon();
 		}
 
 		this.dir = el.dir;
 		this.dirTag = el.dirTag;
 
+		
+		this.updateMarkerIcon();
 		this.updateMarkerInfoWindow();
 
 		// Make sure marker is showing
@@ -279,6 +276,14 @@ Vehicle.Instance.prototype = {
 		this.marker.icon = markerImage;
 		this.marker.shadow = markerShadow;
 		this.marker.shape = markerShape;
+		if (this.marker.label == null) {
+			this.marker.label = new Label({
+				map: window.map
+			});
+		}
+		this.marker.label.set('zIndex', 1234);
+		this.marker.label.bindTo('position', this.marker, 'position');
+		this.marker.label.set('text', this.route);
 	},
 	createMarker: function() {
 		//console.log(this.dir);
@@ -289,6 +294,7 @@ Vehicle.Instance.prototype = {
 		// set the marker icon
 		this.updateMarkerIcon();
 		this.updateMarkerPosition();
+		this.updateMarkerInfoWindow();
 		this.showMarker();
 		this.addEventListeners();
 	},
@@ -306,6 +312,7 @@ Vehicle.Instance.prototype = {
 	getId: function() {return this.id;},
 	getLat: function() {return this.lat;},
 	getLng: function() {return this.lng;},
+	getRoute: function() {return this.route;},
 	getDirTag: function() {return this.dirTag;},
 	getDir: function() {return this.dir;}
 }
@@ -428,16 +435,15 @@ var Controls = (function() {
 	}
 })();
 
-/*
- * Initialize App - This function is called right
- * 	after the Google Maps API is loaded.
- */
-function init() {
+
 	//Route.Handler.init();
 
 	// init map w/ default location/zoom level/etc. (or with geolocation or with prev. saved default)
 
 	// init routes and display on map
+
+
+
 
 
 	var myLatlng = new google.maps.LatLng(43.656967, -79.399651);
