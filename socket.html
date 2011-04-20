@@ -9,11 +9,26 @@
 
 <script src="http://nodejs.totransit.ca/socket.io/socket.io.js"></script> 
 <script> 
- var socket = new io.Socket("http://nodejs.totransit.ca"); 
- socket.connect();
- socket.on('connect', function(){ }) 
- socket.on('message', function(){ }) 
- socket.on('disconnect', function(){ }) 
+  var socket = new io.Socket("nodejs.totransit.ca"); 
+  socket.connect();
+  socket.on('connect', function(){
+    socket.send('hi!');
+  }) 
+  socket.on('message', function(data){
+    data = JSON.parse(data);
+    if(data['action'] == 'close'){
+      $('#mouse_'+data['id']).remove();
+    } else if(data['action'] == 'speak') {
+      if(data['id']) {
+        speak(data);
+      } else {
+        preview(data);
+      }
+    } else if(data['action'] == 'move'){
+      move(data);
+    };
+  });
+  socket.on('disconnect', function(){ }) 
 </script> 
 
 </body>
