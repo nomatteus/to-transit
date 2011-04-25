@@ -15,11 +15,13 @@ function Label(opt_options) {
  
      // Here go the label styles
      var span = this.span_ = document.createElement('span');
-     span.style.cssText = 'position: relative; left: -50%; top: -10px; ' +
+     span.style.cssText = 'position: absolute; left: -18px; top: -38px; ' +
                           'white-space: nowrap;color:#000000;' +
-                          'padding: 2px;font-family: Arial; font-weight: bold;' +
-                          'font-size: 12px;';
- 
+                          'padding: 0px 2px 0 3px;font-family: helvetica neue, arial; font-weight: bold;' +
+                          'font-size: 8px;background-color: #FFFFFF;border: 1px solid black;' + 
+                          'border-radius: 5px 3px 3px 5px;text-shadow: none;line-height:10px;';
+
+
      var div = this.div_ = document.createElement('div');
      div.appendChild(span);
      div.style.cssText = 'position: absolute; display: none';
@@ -281,7 +283,7 @@ Vehicle.Instance.prototype = {
 				map: window.map
 			});
 		}
-		this.marker.label.set('zIndex', 1234);
+		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
 		this.marker.label.set('text', this.route);
 	},
@@ -462,7 +464,7 @@ var Controls = (function() {
     var browserSupportFlag = new Boolean();
 
     // W3 Geolocation (HTML5)
-    /*if (navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         browserSupportFlag = true;
         initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -484,7 +486,7 @@ var Controls = (function() {
         initialLocation = myLatlng
       }
       map.setCenter(initialLocation);
-    }*/
+    }
 
     // Define marker images for each direction as global vars (i.e. attach to window) -- is this the best way?
     window.markerImageStreetcarEast = new google.maps.MarkerImage(
