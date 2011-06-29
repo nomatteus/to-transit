@@ -276,7 +276,9 @@ Vehicle.Instance.prototype = {
 				break;
 		}
 
-		if (this.id == "4041") {
+		var hasAC = (this.id == "4041") ? true : false;
+
+		if (hasAC) {
 			this.marker.icon = window.markerImageStreetcarBlue;
 			this.marker.shadow = markerShadow;
 			this.marker.shape = markerShape	
@@ -292,7 +294,14 @@ Vehicle.Instance.prototype = {
 		}
 		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
-		this.marker.label.set('text', this.route);
+		if (hasAC) {
+			// Temporary fix to show the route direction on blue car 
+			// (until I move the NSEW direction out of the actual image)
+			this.marker.label.set('text', this.route + " " + this.dir);
+		} else {
+			this.marker.label.set('text', this.route);
+		}
+		
 
 	},
 	createMarker: function() {
