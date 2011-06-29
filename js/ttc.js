@@ -199,6 +199,9 @@ Vehicle.Instance.prototype = {
 		this.dir = el.dir;
 		this.dirTag = el.dirTag;
 
+		// Does this vehicle have AC?
+		this.hasAC = (this.id == "4041") ? true : false;
+
 		
 		this.updateMarkerIcon();
 		this.updateMarkerInfoWindow();
@@ -223,8 +226,14 @@ Vehicle.Instance.prototype = {
 	updateMarkerInfoWindow: function() {
 		var that = this;
 		this.marker.title = 'Vechicle #:' + this.id;
+		if (this.hasAC) {
+			var intro_content = "<strong>This is the only streetcar with A/C!</strong>";
+		} else {
+			var intro_content = "";
+		}
 		var contentString = '<div class="info-window">' + 
 			'<h1 class="vehicle-id">Vechicle #: ' + this.id + '</h1>' +
+			intro_content + 
 			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
 			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
@@ -276,9 +285,7 @@ Vehicle.Instance.prototype = {
 				break;
 		}
 
-		var hasAC = (this.id == "4041") ? true : false;
-
-		if (hasAC) {
+		if (this.hasAC) {
 			this.marker.icon = window.markerImageStreetcarBlue;
 			this.marker.shadow = markerShadow;
 			this.marker.shape = markerShape	
@@ -294,10 +301,10 @@ Vehicle.Instance.prototype = {
 		}
 		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
-		if (hasAC) {
+		if (this.hasAC) {
 			// Temporary fix to show the route direction on blue car 
 			// (until I move the NSEW direction out of the actual image)
-			this.marker.label.set('text', this.route + " " + this.dir);
+			this.marker.label.set('text', this.route + "" + this.dir);
 		} else {
 			this.marker.label.set('text', this.route);
 		}
