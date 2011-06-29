@@ -464,7 +464,7 @@ var Controls = (function() {
     var browserSupportFlag = new Boolean();
 
     // W3 Geolocation (HTML5)
-    if (navigator.geolocation) {
+    /*if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         browserSupportFlag = true;
         initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -486,7 +486,7 @@ var Controls = (function() {
         initialLocation = myLatlng
       }
       map.setCenter(initialLocation);
-    }
+    }*/
 
     // Define marker images for each direction as global vars (i.e. attach to window) -- is this the best way?
     window.markerImageStreetcarEast = new google.maps.MarkerImage(
