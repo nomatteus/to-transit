@@ -276,9 +276,15 @@ Vehicle.Instance.prototype = {
 				var markerShape 	= window.markerImageStreetcarShapeDefault;
 				break;
 		}
-		this.marker.icon = markerImage;
-		this.marker.shadow = markerShadow;
-		this.marker.shape = markerShape;
+		if (this.id == "4041") {
+			this.marker.icon = window.markerImageStreetcarBlue;
+			this.marker.shadow = markerShadow;
+			this.marker.shape = markerShape	
+		} else {
+			this.marker.icon = markerImage;
+			this.marker.shadow = markerShadow;
+			this.marker.shape = markerShape;
+		}
 	},
 	createMarker: function() {
 		//console.log(this.dir);
@@ -512,6 +518,14 @@ function init() {
     // Default for when direction is unknown/null
     window.markerImageStreetcarDefault = new google.maps.MarkerImage(
       'marker-images/streetcar-default.png',
+      new google.maps.Size(42,43),
+      new google.maps.Point(0,0),
+      new google.maps.Point(21,43)
+    );
+
+    // Blue marker image for Streetcar with AC (only 1!) -- "easter egg" feature
+    window.markerImageStreetcarBlue = new google.maps.MarkerImage(
+      'marker-images/streetcar-blue.png',
       new google.maps.Size(42,43),
       new google.maps.Point(0,0),
       new google.maps.Point(21,43)
