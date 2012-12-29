@@ -492,35 +492,25 @@ var Controls = (function() {
       scaleControl: false,
       streetViewControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+    };
     window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    var initialLocation;
-    var browserSupportFlag = new Boolean();
+    var currentLocation,
+    	// Bounds rect defined by SW and NE points
+    	torontoBoundsSW = new google.maps.LatLng(43.564, -79.561),
+    	torontoBoundsNE = new google.maps.LatLng(43.930, -79.095),
+    	torontoBounds = new google.maps.LatLngBounds(torontoBoundsSW, torontoBoundsNE);
 
     // W3 Geolocation (HTML5)
-    /*if (navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
-        browserSupportFlag = true;
-        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        map.setCenter(initialLocation);
+        currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        if (torontoBounds.contains(currentLocation)) {
+        	map.setCenter(currentLocation);
+        }
       }, function(){
-        handleNoGeolocation(browserSupportFlag);
+      	// ... error ...
       });
-    } else {
-      browserSupportFlag = false;
-      handleNoGeolocation(browserSupportFlag);
     }
-
-    function handleNoGeolocation(errorFlag) {
-      if (errorFlag == true) {
-        alert("Geolocation service failed.");
-        initialLocation = myLatlng;
-      } else {
-        alert("Your browser doesn't support geolocation.")
-        initialLocation = myLatlng
-      }
-      map.setCenter(initialLocation);
-    }*/
 
     // Define marker images for each direction as global vars (i.e. attach to window) -- is this the best way?
     window.markerImageStreetcarEast = new google.maps.MarkerImage(

@@ -21,7 +21,7 @@
   function loadScript() {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "http://maps.google.com/maps/api/js?v=3.9&sensor=true&callback=init";
+    script.src = "//maps.google.com/maps/api/js?v=3.9&sensor=true&callback=init";
     document.body.appendChild(script);
 
     // For iphone
@@ -50,15 +50,15 @@
         on your device.
       </div>
       Feedback? Email
-      <a href="mailto:matt@matthewruten.com" title="Email matt@matthewruten.com">matt@matthewruten.com</a>
+      <a href="mailto:matt@ruten.ca" title="Email matt@ruten.ca">matt@ruten.ca</a>
       or 
       <a href="http://totransit.uservoice.com/" target="_blank" title="TO Transit UserVoice (Opens New Window)">vote for ideas</a>.
     </div>
   </div>
 
   <div id="share" class="desktop-only">
-    <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftotransit.ca%2F&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21&amp;locale=en_PI" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true" class="facebook"></iframe>
-    <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://totransit.ca" data-text="View TTC Streetcars Live on a Map in Real-time #ttc #totransit" data-count="horizontal" data-via="mightymatty">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftotransit.ca%2F&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21&amp;locale=en_PI" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true" class="facebook"></iframe>
+    <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://totransit.ca" data-text="View TTC Streetcars Live on a Map in Real-time #ttc #totransit" data-count="horizontal" data-via="mightymatty">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
