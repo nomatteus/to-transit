@@ -4,15 +4,27 @@
  * 	that our script will use.
  */
 
-// Get route from $_GET['r'] variable, or set to default
-// TODO: Add in check for valid route
-$route = (isset($_GET['r']) && (int) $_GET['r'] != 0) ? (int) $_GET['r'] : '501';
+/* All route info */
+$routes = json_decode(file_get_contents("./routes.json"))->routes;
+// print_r($routes);
 
-$filename = "cache/vehicleLocations.".$route.".xml";
+$r_get = (isset($_GET['r'])) ? strtolower($_GET['r']) : 'all';
+
+function get_route($tag, $routes) {
+  foreach ($routes as $r) {
+    if ($tag == $r->tag) {
+      return $r;
+    }
+  }  
+}
+
+$route = get_route($r_get, $routes);
+
+$filename = "cache/vehicleLocations.".$route->tag.".xml";
 
 // Cache data for X seconds
 if (!file_exists($filename) || ((time() - filemtime($filename)) >= 10)) {
-  $file_contents = file_get_contents("http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . $route . "&t=0");
+  $file_contents = file_get_contents("http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . ($route->tag == "all" ? "" : $route->tag) . "&t=0");
   file_put_contents($filename, $file_contents);
 }
 
@@ -37,6 +49,7 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
   $dirTagParts = explode("_", $dirTag);
   
   if (is_array($dirTagParts) && count($dirTagParts) > 1) {
+    $vehicle_route = get_route($dirTagParts[0], $routes);
     $direction_num = (int) $dirTagParts[1]; // 1 or 0
     $routeSub = $dirTagParts[2];
   } else {
@@ -44,9 +57,8 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     $routeSub = null;
   }
 
-  switch($route) {
-    case 510:
-    case 511:
+  switch($vehicle_route->direction) {
+    case "NorthSouth":
       if ($direction_num === 0)
         $direction = "S";
       else if ($direction_num === 1)
@@ -54,17 +66,7 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else
         $direction = "null"; //default
       break;
-    case 501:
-    case 502:
-    case 503:
-    case 504:
-    case 505:
-    case 506:
-    case 507:
-    case 508:
-    case 509:
-    case 512:
-    default:
+    case "EastWest":
       if ($direction_num === 1)
         $direction = "W";
       else if ($direction_num === 0)
@@ -72,6 +74,18 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else
         $direction = "null"; //default
       break;
+    default:
+      $direction = "null";
+      break;
+  }
+
+  if (stripos($routeSub, $vehicle_route->tag) === 0) {
+    // Route sub has vehicle route in it at beginning, so show it
+    $labelText = $routeSub;
+  } else {
+    // Otherwise, don't use route sub (there's lots of weird letters showing up in the
+    //  route sub, so I'm not going to display it, unless I can make sense of them!)
+    $labelText = $vehicle_route->tag;
   }
 
   $vehicles[] = array(
@@ -82,42 +96,15 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     'dirTag'        => $dirTag,
     'routeSub' 			=> $routeSub,
     'dir'     			=> $direction,
+    'labelText'     => $labelText,
     'heading' 			=> (string) $vehicle['heading'],
     'secsSinceReport' 	=> (string) $vehicle['secsSinceReport'],
-    'route'         => (string) $route
+    'type'          => (string) $vehicle_route->type,
+    'route'         => (string) $vehicle_route->tag
     );
-  /*$vechicle->id;
-  $vechicle->routeTag;
-  $vechicle->dirTag;
-  $vechicle->lat;
-  $vechicle->lon;
-  $vechicle->secsSinceReport;
-  $vechicle->predictable;
-  $vechicle->heading;
-  $vechicle->speedKmHr;*/
-/*             [id] => 4040
-                            [routeTag] => 510
-                            [dirTag] => 510_northbound
-                            [lat] => 43.657883
-                            [lon] => -79.400017
-                            [secsSinceReport] => 16
-                            [predictable] => true
-                            [heading] => 344
-                            [speedKmHr] => 0.0*/
 }
 
 $vehicles_json = json_encode(array("vehicles" => $vehicles));
 
 echo $vehicles_json;
-
-/*[
-  {"id":{"0":"4129"},"lat":{"0":"43.639465"},"lon":{"0":"-79.3829499"},"dirTag":{"0":"510_southbound"}},
-  {"id":{"0":"4040"},"lat":{"0":"43.666683"},"lon":{"0":"-79.403519"},"dirTag":{"0":"510_southbound"}},
-  {"id":{"0":"4118"},"lat":{"0":"43.649017"},"lon":{"0":"-79.396469"},"dirTag":{"0":"510_southbound"}},
-  {"id":{"0":"4053"},"lat":{"0":"43.652332"},"lon":{"0":"-79.39782"},"dirTag":{"0":"510_southbound"}},
-  {"id":{"0":"4132"},"lat":{"0":"43.666683"},"lon":{"0":"-79.403397"},"dirTag":{"0":"510_southbound"}},
-  {"id":{"0":"4005"},"lat":{"0":"43.665749"},"lon":{"0":"-79.403183"},"dirTag":{"0":"510_southbound"}},
-  {"id":{"0":"4074"},"lat":{"0":"43.6487849"},"lon":{"0":"-79.396416"},"dirTag":{"0":"510_northbound"}}
-  ]*/
-
 ?>

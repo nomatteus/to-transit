@@ -84,7 +84,8 @@ Route.List = {
 	'509': '509 - Harbourfront',
 	'510': '510 - Spadina',
 	'511': '511 - Bathurst',
-	'512': '512 - St Clair'
+	'512': '512 - St Clair',
+	'ALL': 'All Routes (Including Buses)'
 }
 Route.Handler = (function(){
 	return {
@@ -201,7 +202,6 @@ Vehicle.Instance.prototype = {
 
 		// Does this vehicle have AC?
 		this.hasAC = (this.id == "4041") ? true : false;
-
 		
 		this.updateMarkerIcon();
 		this.updateMarkerInfoWindow();
@@ -211,12 +211,16 @@ Vehicle.Instance.prototype = {
 		//console.log();	
 	},
 	hideMarker: function() {
+		this.marker.label.setMap(null);
 		this.marker.setMap(null);
 	},
 	showMarker: function() {
 		// Check to make sure it's not already on map
 		if (this.marker.getMap() == null) {
 			this.marker.setMap(window.map);	
+		}
+		if (this.marker.label.getMap() == null) {
+			this.marker.label.setMap(window.map);	
 		}
 	},
 	updateMarkerPosition: function() {
@@ -254,38 +258,45 @@ Vehicle.Instance.prototype = {
 	},
 	updateMarkerIcon: function() {
 		// Marker icon is based on direction only, for now
-		switch (this.dir) {
-			case "N":
-				var markerImage 	= window.markerImageStreetcarNorth;
-				var markerShadow 	= window.markerImageStreetcarShadow;
-				var markerShape 	= window.markerImageStreetcarShape;
-				break;
-			case "S":
-				var markerImage 	= window.markerImageStreetcarSouth;
-				var markerShadow 	= window.markerImageStreetcarShadow;
-				var markerShape 	= window.markerImageStreetcarShape;
-				break;
-			case "E":
-				var markerImage 	= window.markerImageStreetcarEast;
-				var markerShadow 	= window.markerImageStreetcarShadow;
-				var markerShape 	= window.markerImageStreetcarShape;
-				break;
-			case "W":
-				var markerImage 	= window.markerImageStreetcarWest;
-				var markerShadow 	= window.markerImageStreetcarShadow;
-				var markerShape 	= window.markerImageStreetcarShape;
-				break;
-			default:
-				// Perhaps we might not want to show these on the map?
-				// 	Or, denote with a greyed out icon?
-				// 	These are usually cars that are in the stockyard/out of service, I think.
-				var markerImage 	= window.markerImageStreetcarDefault;
-				var markerShadow 	= window.markerImageStreetcarShadowDefault;
-				var markerShape 	= window.markerImageStreetcarShapeDefault;
-				break;
+		if (this.type == "streetcar") {
+			switch (this.dir) {
+				case "N":
+					var markerImage 	= window.markerImageStreetcarNorth;
+					var markerShadow 	= window.markerImageStreetcarShadow;
+					var markerShape 	= window.markerImageStreetcarShape;
+					break;
+				case "S":
+					var markerImage 	= window.markerImageStreetcarSouth;
+					var markerShadow 	= window.markerImageStreetcarShadow;
+					var markerShape 	= window.markerImageStreetcarShape;
+					break;
+				case "E":
+					var markerImage 	= window.markerImageStreetcarEast;
+					var markerShadow 	= window.markerImageStreetcarShadow;
+					var markerShape 	= window.markerImageStreetcarShape;
+					break;
+				case "W":
+					var markerImage 	= window.markerImageStreetcarWest;
+					var markerShadow 	= window.markerImageStreetcarShadow;
+					var markerShape 	= window.markerImageStreetcarShape;
+					break;
+				default:
+					// Perhaps we might not want to show these on the map?
+					// 	Or, denote with a greyed out icon?
+					// 	These are usually cars that are in the stockyard/out of service, I think.
+					var markerImage 	= window.markerImageStreetcarDefault;
+					var markerShadow 	= window.markerImageShadowDefault;
+					var markerShape 	= window.markerImageShapeDefault;
+					break;
+			}
+		} else {
+			// Bus
+			var markerImage 	= window.markerImageBusDefault;
+			var markerShadow 	= window.markerImageShadowDefault;
+			var markerShape 	= window.markerImageShapeDefault;
 		}
 
-		if (this.hasAC) {
+		if (this.type == "streetcar" && this.hasAC) {
 			this.marker.icon = window.markerImageStreetcarBlue;
 			this.marker.shadow = markerShadow;
 			this.marker.shape = markerShape	
@@ -301,12 +312,14 @@ Vehicle.Instance.prototype = {
 		}
 		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
-		if (this.hasAC) {
+		if (this.type == "streetcar" && this.hasAC) {
 			// Temporary fix to show the route direction on blue car 
 			// (until I move the NSEW direction out of the actual image)
-			this.marker.label.set('text', this.route + "" + this.dir);
+			this.marker.label.set('text', this.labelText + "" + this.dir);
+		} else if (this.type == "streetcar") {
+			this.marker.label.set('text', this.labelText);
 		} else {
-			this.marker.label.set('text', this.route);
+			this.marker.label.set('text', this.labelText + " " + this.dir + "");
 		}
 		
 
@@ -397,7 +410,7 @@ var Controls = (function() {
 				//console.log(routeArray);
 			} else {
 				// Set default routes!
-				var routeArray = ["504", "510"]; // how about king & spadina
+				var routeArray = ["ALL"];
 			}
 
 			_.each(routeArray, function(routeId){
@@ -467,9 +480,6 @@ var Controls = (function() {
 	// init map w/ default location/zoom level/etc. (or with geolocation or with prev. saved default)
 
 	// init routes and display on map
-
-
-
 
 
 	var myLatlng = new google.maps.LatLng(43.656967, -79.399651);
@@ -549,6 +559,30 @@ var Controls = (function() {
       new google.maps.Point(21,43)
     );
 
+    // Buses
+    window.markerImageBusDefault = new google.maps.MarkerImage(
+      'marker-images/bus-default.png',
+      new google.maps.Size(42,43),
+      new google.maps.Point(0,0),
+      new google.maps.Point(21,43)
+    );
+
+    // Buses Grey - For possibly out of service/unknown status
+    window.markerImageBusGrey = new google.maps.MarkerImage(
+      'marker-images/bus-grey.png',
+      new google.maps.Size(42,43),
+      new google.maps.Point(0,0),
+      new google.maps.Point(21,43)
+    );
+
+    // Streetcar Grey - For possibly out of service/unknown status
+    window.markerImageStreetcarBlue = new google.maps.MarkerImage(
+      'marker-images/streetcar-grey.png',
+      new google.maps.Size(42,43),
+      new google.maps.Point(0,0),
+      new google.maps.Point(21,43)
+    );
+
     // Blue marker image for Streetcar with AC (only 1!) -- "easter egg" feature
     window.markerImageStreetcarBlue = new google.maps.MarkerImage(
       'marker-images/streetcar-blue.png',
@@ -566,7 +600,7 @@ var Controls = (function() {
     );
 
     // Shadow for default image is different (no circle in top right)
-    window.markerImageStreetcarShadowDefault = new google.maps.MarkerImage(
+    window.markerImageShadowDefault = new google.maps.MarkerImage(
       'marker-images/streetcar-default-shadow.png',
       new google.maps.Size(68,43),
       new google.maps.Point(0,0),
@@ -580,7 +614,7 @@ var Controls = (function() {
     };
 
     // Shadow for default image is a bit different (no circle in top right)
-    window.markerImageStreetcarShapeDefault = {
+    window.markerImageShapeDefault = {
       coord: [35,6,36,7,36,8,36,9,36,10,36,11,36,12,36,13,36,14,36,15,36,16,36,17,36,18,36,19,36,20,36,21,36,22,36,23,36,24,36,25,36,26,36,27,36,28,36,29,36,30,36,31,36,32,36,33,36,34,36,35,36,36,35,37,29,38,28,39,27,40,26,41,25,42,16,42,15,41,14,40,13,39,12,38,6,37,5,36,5,35,5,34,5,33,5,32,5,31,5,30,5,29,5,28,5,27,5,26,5,25,5,24,5,23,5,22,5,21,5,20,5,19,5,18,5,17,5,16,5,15,5,14,5,13,5,12,5,11,5,10,5,9,5,8,5,7,6,6,35,6],
       type: 'poly'
     };

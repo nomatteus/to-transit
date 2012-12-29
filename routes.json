@@ -1,0 +1,1106 @@
+{
+  "routes": [
+    {
+      "tag": "all",
+      "name": "All Routes"
+    },
+    {
+      "tag": "501",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Queen"
+    },
+    {
+      "tag": "301",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Queen"
+    },
+    {
+      "tag": "502",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Downtowner"
+    },
+    {
+      "tag": "503",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Kingston Rd"
+    },
+    {
+      "tag": "504",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "King"
+    },
+    {
+      "tag": "505",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Dundas"
+    },
+    {
+      "tag": "506",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Carlton"
+    },
+    {
+      "tag": "306",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Carlton"
+    },
+    {
+      "tag": "508",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Lake Shore"
+    },
+    {
+      "tag": "509",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Harbourfront"
+    },
+    {
+      "tag": "510",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Spadina"
+    },
+    {
+      "tag": "511",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Bathurst"
+    },
+    {
+      "tag": "512",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "St Clair"
+    },
+    {
+      "tag": "10",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Van Horne"
+    },
+    {
+      "tag": "12",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Kingston Rd"
+    },
+    {
+      "tag": "14",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Glencairn"
+    },
+    {
+      "tag": "15",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Evans"
+    },
+    {
+      "tag": "20",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cliffside"
+    },
+    {
+      "tag": "26",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Dupont"
+    },
+    {
+      "tag": "28",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Davisville"
+    },
+    {
+      "tag": "30",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lambton"
+    },
+    {
+      "tag": "32",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton West"
+    },
+    {
+      "tag": "34",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton East"
+    },
+    {
+      "tag": "36",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch West"
+    },
+    {
+      "tag": "38",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Highland Creek"
+    },
+    {
+      "tag": "39",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch East"
+    },
+    {
+      "tag": "40",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Junction"
+    },
+    {
+      "tag": "42",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cummer"
+    },
+    {
+      "tag": "48",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Rathburn"
+    },
+    {
+      "tag": "49",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Bloor West"
+    },
+    {
+      "tag": "50",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Burnhamthorpe"
+    },
+    {
+      "tag": "52",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence West"
+    },
+    {
+      "tag": "53",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles East"
+    },
+    {
+      "tag": "54",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence East"
+    },
+    {
+      "tag": "58",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Malton"
+    },
+    {
+      "tag": "59",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Maple Leaf"
+    },
+    {
+      "tag": "60",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles West"
+    },
+    {
+      "tag": "62",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Mortimer"
+    },
+    {
+      "tag": "70",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "O'Connor"
+    },
+    {
+      "tag": "78",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "St Andrews"
+    },
+    {
+      "tag": "80",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Queensway"
+    },
+    {
+      "tag": "82",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Rosedale"
+    },
+    {
+      "tag": "84",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard West"
+    },
+    {
+      "tag": "85",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard East"
+    },
+    {
+      "tag": "86",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Scarborough"
+    },
+    {
+      "tag": "87",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cosburn"
+    },
+    {
+      "tag": "88",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "South Leaside"
+    },
+    {
+      "tag": "94",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wellesley"
+    },
+    {
+      "tag": "95",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "York Mills"
+    },
+    {
+      "tag": "96",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wilson"
+    },
+    {
+      "tag": "98",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Willowdale - Senlac"
+    },
+    {
+      "tag": "101",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Downsview Park"
+    },
+    {
+      "tag": "108",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Downsview"
+    },
+    {
+      "tag": "113",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Danforth"
+    },
+    {
+      "tag": "115",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Silver Hills"
+    },
+    {
+      "tag": "116",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Morningside"
+    },
+    {
+      "tag": "120",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Calvington"
+    },
+    {
+      "tag": "122",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Graydon Hall"
+    },
+    {
+      "tag": "124",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sunnybrook"
+    },
+    {
+      "tag": "125",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Drewry"
+    },
+    {
+      "tag": "127",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Davenport"
+    },
+    {
+      "tag": "131",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Nugget"
+    },
+    {
+      "tag": "132",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Milner"
+    },
+    {
+      "tag": "135",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Gerrard"
+    },
+    {
+      "tag": "139",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch-Don Mills"
+    },
+    {
+      "tag": "143",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Downtown / Beach Express"
+    },
+    {
+      "tag": "145",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Downtown / Humber Bay Express"
+    },
+    {
+      "tag": "161",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Rogers Rd"
+    },
+    {
+      "tag": "162",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence - Donway"
+    },
+    {
+      "tag": "165",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Weston Rd North"
+    },
+    {
+      "tag": "169",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Huntingwood"
+    },
+    {
+      "tag": "190",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Scarborough Centre Rocket"
+    },
+    {
+      "tag": "199",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch Rocket"
+    },
+    {
+      "tag": "300",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Bloor - Danforth"
+    },
+    {
+      "tag": "305",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton East"
+    },
+    {
+      "tag": "307",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton West"
+    },
+    {
+      "tag": "308",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch East"
+    },
+    {
+      "tag": "309",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch West"
+    },
+    {
+      "tag": "312",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "St Clair"
+    },
+    {
+      "tag": "319",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wilson"
+    },
+    {
+      "tag": "321",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "York Mills"
+    },
+    {
+      "tag": "322",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Coxwell"
+    },
+    {
+      "tag": "352",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence West"
+    },
+    {
+      "tag": "353",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles East"
+    },
+    {
+      "tag": "354",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence East"
+    },
+    {
+      "tag": "385",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard East"
+    },
+    {
+      "tag": "404",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "East York"
+    },
+    {
+      "tag": "405",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Etobicoke"
+    },
+    {
+      "tag": "5",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Avenue Rd"
+    },
+    {
+      "tag": "6",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bay"
+    },
+    {
+      "tag": "7",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bathurst"
+    },
+    {
+      "tag": "8",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Broadview"
+    },
+    {
+      "tag": "9",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bellamy"
+    },
+    {
+      "tag": "11",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bayview"
+    },
+    {
+      "tag": "16",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "McCowan"
+    },
+    {
+      "tag": "17",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Birchmount"
+    },
+    {
+      "tag": "21",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Brimley"
+    },
+    {
+      "tag": "22",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Coxwell"
+    },
+    {
+      "tag": "23",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Dawes"
+    },
+    {
+      "tag": "24",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Victoria Park"
+    },
+    {
+      "tag": "25",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Don Mills"
+    },
+    {
+      "tag": "29",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Dufferin"
+    },
+    {
+      "tag": "31",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Greenwood"
+    },
+    {
+      "tag": "33",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Forest Hill"
+    },
+    {
+      "tag": "35",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jane"
+    },
+    {
+      "tag": "37",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Islington"
+    },
+    {
+      "tag": "41",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Keele"
+    },
+    {
+      "tag": "43",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kennedy"
+    },
+    {
+      "tag": "44",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kipling South"
+    },
+    {
+      "tag": "45",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kipling"
+    },
+    {
+      "tag": "46",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Martin Grove"
+    },
+    {
+      "tag": "47",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Lansdowne"
+    },
+    {
+      "tag": "51",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Leslie"
+    },
+    {
+      "tag": "55",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Warren Park"
+    },
+    {
+      "tag": "56",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Leaside"
+    },
+    {
+      "tag": "57",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Midland"
+    },
+    {
+      "tag": "61",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Avenue Rd North"
+    },
+    {
+      "tag": "63",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Ossington"
+    },
+    {
+      "tag": "64",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Main"
+    },
+    {
+      "tag": "65",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Parliament"
+    },
+    {
+      "tag": "66",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Prince Edward"
+    },
+    {
+      "tag": "67",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Pharmacy"
+    },
+    {
+      "tag": "68",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Warden"
+    },
+    {
+      "tag": "69",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Warden South"
+    },
+    {
+      "tag": "71",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Runnymede"
+    },
+    {
+      "tag": "72",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Pape"
+    },
+    {
+      "tag": "73",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Royal York"
+    },
+    {
+      "tag": "74",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Mt Pleasant"
+    },
+    {
+      "tag": "75",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Sherbourne"
+    },
+    {
+      "tag": "76",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Royal York South"
+    },
+    {
+      "tag": "77",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Swansea"
+    },
+    {
+      "tag": "79",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Scarlett Rd"
+    },
+    {
+      "tag": "81",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Thorncliffe Park"
+    },
+    {
+      "tag": "83",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jones"
+    },
+    {
+      "tag": "89",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Weston"
+    },
+    {
+      "tag": "90",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Vaughan"
+    },
+    {
+      "tag": "91",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Woodbine"
+    },
+    {
+      "tag": "92",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Woodbine South"
+    },
+    {
+      "tag": "97",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Yonge"
+    },
+    {
+      "tag": "99",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Arrow Rd"
+    },
+    {
+      "tag": "100",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Flemingdon Park"
+    },
+    {
+      "tag": "102",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Markham Rd"
+    },
+    {
+      "tag": "103",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Mt Pleasant North"
+    },
+    {
+      "tag": "104",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Faywood"
+    },
+    {
+      "tag": "105",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Dufferin North"
+    },
+    {
+      "tag": "106",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "York University"
+    },
+    {
+      "tag": "107",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Keele North"
+    },
+    {
+      "tag": "109",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Ranee"
+    },
+    {
+      "tag": "110",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Islington South"
+    },
+    {
+      "tag": "111",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "East Mall"
+    },
+    {
+      "tag": "112",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "West Mall"
+    },
+    {
+      "tag": "117",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Alness"
+    },
+    {
+      "tag": "123",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Shorncliffe"
+    },
+    {
+      "tag": "126",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Christie"
+    },
+    {
+      "tag": "129",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "McCowan North"
+    },
+    {
+      "tag": "130",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Middlefield"
+    },
+    {
+      "tag": "133",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Neilson"
+    },
+    {
+      "tag": "134",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Progress"
+    },
+    {
+      "tag": "141",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Downtown / Mt Pleasant Express"
+    },
+    {
+      "tag": "142",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Downtown / Avenue Rd Express"
+    },
+    {
+      "tag": "144",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Downtown / Don Valley Express"
+    },
+    {
+      "tag": "160",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bathurst North"
+    },
+    {
+      "tag": "167",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Pharmacy North"
+    },
+    {
+      "tag": "168",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Symington"
+    },
+    {
+      "tag": "171",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Mt Dennis"
+    },
+    {
+      "tag": "191",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Highway 27 Rocket"
+    },
+    {
+      "tag": "192",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Airport Rocket"
+    },
+    {
+      "tag": "193",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Exhibition Rocket"
+    },
+    {
+      "tag": "196",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "York University Rocket"
+    },
+    {
+      "tag": "224",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Victoria Park North"
+    },
+    {
+      "tag": "302",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Danforth Rd - McCowan"
+    },
+    {
+      "tag": "303",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Don Mills"
+    },
+    {
+      "tag": "310",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bathurst"
+    },
+    {
+      "tag": "311",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Islington"
+    },
+    {
+      "tag": "313",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jane"
+    },
+    {
+      "tag": "316",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Ossington"
+    },
+    {
+      "tag": "320",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Yonge"
+    },
+    {
+      "tag": "324",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Victoria Park"
+    },
+    {
+      "tag": "329",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Dufferin"
+    },
+    {
+      "tag": "400",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Lawrence Manor"
+    },
+    {
+      "tag": "402",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Parkdale"
+    },
+    {
+      "tag": "403",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "South Don Mills"
+    },
+    {
+      "tag": "407",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Toronto Rehab Cardiac Centre"
+    }
+  ]
+}
