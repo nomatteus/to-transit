@@ -2,16 +2,10 @@
   "routes": [
     {
       "tag": "all",
-      "name": "All Routes"
+      "name": "All Routes (Warning: Slow)"
     },
     {
       "tag": "501",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Queen"
-    },
-    {
-      "tag": "301",
       "type": "streetcar",
       "direction": "EastWest",
       "name": "Queen"
@@ -47,12 +41,6 @@
       "name": "Carlton"
     },
     {
-      "tag": "306",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Carlton"
-    },
-    {
       "tag": "508",
       "type": "streetcar",
       "direction": "EastWest",
@@ -81,6 +69,18 @@
       "type": "streetcar",
       "direction": "EastWest",
       "name": "St Clair"
+    },
+    {
+      "tag": "301",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Queen"
+    },
+    {
+      "tag": "306",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Carlton"
     },
     {
       "tag": "10",

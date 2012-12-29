@@ -243,7 +243,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 #show-hide-controls.open {background-position:-54px -118px;}
 #show-hide-controls.open:hover {background-position:-81px -118px;}
 #last-updated {display:none;clear:both;}
-#show-routes {display:none;clear:both;}
+#show-routes {display:none;clear:both;overflow:auto;height:300px;}
 #show-routes input {float:left;margin:4px 5px 0 0;clear:left;}
 #show-routes label {display:block;float:left;}
 

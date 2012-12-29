@@ -73,20 +73,33 @@ Label.prototype.draw = function() {
 
 var Route = {};
 
-Route.List = {
-	'501': '501 - Queen',
-	'502': '502 - Downtowner',
-	'503': '503 - Kingston Rd',
-	'504': '504 - King',
-	'505': '505 - Dundas',
-	'506': '506 - Carlton',
-	'508': '508 - Lake Shore',
-	'509': '509 - Harbourfront',
-	'510': '510 - Spadina',
-	'511': '511 - Bathurst',
-	'512': '512 - St Clair',
-	'ALL': 'All Routes (Including Buses)'
-}
+Route.List = _.sortBy(data.routes, function(route){
+	if (parseInt(route.tag) > 500) {
+		return parseInt(route.tag)-5000;
+	} else if (route.tag.length == 1) {
+		return "000" + route.tag;
+	} else if (route.tag.length == 2) {
+		return "00" + route.tag;
+	} else {
+		return "0" + route.tag;
+	}
+	
+});
+
+// Route.List = {
+// 	'501': '501 - Queen',
+// 	'502': '502 - Downtowner',
+// 	'503': '503 - Kingston Rd',
+// 	'504': '504 - King',
+// 	'505': '505 - Dundas',
+// 	'506': '506 - Carlton',
+// 	'508': '508 - Lake Shore',
+// 	'509': '509 - Harbourfront',
+// 	'510': '510 - Spadina',
+// 	'511': '511 - Bathurst',
+// 	'512': '512 - St Clair',
+// 	'ALL': 'All Routes (Including Buses)'
+// }
 Route.Handler = (function(){
 	return {
 		init: function() {
@@ -94,8 +107,13 @@ Route.Handler = (function(){
 			this.createRoutes();
 		},
 		createRoutes: function() {
-			_.each(Route.List, function(value, key, list){
-				Route.Items[key] = new Route.Instance({id: key, name: value});
+			_.each(Route.List, function(route, list){
+				Route.Items[route.tag] = new Route.Instance({
+					id: route.tag, 
+					name: route.name,
+					type: route.type,
+					direction: route.direction
+				});
 			});
 		}
 	}
@@ -370,8 +388,8 @@ var Controls = (function() {
 			// Populate "Show routes:" box to allow toggling display of routes on/off
 			$showRoutes = $("#show-routes");
 			$showRoutes.append('Show:<br>');
-			_.each(Route.List, function(value, key, list){
-				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+key+'" onclick="_gaq.push([\'_trackEvent\', \'Controls\', \'Click\', \'Show/hide Route - ' + value + '\']);"><label for="'+key+'">'+value+'</label></div>');
+			_.each(Route.List, function(route, list){
+				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+route.tag+'" onclick="_gaq.push([\'_trackEvent\', \'Controls\', \'Click\', \'Show/hide Route - ' + route.tag + " " + route.name + '\']);"><label for="'+route.tag+'">'+route.tag + " - " + route.name+'</label></div>');
 			});
 			$showRoutes.find("input").bind($.browser.msie? "propertychange": "change", function(){
 				var isChecked = $(this).attr("checked");
@@ -410,7 +428,7 @@ var Controls = (function() {
 				//console.log(routeArray);
 			} else {
 				// Set default routes!
-				var routeArray = ["ALL"];
+				var routeArray = ["510", "504"];
 			}
 
 			_.each(routeArray, function(routeId){
