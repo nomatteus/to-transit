@@ -74,32 +74,14 @@ Label.prototype.draw = function() {
 var Route = {};
 
 Route.List = _.sortBy(data.routes, function(route){
-	if (parseInt(route.tag) > 500) {
-		return parseInt(route.tag)-5000;
-	} else if (route.tag.length == 1) {
-		return "000" + route.tag;
-	} else if (route.tag.length == 2) {
-		return "00" + route.tag;
-	} else {
-		return "0" + route.tag;
+	var tagInt = parseInt(route.tag);
+	if (tagInt > 500) {
+		// Make 500 routes (streetcars) jump to top
+		tagInt = tagInt - 1000;
 	}
-	
+	return tagInt;
 });
 
-// Route.List = {
-// 	'501': '501 - Queen',
-// 	'502': '502 - Downtowner',
-// 	'503': '503 - Kingston Rd',
-// 	'504': '504 - King',
-// 	'505': '505 - Dundas',
-// 	'506': '506 - Carlton',
-// 	'508': '508 - Lake Shore',
-// 	'509': '509 - Harbourfront',
-// 	'510': '510 - Spadina',
-// 	'511': '511 - Bathurst',
-// 	'512': '512 - St Clair',
-// 	'ALL': 'All Routes (Including Buses)'
-// }
 Route.Handler = (function(){
 	return {
 		init: function() {

@@ -1,10 +1,6 @@
 {
   "routes": [
     {
-      "tag": "all",
-      "name": "All Routes (Warning: Slow)"
-    },
-    {
       "tag": "501",
       "type": "streetcar",
       "direction": "EastWest",
