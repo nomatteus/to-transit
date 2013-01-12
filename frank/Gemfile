@@ -1,7 +1,0 @@
-source "http://rubygems.org"
-
-gem 'sinatra'
-gem 'mongo'
-gem 'sinatra/mongo'
-
-gem 'nokogiri'
