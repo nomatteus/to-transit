@@ -51,7 +51,7 @@
     {
       "tag": "510",
       "type": "streetcar",
-      "direction": "EastWest",
+      "direction": "NorthSouth",
       "name": "Spadina"
     },
     {
