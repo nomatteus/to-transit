@@ -69,7 +69,7 @@
   <script type="text/javascript" src="js/libs/underscore.js"></script> 
   <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script> 
   <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
-  <script type="text/javascript" src="js/ttc.js?v=1"></script> 
+  <script type="text/javascript" src="js/ttc.js?v=2"></script>
 
   <script>
     var _gaq=[['_setAccount','UA-335824-12'],['_trackPageview']];
