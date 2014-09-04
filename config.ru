@@ -1,20 +1,8 @@
-require 'rack'
+require 'rack/showexceptions'
 require 'rack-legacy'
-require 'rack-rewrite'
 
-INDEXES = ['index.html','index.php', 'index.cgi']
-
-use Rack::Rewrite do
-  rewrite %r{(.*/$)}, lambda {|match, rack_env|
-    INDEXES.each do |index|
-      if File.exists?(File.join(Dir.getwd, rack_env['PATH_INFO'], index))
-        return rack_env['PATH_INFO'] + index
-      end
-    end
-    rack_env['PATH_INFO']
-  }
-end
-
-use Rack::Legacy::Php, Dir.getwd
-use Rack::Legacy::Cgi, Dir.getwd
+use Rack::ShowExceptions
+use Rack::Legacy::Index
+use Rack::Legacy::Php
+use Rack::Legacy::Cgi
 run Rack::File.new Dir.getwd

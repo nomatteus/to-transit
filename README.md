@@ -7,3 +7,9 @@ http://www1.toronto.ca/wps/portal/open_data/open_data_item_details?vgnextoid=442
 
 NextBus Public XML Feed Docs
 http://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf
+
+Run locally with:
+
+    rack_legacy
+
+or with pow.
