@@ -200,9 +200,9 @@ Vehicle.Instance.prototype = {
 		this.dir = el.dir;
 		this.dirTag = el.dirTag;
 
-		// Does this vehicle have AC?
-		this.hasAC = (this.id == "4041") ? true : false;
-		
+		// Is this a new Flexity Streetcar? Numbered 4400-4604, see http://en.wikipedia.org/wiki/Flexity_Outlook_(Toronto_streetcar)
+		this.isNewStreetcar = (parseInt(this.id) >= 4400 && parseInt(this.id) <= 4604) ? true : false;
+
 		this.updateMarkerIcon();
 		this.updateMarkerInfoWindow();
 
@@ -229,8 +229,8 @@ Vehicle.Instance.prototype = {
 	updateMarkerInfoWindow: function() {
 		var that = this;
 		this.marker.title = 'Vechicle #:' + this.id;
-		if (this.hasAC) {
-			var intro_content = "<strong>This is the only streetcar with A/C!</strong>";
+		if (this.isNewStreetcar) {
+			var intro_content = "<strong>This is a new 'Flexity Outlook' streetcar! (With A/C!)</strong>";
 		} else {
 			var intro_content = "";
 		}
@@ -281,8 +281,8 @@ Vehicle.Instance.prototype = {
 			var markerImage 	= window.markerImageBusDefault;
 		}
 
-		if (this.type == "streetcar" && this.hasAC) {
-			this.marker.icon = window.markerImageStreetcarBlue;
+		if (this.type == "streetcar" && this.isNewStreetcar) {
+			this.marker.icon = window.markerImageStreetcarNew;
 		} else {
 			this.marker.icon = markerImage;
 		}
@@ -293,10 +293,8 @@ Vehicle.Instance.prototype = {
 		}
 		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
-		if (this.type == "streetcar" && this.hasAC) {
-			// Temporary fix to show the route direction on blue car 
-			// (until I move the NSEW direction out of the actual image)
-			this.marker.label.set('text', this.labelText + "" + this.dir);
+		if (this.type == "streetcar" && this.isNewStreetcar) {
+			this.marker.label.set('text', this.labelText + " " + this.dir + "");
 		} else if (this.type == "streetcar") {
 			this.marker.label.set('text', this.labelText);
 		} else {
@@ -508,10 +506,10 @@ var Controls = (function() {
     window.markerImageBusGrey = 'marker-images/bus-grey.png';
 
     // Streetcar Grey - For possibly out of service/unknown status
-    window.markerImageStreetcarBlue = 'marker-images/streetcar-grey.png';
+    window.markerImageStreetcarGrey = 'marker-images/streetcar-grey.png';
 
-    // Blue marker image for Streetcar with AC (only 1!) -- "easter egg" feature
-    window.markerImageStreetcarBlue = 'marker-images/streetcar-blue.png';
+    // Custom marker image for New Flexity Streetcars
+    window.markerImageStreetcarNew = 'marker-images/streetcar-new.png';
 
 	// Init
 	Route.Handler.init();
