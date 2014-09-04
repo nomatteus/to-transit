@@ -118,7 +118,7 @@
       "tag": "28",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Davisville"
+      "name": "Bayview South"
     },
     {
       "tag": "30",
@@ -203,12 +203,6 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Lawrence East"
-    },
-    {
-      "tag": "58",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Malton"
     },
     {
       "tag": "59",
@@ -1009,10 +1003,22 @@
       "name": "Exhibition Rocket"
     },
     {
+      "tag": "195",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jane Rocket"
+    },
+    {
       "tag": "196",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "York University Rocket"
+    },
+    {
+      "tag": "198",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "U of T Scarborough Rocket"
     },
     {
       "tag": "224",
