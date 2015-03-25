@@ -985,6 +985,12 @@
       "name": "Mt Dennis"
     },
     {
+      "tag": "172",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cherry Street"
+    },
+    {
       "tag": "191",
       "type": "bus",
       "direction": "NorthSouth",
