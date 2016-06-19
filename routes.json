@@ -37,12 +37,6 @@
       "name": "Carlton"
     },
     {
-      "tag": "508",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Lake Shore"
-    },
-    {
       "tag": "509",
       "type": "streetcar",
       "direction": "EastWest",
@@ -65,6 +59,12 @@
       "type": "streetcar",
       "direction": "EastWest",
       "name": "St Clair"
+    },
+    {
+      "tag": "514",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Cherry"
     },
     {
       "tag": "301",
@@ -118,7 +118,7 @@
       "tag": "28",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Bayview South"
+      "name": "Davisville"
     },
     {
       "tag": "30",
@@ -379,22 +379,16 @@
       "name": "Gerrard"
     },
     {
-      "tag": "139",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Finch-Don Mills"
-    },
-    {
       "tag": "143",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Downtown / Beach Express"
+      "name": "Downtown/Beach Express"
     },
     {
       "tag": "145",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Downtown / Humber Bay Express"
+      "name": "Downtown/Humber Bay Express"
     },
     {
       "tag": "161",
@@ -439,46 +433,10 @@
       "name": "Bloor - Danforth"
     },
     {
-      "tag": "305",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Eglinton East"
-    },
-    {
-      "tag": "307",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Eglinton West"
-    },
-    {
-      "tag": "308",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Finch East"
-    },
-    {
-      "tag": "309",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Finch West"
-    },
-    {
       "tag": "312",
       "type": "bus",
       "direction": "EastWest",
-      "name": "St Clair"
-    },
-    {
-      "tag": "319",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Wilson"
-    },
-    {
-      "tag": "321",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "York Mills"
+      "name": "St Clair-Junction"
     },
     {
       "tag": "322",
@@ -496,7 +454,7 @@
       "tag": "353",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Steeles East"
+      "name": "Steeles"
     },
     {
       "tag": "354",
@@ -509,18 +467,6 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Sheppard East"
-    },
-    {
-      "tag": "404",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "East York"
-    },
-    {
-      "tag": "405",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Etobicoke"
     },
     {
       "tag": "5",
@@ -694,7 +640,7 @@
       "tag": "61",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Avenue Rd North"
+      "name": "Avenue Road North"
     },
     {
       "tag": "63",
@@ -832,7 +778,7 @@
       "tag": "99",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Arrow Rd"
+      "name": "Arrow Road"
     },
     {
       "tag": "100",
@@ -907,6 +853,24 @@
       "name": "Alness"
     },
     {
+      "tag": "118",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Thistle Down"
+    },
+    {
+      "tag": "119",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Torbarrie"
+    },
+    {
+      "tag": "121",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Fort York-Esplanade"
+    },
+    {
       "tag": "123",
       "type": "bus",
       "direction": "NorthSouth",
@@ -946,19 +910,19 @@
       "tag": "141",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Downtown / Mt Pleasant Express"
+      "name": "Downtown/Mt Pleasant Express"
     },
     {
       "tag": "142",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Downtown / Avenue Rd Express"
+      "name": "Downtown/Avenue Rd Express"
     },
     {
       "tag": "144",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Downtown / Don Valley Express"
+      "name": "Downtown/Don Valley Express"
     },
     {
       "tag": "160",
@@ -982,13 +946,25 @@
       "tag": "171",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Mt Dennis"
+      "name": "Mount Dennis"
     },
     {
-      "tag": "172",
+      "tag": "185",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Don Mills Rocket"
+    },
+    {
+      "tag": "186",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Cherry Street"
+      "name": "Wilson Rocket"
+    },
+    {
+      "tag": "188",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kipling South Rocket"
     },
     {
       "tag": "191",
@@ -1001,12 +977,6 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Airport Rocket"
-    },
-    {
-      "tag": "193",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Exhibition Rocket"
     },
     {
       "tag": "195",
@@ -1039,10 +1009,10 @@
       "name": "Danforth Rd - McCowan"
     },
     {
-      "tag": "303",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Don Mills"
+      "tag": "304",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "King"
     },
     {
       "tag": "310",
@@ -1051,22 +1021,16 @@
       "name": "Bathurst"
     },
     {
-      "tag": "311",
+      "tag": "315",
       "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Islington"
+      "direction": "EastWest",
+      "name": "Evans - Brown's Line"
     },
     {
-      "tag": "313",
-      "type": "bus",
+      "tag": "317",
+      "type": "streetcar",
       "direction": "NorthSouth",
-      "name": "Jane"
-    },
-    {
-      "tag": "316",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Ossington"
+      "name": "Spadina"
     },
     {
       "tag": "320",
@@ -1081,34 +1045,94 @@
       "name": "Victoria Park"
     },
     {
+      "tag": "325",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Don Mills"
+    },
+    {
+      "tag": "332",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton West"
+    },
+    {
+      "tag": "334",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton East"
+    },
+    {
+      "tag": "335",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jane"
+    },
+    {
+      "tag": "336",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch West"
+    },
+    {
+      "tag": "337",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Islington"
+    },
+    {
+      "tag": "339",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch East"
+    },
+    {
+      "tag": "341",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Keele"
+    },
+    {
+      "tag": "343",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kennedy"
+    },
+    {
+      "tag": "363",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Ossington"
+    },
+    {
+      "tag": "365",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Parliament"
+    },
+    {
+      "tag": "384",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard West"
+    },
+    {
+      "tag": "395",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "York Mills"
+    },
+    {
+      "tag": "396",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wilson"
+    },
+    {
       "tag": "329",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Dufferin"
-    },
-    {
-      "tag": "400",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Lawrence Manor"
-    },
-    {
-      "tag": "402",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Parkdale"
-    },
-    {
-      "tag": "403",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "South Don Mills"
-    },
-    {
-      "tag": "407",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Toronto Rehab Cardiac Centre"
     }
   ]
 }
