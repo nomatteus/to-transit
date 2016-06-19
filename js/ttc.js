@@ -199,6 +199,8 @@ Vehicle.Instance.prototype = {
 
 		this.dir = el.dir;
 		this.dirTag = el.dirTag;
+    // console.log(el)
+    this.heading = el.heading;
 
 		// Is this a new Flexity Streetcar? Numbered 4400-4604, see http://en.wikipedia.org/wiki/Flexity_Outlook_(Toronto_streetcar)
 		this.isNewStreetcar = (parseInt(this.id) >= 4400 && parseInt(this.id) <= 4604) ? true : false;
@@ -230,17 +232,17 @@ Vehicle.Instance.prototype = {
 		var that = this;
 		this.marker.title = 'Vechicle #:' + this.id;
 		if (this.isNewStreetcar) {
-			var intro_content = "<strong>This is a new 'Flexity Outlook' streetcar! (With A/C!)</strong>";
+			var notes = "<em>Flexity Outlook streetcar</em>";
 		} else {
-			var intro_content = "";
+			var notes = "";
 		}
 		var contentString = '<div class="info-window">' + 
 			'<h1 class="vehicle-id">Vechicle #: ' + this.id + '</h1>' +
-			intro_content + 
 			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
 			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
 			'<div class="headingId">Heading: ' + this.heading + '</div>' +
+			'<div class="notes">' + notes + '</div>' + 
 			'</div>';
 		if (!this.infoWindow) {
 			// If it doesn't exist yet create it
@@ -257,18 +259,18 @@ Vehicle.Instance.prototype = {
 		// Marker icon is based on direction only, for now
 		if (this.type == "streetcar") {
 			switch (this.dir) {
-				case "N":
-					var markerImage 	= window.markerImageStreetcarNorth;
-					break;
-				case "S":
-					var markerImage 	= window.markerImageStreetcarSouth;
-					break;
-				case "E":
-					var markerImage 	= window.markerImageStreetcarEast;
-					break;
-				case "W":
-					var markerImage 	= window.markerImageStreetcarWest;
-					break;
+				// case "N":
+				// 	var markerImage 	= window.markerImageStreetcarNorth;
+				// 	break;
+				// case "S":
+				// 	var markerImage 	= window.markerImageStreetcarSouth;
+				// 	break;
+				// case "E":
+				// 	var markerImage 	= window.markerImageStreetcarEast;
+				// 	break;
+				// case "W":
+				// 	var markerImage 	= window.markerImageStreetcarWest;
+				// 	break;
 				default:
 					// Perhaps we might not want to show these on the map?
 					// 	Or, denote with a greyed out icon?
@@ -293,13 +295,10 @@ Vehicle.Instance.prototype = {
 		}
 		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
-		if (this.type == "streetcar" && this.isNewStreetcar) {
-			this.marker.label.set('text', this.labelText + " " + this.dir + "");
-		} else if (this.type == "streetcar") {
-			this.marker.label.set('text', this.labelText);
-		} else {
-			this.marker.label.set('text', this.labelText + " " + this.dir + "");
-		}
+		// this.marker.label.set('text', this.labelText + " " + this.dir + '');
+    // arrows: ↑▲⬆➔
+    var arrow = (this.heading != null && this.heading >=0) ? '<div class="label-arrow" style="transform: rotate('+this.heading+'deg)">⬆</div>' : '';
+		this.marker.label.set('text', this.labelText + arrow);
 		
 
 	},
@@ -440,11 +439,6 @@ var Controls = (function() {
 			var that = this;
 			// Set interval to auto-update every 8 seconds
 			window.interval = window.setInterval(function(){that.updateVehicles();}, 1000*8);
-			// Clear interval after 15 minutes to avoid people leaving window open and refreshing from server for hours
-			/*window.setTimeout(function(){
-				clearInterval(window.interval);
-				alert("This page has been open for 15 minutes, auto-update is now turned off.\nPlease reload to activate auto-update, or hit the update button to manually update.");
-			}, 1000*60*15);*/
 		}
 	}
 })();
