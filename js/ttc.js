@@ -75,7 +75,7 @@ var Route = {};
 
 Route.List = _.sortBy(data.routes, function(route){
 	var tagInt = parseInt(route.tag);
-	if (tagInt > 500) {
+	if (tagInt > 500 && tagInt < 600) {
 		// Make 500 routes (streetcars) jump to top
 		tagInt = tagInt - 1000;
 	}
