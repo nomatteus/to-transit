@@ -415,58 +415,10 @@
       "name": "Huntingwood"
     },
     {
-      "tag": "190",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Scarborough Centre Rocket"
-    },
-    {
       "tag": "199",
       "type": "bus",
       "direction": "EastWest",
       "name": "Finch Rocket"
-    },
-    {
-      "tag": "300",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Bloor - Danforth"
-    },
-    {
-      "tag": "312",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "St Clair-Junction"
-    },
-    {
-      "tag": "322",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Coxwell"
-    },
-    {
-      "tag": "352",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lawrence West"
-    },
-    {
-      "tag": "353",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Steeles"
-    },
-    {
-      "tag": "354",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lawrence East"
-    },
-    {
-      "tag": "385",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Sheppard East"
     },
     {
       "tag": "5",
@@ -769,6 +721,12 @@
       "name": "Woodbine South"
     },
     {
+      "tag": "93",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Parkview Hills"
+    },
+    {
       "tag": "97",
       "type": "bus",
       "direction": "NorthSouth",
@@ -949,10 +907,16 @@
       "name": "Mount Dennis"
     },
     {
-      "tag": "185",
+      "tag": "175",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Don Mills Rocket"
+      "name": "Bluffer's Park"
+    },
+    {
+      "tag": "176",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Mimico GO"
     },
     {
       "tag": "186",
@@ -967,40 +931,94 @@
       "name": "Kipling South Rocket"
     },
     {
-      "tag": "191",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Highway 27 Rocket"
-    },
-    {
       "tag": "192",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Airport Rocket"
     },
     {
-      "tag": "195",
+      "tag": "902",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Jane Rocket"
+      "name": "Markham Rd Express"
     },
     {
-      "tag": "196",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "York University Rocket"
-    },
-    {
-      "tag": "198",
+      "tag": "905",
       "type": "bus",
       "direction": "EastWest",
-      "name": "U of T Scarborough Rocket"
+      "name": "Eglinton East Express"
     },
     {
-      "tag": "224",
+      "tag": "913",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Progress Express"
+    },
+    {
+      "tag": "925",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Victoria Park North"
+      "name": "Don Mills Express"
+    },
+    {
+      "tag": "927",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Highway 27 Express"
+    },
+    {
+      "tag": "935",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jane Express"
+    },
+    {
+      "tag": "937",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Islington Express"
+    },
+    {
+      "tag": "939",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch Express"
+    },
+    {
+      "tag": "954",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence East Express"
+    },
+    {
+      "tag": "960",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles West Express"
+    },
+    {
+      "tag": "984",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard West Express"
+    },
+    {
+      "tag": "985",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard East Express"
+    },
+    {
+      "tag": "300",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Bloor - Danforth"
+    },
+    {
+      "tag": "301",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Queen"
     },
     {
       "tag": "302",
@@ -1015,10 +1033,28 @@
       "name": "King"
     },
     {
-      "tag": "310",
+      "tag": "306",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Carlton"
+    },
+    {
+      "tag": "307",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Bathurst"
+    },
+    {
+      "tag": "310",
+      "type": "streetcar",
+      "direction": "NorthSouth",
+      "name": "Spadina"
+    },
+    {
+      "tag": "312",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "St Clair-Junction"
     },
     {
       "tag": "315",
@@ -1027,16 +1063,16 @@
       "name": "Evans - Brown's Line"
     },
     {
-      "tag": "317",
-      "type": "streetcar",
-      "direction": "NorthSouth",
-      "name": "Spadina"
-    },
-    {
       "tag": "320",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Yonge"
+    },
+    {
+      "tag": "322",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Coxwell"
     },
     {
       "tag": "324",
@@ -1049,6 +1085,12 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Don Mills"
+    },
+    {
+      "tag": "329",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Dufferin"
     },
     {
       "tag": "332",
@@ -1099,6 +1141,24 @@
       "name": "Kennedy"
     },
     {
+      "tag": "352",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence West"
+    },
+    {
+      "tag": "353",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles"
+    },
+    {
+      "tag": "354",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence East"
+    },
+    {
       "tag": "363",
       "type": "bus",
       "direction": "NorthSouth",
@@ -1117,6 +1177,12 @@
       "name": "Sheppard West"
     },
     {
+      "tag": "385",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard East"
+    },
+    {
       "tag": "395",
       "type": "bus",
       "direction": "EastWest",
@@ -1127,12 +1193,6 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Wilson"
-    },
-    {
-      "tag": "329",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Dufferin"
     }
   ]
 }
