@@ -955,6 +955,12 @@
       "name": "Progress Express"
     },
     {
+      "tag": "924",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Victoria Park Express"
+    },
+    {
       "tag": "925",
       "type": "bus",
       "direction": "NorthSouth",
@@ -965,6 +971,12 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Highway 27 Express"
+    },
+    {
+      "tag": "929",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Dufferin Express"
     },
     {
       "tag": "935",
@@ -985,6 +997,12 @@
       "name": "Finch Express"
     },
     {
+      "tag": "952",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence Express"
+    },
+    {
       "tag": "954",
       "type": "bus",
       "direction": "EastWest",
@@ -1001,6 +1019,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Sheppard West Express"
+    },
+    {
+      "tag": "989",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Weston Express"
     },
     {
       "tag": "985",

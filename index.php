@@ -21,7 +21,7 @@
   function loadScript() {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "//maps.google.com/maps/api/js?v=3.9&sensor=true&callback=init";
+    script.src = "//maps.google.com/maps/api/js?v=3.9&key=AIzaSyC-D-f8DPZoxBO2zir3xdBOtnrh-S3OEV4&callback=init";
     document.body.appendChild(script);
 
     // For iphone
