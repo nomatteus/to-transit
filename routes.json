@@ -925,22 +925,22 @@
       "name": "Wilson Rocket"
     },
     {
-      "tag": "188",
+      "tag": "900",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Kipling South Rocket"
-    },
-    {
-      "tag": "192",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Airport Rocket"
+      "name": "Airport Express"
     },
     {
       "tag": "902",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Markham Rd Express"
+    },
+    {
+      "tag": "903",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kennedy-Scarborough Centre Express"
     },
     {
       "tag": "905",
@@ -997,6 +997,18 @@
       "name": "Finch Express"
     },
     {
+      "tag": "941",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Keele Express"
+    },
+    {
+      "tag": "944",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kipling Express"
+    },
+    {
       "tag": "952",
       "type": "bus",
       "direction": "EastWest",
@@ -1031,6 +1043,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Sheppard East Express"
+    },
+    {
+      "tag": "995",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "York Mills Express"
     },
     {
       "tag": "300",
