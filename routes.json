@@ -61,12 +61,6 @@
       "name": "St Clair"
     },
     {
-      "tag": "514",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Cherry"
-    },
-    {
       "tag": "301",
       "type": "streetcar",
       "direction": "EastWest",
@@ -415,12 +409,6 @@
       "name": "Huntingwood"
     },
     {
-      "tag": "199",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Finch Rocket"
-    },
-    {
       "tag": "5",
       "type": "bus",
       "direction": "NorthSouth",
@@ -751,12 +739,6 @@
       "name": "Markham Rd"
     },
     {
-      "tag": "103",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Mt Pleasant North"
-    },
-    {
       "tag": "104",
       "type": "bus",
       "direction": "NorthSouth",
@@ -1006,6 +988,12 @@
       "tag": "944",
       "type": "bus",
       "direction": "NorthSouth",
+      "name": "Kipling South Express"
+    },
+    {
+      "tag": "945",
+      "type": "bus",
+      "direction": "NorthSouth",
       "name": "Kipling Express"
     },
     {
@@ -1013,6 +1001,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Lawrence Express"
+    },
+    {
+      "tag": "953",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles East Express"
     },
     {
       "tag": "954",
@@ -1043,6 +1037,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Sheppard East Express"
+    },
+    {
+      "tag": "986",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Scarborough Express"
     },
     {
       "tag": "995",
