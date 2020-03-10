@@ -7,12 +7,6 @@
       "name": "Queen"
     },
     {
-      "tag": "502",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Downtowner"
-    },
-    {
       "tag": "503",
       "type": "streetcar",
       "direction": "EastWest",
@@ -37,6 +31,12 @@
       "name": "Carlton"
     },
     {
+      "tag": "508",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Lake Shore"
+    },
+    {
       "tag": "509",
       "type": "streetcar",
       "direction": "EastWest",
@@ -59,18 +59,6 @@
       "type": "streetcar",
       "direction": "EastWest",
       "name": "St Clair"
-    },
-    {
-      "tag": "301",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Queen"
-    },
-    {
-      "tag": "306",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Carlton"
     },
     {
       "tag": "10",
@@ -901,10 +889,10 @@
       "name": "Mimico GO"
     },
     {
-      "tag": "186",
+      "tag": "189",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Wilson Rocket"
+      "name": "Stockyards"
     },
     {
       "tag": "900",
@@ -1049,6 +1037,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "York Mills Express"
+    },
+    {
+      "tag": "996",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wilson Express"
     },
     {
       "tag": "300",
