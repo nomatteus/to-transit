@@ -397,13 +397,13 @@
       "name": "Huntingwood"
     },
     {
-      "tag": "5",
+      "tag": "13",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Avenue Rd"
     },
     {
-      "tag": "6",
+      "tag": "19",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Bay"
