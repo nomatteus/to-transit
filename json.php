@@ -24,7 +24,7 @@ $filename = "cache/vehicleLocations.".$route->tag.".xml";
 
 // Cache data for X seconds
 if (!file_exists($filename) || ((time() - filemtime($filename)) >= 10)) {
-  $file_contents = file_get_contents("http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . ($route->tag == "all" ? "" : $route->tag) . "&t=0");
+  $file_contents = file_get_contents("https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . ($route->tag == "all" ? "" : $route->tag) . "&t=0");
   file_put_contents($filename, $file_contents);
 }
 
