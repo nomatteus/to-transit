@@ -58,11 +58,6 @@
     </div>
   </div>
 
-  <div id="share" class="desktop-only">
-    <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Ftotransit.ca%2F&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;font&amp;colorscheme=light&amp;height=21&amp;locale=en_US" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true" class="facebook"></iframe>
-    <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://totransit.ca" data-text="View TTC Streetcars Live on a Map in Real-time #ttc #totransit" data-count="horizontal" data-via="mightymatty">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-  </div>
-
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.5.2.min.js">\x3C/script>')</script>
   <script type="text/javascript" src="js/libs/cookies.js"></script> 
@@ -78,4 +73,4 @@
     s.parentNode.insertBefore(g,s)}(document,'script'));
   </script>
 </body> 
-</html> 
+</html>
