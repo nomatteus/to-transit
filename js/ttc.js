@@ -321,7 +321,7 @@ Vehicle.Instance.prototype = {
 		/* Move event listeners from updateMarker method, so we don't add a new listener each time marker is updated. */
 		var that = this;
 		google.maps.event.addListener(this.marker, 'click', function() {
-			_gaq.push(['_trackEvent', 'Marker', 'Click', 'Marker - '+that.marker.title]);
+			window.fathom && window.fathom.trackGoal('SOJUB0EK', 0);
 			// Close any existing info windows first
 			Controls.closeInfoWindows();
 			// Then display the current one!
@@ -351,7 +351,7 @@ var Controls = (function() {
 			$showRoutes = $("#show-routes");
 			$showRoutes.append('Show:<br>');
 			_.each(Route.List, function(route, list){
-				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+route.tag+'" onclick="_gaq.push([\'_trackEvent\', \'Controls\', \'Click\', \'Show/hide Route - ' + route.tag + " " + route.name + '\']);"><label for="'+route.tag+'">'+route.tag + " - " + route.name+'</label></div>');
+				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+route.tag+'" onclick="window.fathom && window.fathom.trackGoal(\'JKPN33OO\', 0);"><label for="'+route.tag+'">'+route.tag + " - " + route.name+'</label></div>');
 			});
 			$showRoutes.find("input").bind($.browser.msie? "propertychange": "change", function(){
 				var isChecked = $(this).attr("checked");
@@ -406,7 +406,7 @@ var Controls = (function() {
 		addListeners: function() {
 			var that = this;
 			$("#update").live("click", function(e) {
-				_gaq.push(['_trackEvent', 'Controls', 'Click', 'Manual Update']);
+				window.fathom && window.fathom.trackGoal('YCZAISMR', 0);
 				//e.preventDefault();
 				that.updateVehicles();
 			});

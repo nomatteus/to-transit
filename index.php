@@ -16,12 +16,18 @@
 <meta property="og:image" content="http://totransit.ca/fb.png"/>
 <meta property="fb:admins" content="122611956"/>
 
+<!-- Plausible -->
+<script defer data-domain="totransit.ca" src="https://plausible.io/js/script.js"></script>
+<!-- Fathom -->
+<script src="https://cdn.usefathom.com/script.js" data-site="KEGFOCCK" defer></script>
+<!-- / Fathom -->
+
 <script type="text/javascript"> 
   // Loads the Google Map API and runs callback function (init()) when done
   function loadScript() {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "//maps.google.com/maps/api/js?v=3.45&key=AIzaSyC-D-f8DPZoxBO2zir3xdBOtnrh-S3OEV4&callback=init";
+    script.src = "//maps.google.com/maps/api/js?v=3.53&key=AIzaSyC-D-f8DPZoxBO2zir3xdBOtnrh-S3OEV4&callback=init";
     document.body.appendChild(script);
 
     // For iphone
@@ -65,12 +71,5 @@
   <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script> 
   <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
   <script type="text/javascript" src="js/ttc.js?v=3"></script>
-
-  <script>
-    var _gaq=[['_setAccount','UA-335824-12'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script>
 </body> 
 </html>
