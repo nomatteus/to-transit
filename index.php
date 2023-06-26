@@ -16,11 +16,8 @@
 <meta property="og:image" content="http://totransit.ca/fb.png"/>
 <meta property="fb:admins" content="122611956"/>
 
-<!-- Plausible -->
-<script defer data-domain="totransit.ca" src="https://plausible.io/js/script.js"></script>
 <!-- Fathom -->
 <script src="https://cdn.usefathom.com/script.js" data-site="KEGFOCCK" defer></script>
-<!-- / Fathom -->
 
 <script type="text/javascript"> 
   // Loads the Google Map API and runs callback function (init()) when done
