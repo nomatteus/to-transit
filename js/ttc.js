@@ -406,7 +406,6 @@ var Controls = (function() {
 		addListeners: function() {
 			var that = this;
 			$("#update").live("click", function(e) {
-				window.fathom && window.fathom.trackGoal('YCZAISMR', 0);
 				//e.preventDefault();
 				that.updateVehicles();
 			});
