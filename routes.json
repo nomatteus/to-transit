@@ -367,18 +367,6 @@
       "name": "Gerrard"
     },
     {
-      "tag": "143",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Downtown/Beach Express"
-    },
-    {
-      "tag": "145",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Downtown/Humber Bay Express"
-    },
-    {
       "tag": "161",
       "type": "bus",
       "direction": "EastWest",
@@ -667,12 +655,6 @@
       "name": "Scarlett Rd"
     },
     {
-      "tag": "81",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Thorncliffe Park"
-    },
-    {
       "tag": "83",
       "type": "bus",
       "direction": "NorthSouth",
@@ -787,12 +769,6 @@
       "name": "Queens Quay East"
     },
     {
-      "tag": "117",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Alness"
-    },
-    {
       "tag": "118",
       "type": "bus",
       "direction": "EastWest",
@@ -853,24 +829,6 @@
       "name": "Progress"
     },
     {
-      "tag": "141",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Downtown/Mt Pleasant Express"
-    },
-    {
-      "tag": "142",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Downtown/Avenue Rd Express"
-    },
-    {
-      "tag": "144",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Downtown/Don Valley Express"
-    },
-    {
       "tag": "160",
       "type": "bus",
       "direction": "NorthSouth",
@@ -893,12 +851,6 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Mount Dennis"
-    },
-    {
-      "tag": "175",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Bluffer's Park"
     },
     {
       "tag": "176",
@@ -959,12 +911,6 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Eglinton East Express"
-    },
-    {
-      "tag": "913",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Progress Express"
     },
     {
       "tag": "924",
