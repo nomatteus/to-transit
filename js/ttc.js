@@ -321,7 +321,6 @@ Vehicle.Instance.prototype = {
 		/* Move event listeners from updateMarker method, so we don't add a new listener each time marker is updated. */
 		var that = this;
 		google.maps.event.addListener(this.marker, 'click', function() {
-			window.fathom && window.fathom.trackGoal('SOJUB0EK', 0);
 			// Close any existing info windows first
 			Controls.closeInfoWindows();
 			// Then display the current one!
@@ -351,7 +350,7 @@ var Controls = (function() {
 			$showRoutes = $("#show-routes");
 			$showRoutes.append('Show:<br>');
 			_.each(Route.List, function(route, list){
-				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+route.tag+'" onclick="window.fathom && window.fathom.trackGoal(\'JKPN33OO\', 0);"><label for="'+route.tag+'">'+route.tag + " - " + route.name+'</label></div>');
+				$showRoutes.append('<div class="check"><input type="checkbox" name="route[]" id="'+route.tag+'"><label for="'+route.tag+'">'+route.tag + " - " + route.name+'</label></div>');
 			});
 			$showRoutes.find("input").bind($.browser.msie? "propertychange": "change", function(){
 				var isChecked = $(this).attr("checked");
