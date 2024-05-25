@@ -56,8 +56,6 @@
       </div>
       Feedback? Email
       <a href="mailto:matt@ruten.ca" title="Email matt@ruten.ca">matt@ruten.ca</a>
-      or 
-      <a href="http://totransit.uservoice.com/" target="_blank" title="TO Transit UserVoice (Opens New Window)">vote for ideas</a>.
     </div>
   </div>
 
