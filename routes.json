@@ -31,6 +31,12 @@
       "name": "Carlton"
     },
     {
+      "tag": "507",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Long Branch"
+    },
+    {
       "tag": "508",
       "type": "streetcar",
       "direction": "EastWest",
@@ -775,6 +781,12 @@
       "name": "West Mall"
     },
     {
+      "tag": "114",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Queens Quay East"
+    },
+    {
       "tag": "117",
       "type": "bus",
       "direction": "NorthSouth",
@@ -809,6 +821,12 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Christie"
+    },
+    {
+      "tag": "128",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Stanley Greene"
     },
     {
       "tag": "129",
@@ -889,10 +907,34 @@
       "name": "Mimico GO"
     },
     {
+      "tag": "184",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Ancaster Park"
+    },
+    {
       "tag": "189",
       "type": "bus",
       "direction": "EastWest",
       "name": "Stockyards"
+    },
+    {
+      "tag": "200",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Toronto Zoo"
+    },
+    {
+      "tag": "201",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bluffer's Park"
+    },
+    {
+      "tag": "202",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cherry Beach"
     },
     {
       "tag": "900",
@@ -1007,6 +1049,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Steeles West Express"
+    },
+    {
+      "tag": "968",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Warden Express"
     },
     {
       "tag": "984",
