@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 <title>TOTransit - View TTC Streetcars and Buses Live on a Map</title> 
 <meta name="description" content="See when the next streetcars are coming, and watch them move on a map in real-time. Desktop and mobile friendly!"/>
 <meta property="og:title" content="TOTransit - View TTC Streetcars Live on a Map"/>
@@ -59,12 +59,23 @@
     </div>
   </div>
 
+  <!-- Notification Panel on the bottom: Use for downtime announcements or similar. -->
+  <!-- (Also remember to temporarily remove bookmark_bubble.js if using this as they are both positioned at the bottom of the screen) -->
+  <!-- <div id="notification">
+    <strong>Announcement Title</strong>
+    <div id="notifiction-content">
+      Announcment content...
+    </div>
+  </div> -->
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.5.2.min.js">\x3C/script>')</script>
   <script type="text/javascript" src="js/libs/cookies.js"></script> 
   <script type="text/javascript" src="js/libs/underscore.js"></script> 
+  
   <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script> 
+
   <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
-  <script type="text/javascript" src="js/ttc.js?v=3"></script>
+  <script type="text/javascript" src="js/ttc.js?v=4"></script>
 </body> 
 </html>

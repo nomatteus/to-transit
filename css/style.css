@@ -272,6 +272,38 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 #about-content a {color:black;text-decoration:none;font-weight:bold;}
 #about-content a:hover {color:#666;}
 
+/* Notification messaging */
+#notification {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+/*  max-width: 50%;*/
+
+  /* rounded corners */
+     -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px; 
+          border-radius: 5px; 
+  /* background gradient */
+  background-color: #ffffff;
+  background-image: -moz-linear-gradient(top, #ffffff, #eeeeee); 
+  background-image: -o-linear-gradient(top, #ffffff, #eeeeee); 
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ffffff),color-stop(1, #eeeeee)); 
+  background-image: -webkit-linear-gradient(#ffffff, #eeeeee); 
+  background-image: linear-gradient(top, #ffffff, #eeeeee);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eeeeee'); 
+  /* box shadow */
+     -moz-box-shadow: 2px 2px 4px #999; 
+  -webkit-box-shadow: 2px 2px 4px #999; 
+          box-shadow: 2px 2px 4px #999; 
+
+}
+#notification h3 {
+  color: red;
+}
+
 /* Info Window Styles (And almost time to move this to external CSS file!!!) */
 .info-window {}
 .info-window h1 {font-size:14px;font-weight:bold;margin:0 0 5px;}
