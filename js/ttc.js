@@ -426,6 +426,16 @@ var Controls = (function() {
 				// console.log(element);
 				element.updateVehicles();
 			});
+
+			// Update user's location on the map
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+				  currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				  window.userloc.setPosition (currentLocation);
+				}, function() {
+					// ... error ...
+				});
+			}
 		},
 		closeInfoWindows: function() {
 			// Used to clean up info windows, probably only allow one at a time for now
@@ -473,13 +483,27 @@ var Controls = (function() {
     	torontoBoundsNE = new google.maps.LatLng(43.930, -79.095),
     	torontoBounds = new google.maps.LatLngBounds(torontoBoundsSW, torontoBoundsNE);
 
+	 // Create a marker for the user's location
+	 window.userloc = new google.maps.Marker({
+		clickable: false,
+		icon: new google.maps.MarkerImage (
+			'//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+			new google.maps.Size(22,22),
+			new google.maps.Point(0,18),
+			new google.maps.Point(11,11)
+		),
+		shadow: null,
+		zIndex: 999,
+		map: 	  map
+	 });
+  
     // W3 Geolocation (HTML5)
-    if (navigator.geolocation) {
+	 if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         if (torontoBounds.contains(currentLocation)) {
         	map.setCenter(currentLocation);
-        }
+		}
       }, function(){
       	// ... error ...
       });
