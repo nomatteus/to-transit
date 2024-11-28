@@ -4,7 +4,7 @@ GEM
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
     ffi (1.9.3)
-    rack (1.5.2)
+    rack (1.6.12)
     rack-legacy (1.0.0)
       childprocess
       rack
@@ -17,6 +17,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rack (~> 1.5.2)
+  rack (~> 1.6.12)
   rack-legacy (~> 1)
   rack-rewrite (~> 1.5.0)
