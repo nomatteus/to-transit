@@ -52,9 +52,19 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     $vehicle_route = get_route($dirTagParts[0], $routes);
     $direction_num = (int) $dirTagParts[1]; // 1 or 0
     $routeSub = $dirTagParts[2];
+    $type = vehicle_route->type;
+    if (str_ends_with ($routeSub, "rush")) {
+      $type += ", rush hour extra";
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4));
+    } else if (str_ends_with ($routeSub, "bus")){
+      $type = "bus replacement";
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3));
+    }
   } else {
+    $vehicle_route = $route; // Use the default route, which should be the same anyway
     $direction_num = null;
     $routeSub = null;
+    $type = $route->type;
   }
 
   switch($vehicle_route->direction) {
@@ -64,7 +74,7 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else if ($direction_num === 1)
         $direction = "N";
       else
-        $direction = "null"; //default
+        $direction = "";
       break;
     case "EastWest":
       if ($direction_num === 1)
@@ -72,10 +82,10 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else if ($direction_num === 0)
         $direction = "E";
       else
-        $direction = "null"; //default
+        $direction = "";
       break;
     default:
-      $direction = "null";
+      $direction = "";
       break;
   }
 
@@ -90,17 +100,17 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
 
   $vehicles[] = array(
     // Need to cast attributes to a (string), else it will be treated as an object
-    'id'      			=> (string) $vehicle['id'],
-    'lat'     			=> (string) $vehicle['lat'],
-    'lng'     			=> (string) $vehicle['lon'],
-    'dirTag'        => $dirTag,
-    'routeSub' 			=> $routeSub,
-    'dir'     			=> $direction,
-    'labelText'     => $labelText,
-    'heading' 			=> (string) $vehicle['heading'],
+    'id'      			    => (string) $vehicle['id'],
+    'lat'     			    => (string) $vehicle['lat'],
+    'lng'     			    => (string) $vehicle['lon'],
+    'dirTag'            => $dirTag,
+    'routeSub' 			    => $routeSub,
+    'dir'     			    => $direction,
+    'labelText'         => $labelText,
+    'heading' 			    => (string) $vehicle['heading'],
     'secsSinceReport' 	=> (string) $vehicle['secsSinceReport'],
-    'type'          => (string) $vehicle_route->type,
-    'route'         => (string) $vehicle_route->tag
+    'type'              => $type,
+    'route'             => (string) $vehicle_route->tag
     );
 }
 
