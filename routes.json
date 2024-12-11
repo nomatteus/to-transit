@@ -57,7 +57,7 @@
     {
       "tag": "511",
       "type": "streetcar",
-      "direction": "EastWest",
+      "direction": "NorthSouth",
       "name": "Bathurst"
     },
     {
