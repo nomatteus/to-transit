@@ -60,8 +60,8 @@ Label.prototype.draw = function() {
      var projection = this.getProjection();
      var position = projection.fromLatLngToDivPixel(this.get('position'));
      var div = this.div_;
-     div.style.left = position.x + 'px';
-     div.style.top = position.y + 'px';
+     div.style.left = (position != null ? position.x : 0) + 'px';
+     div.style.top = (position != null ? position.y : 0) + 'px';
      div.style.display = 'block';
      div.style.zIndex = this.get('zIndex'); //ALLOW LABEL TO OVERLAY MARKER
      //console.log(this);
@@ -200,9 +200,6 @@ Vehicle.Instance.prototype = {
 		this.dir = el.dir;
 		this.dirTag = el.dirTag;
 
-		// Is this a new Flexity Streetcar? Numbered 4400-4604, see http://en.wikipedia.org/wiki/Flexity_Outlook_(Toronto_streetcar)
-		this.isNewStreetcar = (parseInt(this.id) >= 4400 && parseInt(this.id) <= 4604) ? true : false;
-
 		this.updateMarkerIcon();
 		this.updateMarkerInfoWindow();
 
@@ -228,15 +225,10 @@ Vehicle.Instance.prototype = {
 	},
 	updateMarkerInfoWindow: function() {
 		var that = this;
-		this.marker.title = 'Vechicle #:' + this.id;
-		if (this.isNewStreetcar) {
-			var intro_content = "<strong>This is a new 'Flexity Outlook' streetcar! (With A/C!)</strong>";
-		} else {
-			var intro_content = "";
-		}
+		this.marker.title = 'Vechicle #' + this.id;
 		var contentString = '<div class="info-window">' + 
-			'<h1 class="vehicle-id">Vechicle #: ' + this.id + '</h1>' +
-			intro_content + 
+			'<h1 class="vehicle-id">Vechicle #' + this.id + '</h1>' +
+			'<div class="type">Type: ' + this.type + '</div>' +
 			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
 			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
@@ -254,38 +246,13 @@ Vehicle.Instance.prototype = {
 		//console.log(this.infoWindow);
 	},
 	updateMarkerIcon: function() {
-		// Marker icon is based on direction only, for now
 		if (this.type == "streetcar") {
-			switch (this.dir) {
-				case "N":
-					var markerImage 	= window.markerImageStreetcarNorth;
-					break;
-				case "S":
-					var markerImage 	= window.markerImageStreetcarSouth;
-					break;
-				case "E":
-					var markerImage 	= window.markerImageStreetcarEast;
-					break;
-				case "W":
-					var markerImage 	= window.markerImageStreetcarWest;
-					break;
-				default:
-					// Perhaps we might not want to show these on the map?
-					// 	Or, denote with a greyed out icon?
-					// 	These are usually cars that are in the stockyard/out of service, I think.
-					var markerImage 	= window.markerImageStreetcarDefault;
-					break;
-			}
+			this.marker.icon = window.markerImageStreetcarNew
 		} else {
 			// Bus
-			var markerImage 	= window.markerImageBusDefault;
+			this.marker.icon 	= window.markerImageBusDefault;
 		}
 
-		if (this.type == "streetcar" && this.isNewStreetcar) {
-			this.marker.icon = window.markerImageStreetcarNew;
-		} else {
-			this.marker.icon = markerImage;
-		}
 		if (this.marker.label == null) {
 			this.marker.label = new Label({
 				map: window.map
@@ -293,15 +260,7 @@ Vehicle.Instance.prototype = {
 		}
 		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
-		if (this.type == "streetcar" && this.isNewStreetcar) {
-			this.marker.label.set('text', this.labelText + " " + this.dir + "");
-		} else if (this.type == "streetcar") {
-			this.marker.label.set('text', this.labelText);
-		} else {
-			this.marker.label.set('text', this.labelText + " " + this.dir + "");
-		}
-		
-
+		this.marker.label.set('text', this.labelText + " " + this.dir);
 	},
 	createMarker: function() {
 		//console.log(this.dir);

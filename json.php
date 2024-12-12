@@ -52,13 +52,13 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     $vehicle_route = get_route($dirTagParts[0], $routes);
     $direction_num = (int) $dirTagParts[1]; // 1 or 0
     $routeSub = $dirTagParts[2];
-    $type = vehicle_route->type;
+    $type = $vehicle_route->type;
     if (str_ends_with ($routeSub, "rush")) {
       $type += ", rush hour extra";
-      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4));
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4);
     } else if (str_ends_with ($routeSub, "bus")){
-      $type = "bus replacement";
-      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3));
+      $type = "replacement bus";
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3);
     }
   } else {
     $vehicle_route = $route; // Use the default route, which should be the same anyway
@@ -116,5 +116,6 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
 
 $vehicles_json = json_encode(array("vehicles" => $vehicles));
 
+header('Content-Type: application/json; charset=utf-8');
 echo $vehicles_json;
 ?>
