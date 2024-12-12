@@ -247,10 +247,10 @@ Vehicle.Instance.prototype = {
 	},
 	updateMarkerIcon: function() {
 		if (this.type == "streetcar") {
-			this.marker.icon = window.markerImageStreetcarNew
+			this.marker.icon = this.routeSub == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew
 		} else {
 			// Bus
-			this.marker.icon 	= window.markerImageBusDefault;
+			this.marker.icon = this.routeSub == null ? window.markerImageBusGrey : window.markerImageBusDefault;
 		}
 
 		if (this.marker.label == null) {
