@@ -229,10 +229,11 @@ Vehicle.Instance.prototype = {
 		var contentString = '<div class="info-window">' + 
 			'<h1 class="vehicle-id">Vechicle #' + this.id + '</h1>' +
 			'<div class="type">Type: ' + this.type + '</div>' +
-			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
-			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
+			'<div class="dir-tag">Direction: ' + this.dir + '</div>' +
 			'<div class="headingId">Heading: ' + this.heading + '</div>' +
+			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
+			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'</div>';
 		if (!this.infoWindow) {
 			// If it doesn't exist yet create it
@@ -260,7 +261,9 @@ Vehicle.Instance.prototype = {
 		}
 		this.marker.label.set('zIndex', this.route);
 		this.marker.label.bindTo('position', this.marker, 'position');
-		this.marker.label.set('text', this.labelText + " " + this.dir);
+		var labelText = this.labelText;
+		if (this.dir != null) labelText += " " + this.dir;
+		this.marker.label.set('text', labelText);
 	},
 	createMarker: function() {
 		//console.log(this.dir);

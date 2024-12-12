@@ -62,6 +62,7 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     }
   } else {
     $vehicle_route = $route; // Use the default route, which should be the same anyway
+    $dirTag = null;
     $direction_num = null;
     $routeSub = null;
     $type = $route->type;
@@ -74,7 +75,7 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else if ($direction_num === 1)
         $direction = "N";
       else
-        $direction = "";
+        $direction = null;
       break;
     case "EastWest":
       if ($direction_num === 1)
@@ -82,10 +83,10 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else if ($direction_num === 0)
         $direction = "E";
       else
-        $direction = "";
+        $direction = null;
       break;
     default:
-      $direction = "";
+      $direction = null;
       break;
   }
 
