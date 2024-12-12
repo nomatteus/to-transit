@@ -24,8 +24,7 @@
   function loadScript() {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "//maps.google.com/maps/api/js?v=3.58&key=AIzaSyC8soy4juVU9jVTwGRu9-xwNRCmWpxx3uA&callback=init&loading=async";
-    //script.src = "//maps.google.com/maps/api/js?v=3.58&key=AIzaSyC-D-f8DPZoxBO2zir3xdBOtnrh-S3OEV4&callback=init&loading=async";
+    script.src = "//maps.google.com/maps/api/js?v=3.58&key=AIzaSyC-D-f8DPZoxBO2zir3xdBOtnrh-S3OEV4&callback=init&loading=async";
     document.body.appendChild(script);
 
     // For iphone
