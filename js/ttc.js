@@ -247,7 +247,7 @@ Vehicle.Instance.prototype = {
 		//console.log(this.infoWindow);
 	},
 	updateMarkerIcon: function() {
-		if (this.type == "streetcar") {
+		if (this.type.startsWith ("streetcar")) {
 			this.marker.icon = this.routeSub == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew
 		} else {
 			// Bus

@@ -54,9 +54,9 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     $routeSub = $dirTagParts[2];
     $type = $vehicle_route->type;
     if (str_ends_with ($routeSub, "rush")) {
-      $type += ", rush hour extra";
+      $type = $type.", rush hour extra";
       $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4);
-    } else if (str_ends_with ($routeSub, "bus")){
+    } else if (str_ends_with ($routeSub, "bus")) {
       $type = "replacement bus";
       $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3);
     }
