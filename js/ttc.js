@@ -67,7 +67,6 @@ Label.prototype.draw = function() {
      //console.log(this);
      var text = this.get('text') || "...";
      this.span_.innerHTML = text;
-
 };
 
 
@@ -184,21 +183,19 @@ Vehicle.Instance.prototype = {
 		//console.log(this.marker);
 	},
 	update: function(el) {
-		/* Update vehicle info */
+		// Save current lat/lon
+		var lat = this.lat;
+		var lng = this.lng;
 
-		// If position has changed, update marker position
-		if (el.lat != this.lat || el.lng != this.lng) {
-			// Update latlng
-			this.lat = el.lat;
-			this.lng = el.lng;
-			// Position has changed -- Hide marker
-			//this.hideMarker();
-			// And then update position
-			this.updateMarkerPosition();
+		// Update vehicle info
+		for (var prop in el) {
+			this[prop] = el[prop];
 		}
 
-		this.dir = el.dir;
-		this.dirTag = el.dirTag;
+		// If position has changed, update marker position
+		if (lat != this.lat || lng != this.lng) {
+			this.updateMarkerPosition();
+		}
 
 		this.updateMarkerIcon();
 		this.updateMarkerInfoWindow();
@@ -224,16 +221,16 @@ Vehicle.Instance.prototype = {
 		this.marker.setPosition(new google.maps.LatLng(this.lat, this.lng));
 	},
 	updateMarkerInfoWindow: function() {
-		var that = this;
 		this.marker.title = 'Vehicle #' + this.id;
 		var contentString = '<div class="info-window">' + 
 			'<h1 class="vehicle-id">Vehicle #' + this.id + '</h1>' +
 			'<div class="type">Type: ' + this.type + '</div>' +
 			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
 			'<div class="dir-tag">Direction: ' + this.dir + '</div>' +
-			'<div class="headingId">Heading: ' + this.heading + '</div>' +
-			'<div class="headingId">Seconds Since Last Report: ' + this.secsSinceReport + '</div>' +
-			'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
+			'<div class="headingId">Heading: ' + this.heading + '\u00B0</div>' +
+			'<div class="speed">Speed: ' + this.speed + ' km/h</div>' +
+			'<div class="headingId">Reported: ' + this.secsSinceReport + ' sec ago</div>' +
+			//'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'</div>';
 		if (!this.infoWindow) {
 			// If it doesn't exist yet create it
@@ -242,16 +239,16 @@ Vehicle.Instance.prototype = {
 			});
 		} else {
 			// Otherwise, just update content
-			this.infoWindow.content = contentString;
+			this.infoWindow.setContent (contentString);
 		}
 		//console.log(this.infoWindow);
 	},
 	updateMarkerIcon: function() {
-		if (this.type.startsWith ("streetcar")) {
-			this.marker.icon = this.routeSub == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew
+		if (this.type.toLowerCase ().startsWith ("streetcar")) {
+			this.marker.setIcon (this.routeSub == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew);
 		} else {
 			// Bus
-			this.marker.icon = this.routeSub == null ? window.markerImageBusGrey : window.markerImageBusDefault;
+			this.marker.setIcon (this.routeSub == null ? window.markerImageBusGrey : window.markerImageBusDefault);
 		}
 
 		if (this.marker.label == null) {

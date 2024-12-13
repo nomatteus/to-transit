@@ -15,16 +15,17 @@ function get_route($tag, $routes) {
     if ($tag == $r->tag) {
       return $r;
     }
-  }  
+  }
+  return null;
 }
 
 $route = get_route($r_get, $routes);
 
-$filename = "cache/vehicleLocations.".$route->tag.".xml";
+$filename = "cache/vehicleLocations.".(is_null ($route) ? "all" : $route->tag).".xml";
 
 // Cache data for X seconds
 if (!file_exists($filename) || ((time() - filemtime($filename)) >= 10)) {
-  $file_contents = file_get_contents("https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . ($route->tag == "all" ? "" : $route->tag) . "&t=0");
+  $file_contents = file_get_contents("https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . (is_null ($route) == "all" ? "" : $route->tag) . "&t=0");
   file_put_contents($filename, $file_contents);
 }
 
@@ -57,16 +58,16 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       $type = $type.", rush hour extra";
       $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4);
     } else if (str_ends_with ($routeSub, "bus")) {
-      $type = "replacement bus";
+      $type = "bus";
       $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3);
     }
-  } else {
+  } else if (!is_null ($route)) {
     $vehicle_route = $route; // Use the default route, which should be the same anyway
     $dirTag = null;
     $direction_num = null;
     $routeSub = null;
     $type = $route->type;
-  }
+  } else continue; // No default route
 
   switch($vehicle_route->direction) {
     case "NorthSouth":
@@ -109,10 +110,11 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     'dir'     			    => $direction,
     'labelText'         => $labelText,
     'heading' 			    => (string) $vehicle['heading'],
+    'speed' 	  		    => (string) $vehicle['speedKmHr'],
     'secsSinceReport' 	=> (string) $vehicle['secsSinceReport'],
-    'type'              => $type,
+    'type'              => ucfirst ($type),
     'route'             => (string) $vehicle_route->tag
-    );
+  );
 }
 
 $vehicles_json = json_encode(array("vehicles" => $vehicles));
