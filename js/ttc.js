@@ -225,9 +225,9 @@ Vehicle.Instance.prototype = {
 	},
 	updateMarkerInfoWindow: function() {
 		var that = this;
-		this.marker.title = 'Vechicle #' + this.id;
+		this.marker.title = 'Vehicle #' + this.id;
 		var contentString = '<div class="info-window">' + 
-			'<h1 class="vehicle-id">Vechicle #' + this.id + '</h1>' +
+			'<h1 class="vehicle-id">Vehicle #' + this.id + '</h1>' +
 			'<div class="type">Type: ' + this.type + '</div>' +
 			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
 			'<div class="dir-tag">Direction: ' + this.dir + '</div>' +
