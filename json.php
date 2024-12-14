@@ -54,20 +54,25 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     $direction_num = (int) $dirTagParts[1]; // 1 or 0
     $routeSub = $dirTagParts[2];
     $type = $vehicle_route->type;
+
+    // Handle special suffixes
     if (str_ends_with ($routeSub, "rush")) {
       $type = $type.", rush hour extra";
-      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4);
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4); // Strip the suffix
     } else if (str_ends_with ($routeSub, "bus")) {
-      $type = "bus";
-      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3);
+      $type = "Bus"; // Used with streetcars to signify a replacement bus
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3); // Strip the suffix
     }
-  } else if (!is_null ($route)) {
-    $vehicle_route = $route; // Use the default route, which should be the same anyway
+  } else if (is_null ($route)) {
+    // No default route. We cannot add this vehicle, so continue to next
+    continue;
+  } else {
     $dirTag = null;
+    $vehicle_route = $route; // Use the default route, which should be the same anyway
     $direction_num = null;
     $routeSub = null;
-    $type = $route->type;
-  } else continue; // No default route
+    $type = $route->type.", out of service";
+  }
 
   switch($vehicle_route->direction) {
     case "NorthSouth":

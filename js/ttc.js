@@ -225,8 +225,8 @@ Vehicle.Instance.prototype = {
 		var contentString = '<div class="info-window">' + 
 			'<h1 class="vehicle-id">Vehicle #' + this.id + '</h1>' +
 			'<div class="type">Type: ' + this.type + '</div>' +
-			'<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' +
-			'<div class="dir-tag">Direction: ' + this.dir + '</div>' +
+			(this.routeSub != null ? '<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' : '') +
+			(this.dir != null ? '<div class="dir-tag">Direction: ' + this.dir + '</div>' : '') +
 			'<div class="headingId">Heading: ' + this.heading + '\u00B0</div>' +
 			'<div class="speed">Speed: ' + this.speed + ' km/h</div>' +
 			'<div class="headingId">Reported: ' + this.secsSinceReport + ' sec ago</div>' +
@@ -245,10 +245,10 @@ Vehicle.Instance.prototype = {
 	},
 	updateMarkerIcon: function() {
 		if (this.type.toLowerCase ().startsWith ("streetcar")) {
-			this.marker.setIcon (this.routeSub == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew);
+			this.marker.setIcon (this.dirTag == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew);
 		} else {
 			// Bus
-			this.marker.setIcon (this.routeSub == null ? window.markerImageBusGrey : window.markerImageBusDefault);
+			this.marker.setIcon (this.dirTag == null ? window.markerImageBusGrey : window.markerImageBusDefault);
 		}
 
 		if (this.marker.label == null) {
