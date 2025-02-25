@@ -49,7 +49,7 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
   $dirTag = (string) $vehicle['dirTag'];
   $dirTagParts = explode("_", $dirTag);
   
-  if (is_array($dirTagParts) && count($dirTagParts) > 1) {
+  if (is_array($dirTagParts) && count($dirTagParts) > 2) {
     $vehicle_route = get_route($dirTagParts[0], $routes);
     $direction_num = (int) $dirTagParts[1]; // 1 or 0
     $routeSub = $dirTagParts[2];
@@ -61,6 +61,9 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4); // Strip the suffix
     } else if (str_ends_with ($routeSub, "bus")) {
       $type = "Bus"; // Used with streetcars to signify a replacement bus
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3); // Strip the suffix
+    } else if (str_ends_with ($routeSub, "con")) {
+      // Not clear what this means, but used with streetcars
       $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3); // Strip the suffix
     }
   } else if (is_null ($route)) {
