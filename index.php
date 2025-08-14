@@ -20,12 +20,26 @@
 <script src="https://cdn.usefathom.com/script.js" data-site="KEGFOCCK" defer></script>
 
 <script type="text/javascript"> 
-  // Loads the Google Map API and runs callback function (init()) when done
+  // Loads Leaflet and runs callback function (init()) when done
   function loadScript() {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "//maps.google.com/maps/api/js?v=3.58&key=AIzaSyC-D-f8DPZoxBO2zir3xdBOtnrh-S3OEV4&callback=init&loading=async";
-    document.body.appendChild(script);
+    // Load Leaflet CSS
+    var cssLink = document.createElement("link");
+    cssLink.rel = "stylesheet";
+    cssLink.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    document.head.appendChild(cssLink);
+
+    // Load Leaflet JS
+    var leafletScript = document.createElement("script");
+    leafletScript.type = "text/javascript";
+    leafletScript.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    leafletScript.onload = function() {
+      // Load leaflet-providers plugin for Stadia Maps
+      var providersScript = document.createElement("script");
+      providersScript.src = "https://unpkg.com/leaflet-providers@2.0.0/leaflet-providers.js";
+      providersScript.onload = init;
+      document.body.appendChild(providersScript);
+    };
+    document.body.appendChild(leafletScript);
 
     // For iphone
     window.top.scrollTo(0, 1);

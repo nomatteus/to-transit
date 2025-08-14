@@ -219,6 +219,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 /* Controls Box */
 #controls {position:absolute;top:10px;left:10px;border:1px solid #ccc;padding:5px 10px;
+            z-index: 1000; /* Ensure it appears above Leaflet map */
             /* rounded corners */
                -moz-border-radius: 5px; 
             -webkit-border-radius: 5px; 
@@ -249,6 +250,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 /* "About" Box */
 #about {position:absolute;top:10px;right:10px;border:1px solid #ccc;padding:5px 10px;
+          z-index: 1000; /* Ensure it appears above Leaflet map */
           /* rounded corners */
              -moz-border-radius: 5px; 
           -webkit-border-radius: 5px; 
@@ -304,10 +306,51 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
   color: red;
 }
 
-/* Info Window Styles (And almost time to move this to external CSS file!!!) */
+/* Map Styling for improved OpenStreetMap appearance */
+.leaflet-container {
+  background: #a8c8ec; /* Nice blue background for water areas */
+}
+
+/* Slightly darken the map for better contrast */
+.leaflet-tile {
+  filter: contrast(1.1) brightness(0.95) saturate(1.1);
+}
+
+/* Vehicle label styling */
+.leaflet-vehicle-label {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* User location marker pulse animation */
+@keyframes locationPulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.user-location-pulse {
+  animation: locationPulse 2s infinite;
+}
+
+/* Info Window Styles (Leaflet Popups) */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.15);
+}
+
 .info-window {}
-.info-window h1 {font-size:14px;font-weight:bold;margin:0 0 5px;}
-.info-window div {font-size:10px;line-height:16px;}
+.info-window h1 {font-size:14px;font-weight:bold;margin:0 0 5px;color:#333;}
+.info-window div {font-size:10px;line-height:16px;color:#666;}
 .info-window a {color:black;font-size:10px;line-height:16px;}
 .info-window .reveal {display:none;}
 
