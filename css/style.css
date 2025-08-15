@@ -322,25 +322,6 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
   background: transparent !important;
 }
 
-/* User location marker pulse animation */
-@keyframes locationPulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scale(1.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.user-location-pulse {
-  animation: locationPulse 2s infinite;
-}
 
 /* Info Window Styles (Leaflet Popups) */
 .leaflet-popup-content-wrapper {

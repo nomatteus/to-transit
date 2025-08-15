@@ -42,30 +42,16 @@ function createLeafletLabel(options) {
 
 // Create a modern user location marker (blue dot with white border and pulse effect)
 function createUserLocationMarker(latlng) {
-  // Create the main blue dot
+  // Create just the main blue dot - no accuracy circle
   var userDot = L.circleMarker(latlng, {
     color: 'white',
     fillColor: '#4285f4',
     fillOpacity: 1,
     weight: 3,
-    radius: 8,
-    className: 'user-location-dot'
+    radius: 8
   });
 
-  // Create the accuracy circle (larger, semi-transparent with pulse)
-  var accuracyCircle = L.circleMarker(latlng, {
-    color: '#4285f4',
-    fillColor: '#4285f4',
-    fillOpacity: 0.2,
-    weight: 0,
-    radius: 25,
-    className: 'user-location-pulse'
-  });
-
-  // Group them together
-  var userLocationGroup = L.layerGroup([accuracyCircle, userDot]);
-
-  return userLocationGroup;
+  return userDot;
 }
 
 
@@ -440,9 +426,7 @@ var Controls = (function() {
 						currentLocation = L.latLng(position.coords.latitude, position.coords.longitude);
 						// Update user location marker if it exists
 						if (window.userloc) {
-							window.userloc.eachLayer(function(layer) {
-								layer.setLatLng(currentLocation);
-							});
+							window.userloc.setLatLng(currentLocation);
 						}
 					},
 					function(error) {
@@ -516,9 +500,7 @@ var Controls = (function() {
             window.userloc.addTo(window.map);
           } else {
             // Update existing marker position
-            window.userloc.eachLayer(function(layer) {
-              layer.setLatLng(currentLocation);
-            });
+            window.userloc.setLatLng(currentLocation);
           }
 
           if (torontoBounds.contains(currentLocation)) {
