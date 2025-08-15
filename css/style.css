@@ -276,6 +276,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 /* Notification messaging */
 #notification {
+  z-index: 1000;
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -306,15 +307,8 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
   color: red;
 }
 
-/* Map Styling for improved OpenStreetMap appearance */
-.leaflet-container {
-  background: #a8c8ec; /* Nice blue background for water areas */
-}
+/* Map Styling */
 
-/* Slightly darken the map for better contrast */
-.leaflet-tile {
-  filter: contrast(1.1) brightness(0.95) saturate(1.1);
-}
 
 /* Vehicle label styling */
 .leaflet-vehicle-label {
