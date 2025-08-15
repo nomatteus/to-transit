@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  totransit:
+    build: .
+    container_name: totransit-dev
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html
+      - ./cache:/var/www/html/cache
+    environment:
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+      - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d
+    restart: unless-stopped

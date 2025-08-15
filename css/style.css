@@ -219,6 +219,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 /* Controls Box */
 #controls {position:absolute;top:10px;left:10px;border:1px solid #ccc;padding:5px 10px;
+            z-index: 1000; /* Ensure it appears above Leaflet map */
             /* rounded corners */
                -moz-border-radius: 5px; 
             -webkit-border-radius: 5px; 
@@ -249,6 +250,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 /* "About" Box */
 #about {position:absolute;top:10px;right:10px;border:1px solid #ccc;padding:5px 10px;
+          z-index: 1000; /* Ensure it appears above Leaflet map */
           /* rounded corners */
              -moz-border-radius: 5px; 
           -webkit-border-radius: 5px; 
@@ -274,6 +276,7 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 /* Notification messaging */
 #notification {
+  z-index: 1000;
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -304,10 +307,30 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
   color: red;
 }
 
-/* Info Window Styles (And almost time to move this to external CSS file!!!) */
+/* Map Styling */
+
+
+/* Vehicle label styling */
+.leaflet-vehicle-label {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* User location marker shadow */
+.user-location-shadow {
+  filter: drop-shadow(0 2px 8px rgba(66, 133, 244, 0.4));
+}
+
+
+/* Info Window Styles (Leaflet Popups) */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.15);
+}
+
 .info-window {}
-.info-window h1 {font-size:14px;font-weight:bold;margin:0 0 5px;}
-.info-window div {font-size:10px;line-height:16px;}
+.info-window h1 {font-size:14px;font-weight:bold;margin:0 0 5px;color:#333;}
+.info-window div {font-size:10px;line-height:16px;color:#666;}
 .info-window a {color:black;font-size:10px;line-height:16px;}
 .info-window .reveal {display:none;}
 
