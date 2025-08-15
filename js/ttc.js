@@ -470,18 +470,25 @@ var Controls = (function() {
     window.map = L.map('map_canvas', {
       center: [43.656967, -79.399651],
       zoom: 14,
-      zoomControl: false
+      zoomControl: false,
+      attributionControl: false
     });
 
-    // Add Stadia.StamenTonerLite tile layer (no API key needed)
-	  // Stadia.StamenTonerLite ,Stadia.OSMBright
-		L.tileLayer.provider('Stadia.OSMBright').addTo(window.map);
+    // Add Stadia.OSMBright tile layer (no API key needed)
+	L.tileLayer.provider('Stadia.OSMBright').addTo(window.map);
+	
+	// Add compact attribution control
+	L.control.attribution({
+	  prefix: false,  // Remove "Leaflet" prefix
+	  position: 'bottomright'
+	}).addTo(window.map);
+	
     var currentLocation,
-    	// Bounds rect defined by SW and NE points
-    	torontoBounds = L.latLngBounds(
-    	  L.latLng(43.564, -79.561), // SW
-    	  L.latLng(43.930, -79.095)  // NE
-    	);
+    // Bounds rect defined by SW and NE points
+    torontoBounds = L.latLngBounds(
+      L.latLng(43.564, -79.561), // SW
+      L.latLng(43.930, -79.095)  // NE
+    );
 
 	 // Initialize user location marker as null (will be created when location is found)
 	 window.userloc = null;

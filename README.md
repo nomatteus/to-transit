@@ -4,18 +4,50 @@ A real-time transit tracking app for Toronto's TTC system, now powered by free S
 
 Live at: [totransit.ca](http://totransit.ca)
 
-## 💰 Cost Savings (March 2025)
-
-- **Before:** C$150/month (Google Maps)
-- **After:** $0/month (Stadia Maps)
-- **Annual savings:** ~C$1,800
-
 ## 🗺️ Map Technology
 
-- **Tiles:** Stadia Maps (completely free)
-- **Library:** Leaflet.js (lightweight, fast)
-- **No API keys:** Zero signup required
-- **No usage limits:** Unlimited map loads
+- **Tiles:** Stadia Maps
+- **Library:** Leaflet.js
+
+## 🚀 Local Development
+
+### Prerequisites
+
+1. **Install Docker** (recommended: [OrbStack](https://orbstack.dev/) for macOS)
+2. **Install mkcert** for trusted SSL certificates:
+   ```bash
+   # macOS
+   brew install mkcert
+   
+   # Linux/Windows - see https://github.com/FiloSottile/mkcert#installation
+   ```
+
+### Setup
+
+1. **Run the setup script** to generate SSL certificates:
+   ```bash
+   ./setup-dev.sh
+   ```
+
+2. **Start the development server**:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Access the app** at [https://localhost](https://localhost)
+
+### Features
+
+- ✅ **HTTPS enabled** (required for geolocation)
+- ✅ **Trusted SSL certificates** (no browser warnings)
+- ✅ **Live file editing** (changes reflect immediately)
+- ✅ **PHP error logging** configured for development
+
+### Troubleshooting
+
+- **Permission errors:** Ensure Docker can access the project directory
+- **SSL issues:** Re-run `./setup-dev.sh` to regenerate certificates
+- **Port conflicts:** Modify ports in `docker-compose.yml` if 80/443 are in use
 
 ## 🛠️ Development
 
@@ -33,7 +65,11 @@ The app consists of:
 ├── css/
 │   └── style.css      # Styling
 ├── json.php           # Data endpoint
-└── routes.json        # Route definitions
+├── routes.json        # Route definitions
+├── Dockerfile         # Docker configuration
+├── docker-compose.yml # Docker services
+└── docker/
+    └── ssl.conf       # Apache SSL configuration
 ```
 
 ## 📊 Data Sources
