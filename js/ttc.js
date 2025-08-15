@@ -40,7 +40,7 @@ function createLeafletLabel(options) {
 
 // Google Maps overlay methods removed - Leaflet handles labels differently
 
-// Create a modern user location marker (blue dot with white border and pulse effect)
+// Create a modern user location marker (blue dot with white border and shadow)
 function createUserLocationMarker(latlng) {
   // Create just the main blue dot - no accuracy circle
   var userDot = L.circleMarker(latlng, {
@@ -48,7 +48,8 @@ function createUserLocationMarker(latlng) {
     fillColor: '#4285f4',
     fillOpacity: 1,
     weight: 3,
-    radius: 8
+    radius: 8,
+    className: 'user-location-shadow'
   });
 
   return userDot;

@@ -23,6 +23,9 @@ docker/certs/
 docker-sync.yml
 .docker-compose-override.yml
 
+# Claude Code settings
+.claude/settings.local.json
+
 # OS generated files
 .DS_Store
 .DS_Store?
