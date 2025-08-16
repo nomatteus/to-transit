@@ -445,7 +445,9 @@ var Controls = (function() {
       center: [43.656967, -79.399651],
       zoom: 14,
       zoomControl: false,
-      attributionControl: false
+      attributionControl: false,
+	  minZoom: 10,
+	  maxZoom: 20
     });
 
 	// Add Stadia.OSMBright tile layer (no API key needed)

@@ -5,8 +5,8 @@ services:
     build: .
     container_name: totransit-dev
     ports:
-      - "80:80"
-      - "443:443"
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
     volumes:
       - .:/var/www/html
       - ./cache:/var/www/html/cache

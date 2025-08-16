@@ -90,6 +90,6 @@
   <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script>
 
   <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
-  <script type="text/javascript" src="js/ttc.js?v=8"></script>
+  <script type="text/javascript" src="js/ttc.js?v=9"></script>
 </body>
 </html>
