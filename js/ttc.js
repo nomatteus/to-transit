@@ -235,12 +235,12 @@ Vehicle.Instance.prototype = {
 	updateMarkerIcon: function() {
 		// Use "new" marker image for all streetcars. Use grey versions for vehicles that are likely out of service.
 		var markerImage = (this.type.toLowerCase ().startsWith ("streetcar")) ?
-			(this.dirTag == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew) :
+			(this.dirTag == null ? window.markerImageStreetcarGrey : window.markerImageStreetcar) :
 			(this.dirTag == null ? window.markerImageBusGrey : window.markerImageBusDefault);
 
 		// Update marker icon - use streetcar-new for all streetcars
 		var iconUrl = (this.type == "streetcar") ?
-			window.markerImageStreetcarNew : markerImage;
+			window.markerImageStreetcar : markerImage;
 
 		this.marker.setIcon(L.icon({
 			iconUrl: iconUrl,
@@ -448,7 +448,8 @@ var Controls = (function() {
       attributionControl: false
     });
 
-    // Add Stadia.OSMBright tile layer (no API key needed)
+	// Add Stadia.OSMBright tile layer (no API key needed)
+	// Also consider adding as an option: Stadia.StamenTonerLite
 	L.tileLayer.provider('Stadia.OSMBright').addTo(window.map);
 	
 	// Add compact attribution control
@@ -514,19 +515,6 @@ var Controls = (function() {
     } else {
       console.warn('Geolocation not supported by browser');
     }
-
-    // Define marker images for each direction as global vars (i.e. attach to window) -- is this the best way?
-    window.markerImageStreetcarEast = 'marker-images/streetcar-east.png';
-
-    window.markerImageStreetcarNorth = 'marker-images/streetcar-north.png';
-
-    window.markerImageStreetcarSouth = 'marker-images/streetcar-south.png';
-
-    window.markerImageStreetcarWest = 'marker-images/streetcar-west.png';
-
-    // Default for when direction is unknown/null
-    window.markerImageStreetcarDefault = 'marker-images/streetcar-default.png';
-
     // Buses
     window.markerImageBusDefault = 'marker-images/bus-default.png';
 
@@ -536,8 +524,9 @@ var Controls = (function() {
     // Streetcar Grey - For possibly out of service/unknown status
     window.markerImageStreetcarGrey = 'marker-images/streetcar-grey.png';
 
-    // Custom marker image for New Flexity Streetcars
-    window.markerImageStreetcarNew = 'marker-images/streetcar-new.png';
+    // Streetcar marker image
+    window.markerImageStreetcar = 'marker-images/streetcar-default.png';
+    window.markerImageStreetcarDefault = markerImageStreetcar;
 
 	// Init
 	Route.Handler.init();
