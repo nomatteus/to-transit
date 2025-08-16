@@ -15,16 +15,17 @@ function get_route($tag, $routes) {
     if ($tag == $r->tag) {
       return $r;
     }
-  }  
+  }
+  return null;
 }
 
 $route = get_route($r_get, $routes);
 
-$filename = "cache/vehicleLocations.".$route->tag.".xml";
+$filename = "cache/vehicleLocations.".(is_null ($route) ? "all" : $route->tag).".xml";
 
 // Cache data for X seconds
 if (!file_exists($filename) || ((time() - filemtime($filename)) >= 10)) {
-  $file_contents = file_get_contents("https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . ($route->tag == "all" ? "" : $route->tag) . "&t=0");
+  $file_contents = file_get_contents("https://retro.umoiq.com/service/publicXMLFeed?command=vehicleLocations&a=ttc&r=" . (is_null ($route) == "all" ? "" : $route->tag) . "&t=0");
   file_put_contents($filename, $file_contents);
 }
 
@@ -48,13 +49,32 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
   $dirTag = (string) $vehicle['dirTag'];
   $dirTagParts = explode("_", $dirTag);
   
-  if (is_array($dirTagParts) && count($dirTagParts) > 1) {
+  if (is_array($dirTagParts) && count($dirTagParts) > 2) {
     $vehicle_route = get_route($dirTagParts[0], $routes);
     $direction_num = (int) $dirTagParts[1]; // 1 or 0
     $routeSub = $dirTagParts[2];
+    $type = $vehicle_route->type;
+
+    // Handle special suffixes
+    if (str_ends_with ($routeSub, "rush")) {
+      $type = $type.", rush hour extra";
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 4); // Strip the suffix
+    } else if (str_ends_with ($routeSub, "bus")) {
+      $type = "Bus"; // Used with streetcars to signify a replacement bus
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3); // Strip the suffix
+    } else if (str_ends_with ($routeSub, "con")) {
+      // Not clear what this means, but used with streetcars
+      $routeSub = substr ($routeSub, 0, strlen ($routeSub) - 3); // Strip the suffix
+    }
+  } else if (is_null ($route)) {
+    // No default route. We cannot add this vehicle, so continue to next
+    continue;
   } else {
+    $dirTag = null;
+    $vehicle_route = $route; // Use the default route, which should be the same anyway
     $direction_num = null;
     $routeSub = null;
+    $type = $route->type.", out of service";
   }
 
   switch($vehicle_route->direction) {
@@ -64,7 +84,7 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else if ($direction_num === 1)
         $direction = "N";
       else
-        $direction = "null"; //default
+        $direction = null;
       break;
     case "EastWest":
       if ($direction_num === 1)
@@ -72,10 +92,10 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       else if ($direction_num === 0)
         $direction = "E";
       else
-        $direction = "null"; //default
+        $direction = null;
       break;
     default:
-      $direction = "null";
+      $direction = null;
       break;
   }
 
@@ -90,21 +110,23 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
 
   $vehicles[] = array(
     // Need to cast attributes to a (string), else it will be treated as an object
-    'id'      			=> (string) $vehicle['id'],
-    'lat'     			=> (string) $vehicle['lat'],
-    'lng'     			=> (string) $vehicle['lon'],
-    'dirTag'        => $dirTag,
-    'routeSub' 			=> $routeSub,
-    'dir'     			=> $direction,
-    'labelText'     => $labelText,
-    'heading' 			=> (string) $vehicle['heading'],
+    'id'      			    => (string) $vehicle['id'],
+    'lat'     			    => (string) $vehicle['lat'],
+    'lng'     			    => (string) $vehicle['lon'],
+    'dirTag'            => $dirTag,
+    'routeSub' 			    => $routeSub,
+    'dir'     			    => $direction,
+    'labelText'         => $labelText,
+    'heading' 			    => (string) $vehicle['heading'],
+    'speed' 	  		    => (string) $vehicle['speedKmHr'],
     'secsSinceReport' 	=> (string) $vehicle['secsSinceReport'],
-    'type'          => (string) $vehicle_route->type,
-    'route'         => (string) $vehicle_route->tag
-    );
+    'type'              => ucfirst ($type),
+    'route'             => (string) $vehicle_route->tag
+  );
 }
 
 $vehicles_json = json_encode(array("vehicles" => $vehicles));
 
+header('Content-Type: application/json; charset=utf-8');
 echo $vehicles_json;
 ?>
