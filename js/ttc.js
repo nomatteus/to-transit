@@ -219,18 +219,24 @@ Vehicle.Instance.prototype = {
 			//'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'</div>';
 
+		// Check if popup is currently open for this marker
+		var isPopupOpen = this.marker.isPopupOpen();
+
 		// Bind popup to marker with offset to align with top of icon
 		this.marker.bindPopup(contentString, {
 			offset: [0, -43] // Negative Y offset to position popup at top of icon
 		});
+
+		// If popup was open, update its content immediately
+		if (isPopupOpen) {
+			this.marker.openPopup();
+		}
 	},
 	updateMarkerIcon: function() {
-		if (this.type.toLowerCase ().startsWith ("streetcar")) {
-			this.marker.setIcon (this.dirTag == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew);
-		} else {
-			// Bus
-			this.marker.setIcon (this.dirTag == null ? window.markerImageBusGrey : window.markerImageBusDefault);
-		}
+		// Use "new" marker image for all streetcars. Use grey versions for vehicles that are likely out of service.
+		var markerImage = (this.type.toLowerCase ().startsWith ("streetcar")) ?
+			(this.dirTag == null ? window.markerImageStreetcarGrey : window.markerImageStreetcarNew) :
+			(this.dirTag == null ? window.markerImageBusGrey : window.markerImageBusDefault);
 
 		// Update marker icon - use streetcar-new for all streetcars
 		var iconUrl = (this.type == "streetcar") ?
