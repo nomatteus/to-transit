@@ -5,20 +5,20 @@
 function init() {
 
 
-/* 
+/*
  *	See: http://www.tdmarketing.co.nz/blog/2011/03/09/create-marker-with-custom-labels-in-google-maps-api-v3/
  *		and http://blog.mridey.com/2009/09/label-overlay-example-for-google-maps.html
 */
 function Label(opt_options) {
      // Initialization
      this.setValues(opt_options);
- 
+
      // Here go the label styles
      var span = this.span_ = document.createElement('span');
      span.style.cssText = 'position: absolute; left: -18px; top: -38px; ' +
                           'white-space: nowrap;color:#000000;' +
                           'padding: 0px 2px 0 3px;font-family: helvetica neue, arial; font-weight: bold;' +
-                          'font-size: 8px;background-color: #FFFFFF;border: 1px solid black;' + 
+                          'font-size: 8px;background-color: #FFFFFF;border: 1px solid black;' +
                           'border-radius: 5px 3px 3px 5px;text-shadow: none;line-height:10px;';
 
 
@@ -27,48 +27,33 @@ function Label(opt_options) {
      div.style.cssText = 'position: absolute; display: none';
 };
 
-Label.prototype = new google.maps.OverlayView;
- 
-Label.prototype.onAdd = function() {
-     var pane = this.getPanes().overlayImage;
-     pane.appendChild(this.div_);
- 
-     // Ensures the label is redrawn if the text or position is changed.
-     var me = this;
-     this.listeners_ = [
-          google.maps.event.addListener(this, 'position_changed',
-               function() { me.draw(); }),
-          google.maps.event.addListener(this, 'text_changed',
-               function() { me.draw(); }),
-          google.maps.event.addListener(this, 'zindex_changed',
-               function() { me.draw(); })
-     ];
-};
- 
-// Implement onRemove
-Label.prototype.onRemove = function() {
-     this.div_.parentNode.removeChild(this.div_);
- 
-     // Label is removed from the map, stop updating its position/text.
-     for (var i = 0, I = this.listeners_.length; i < I; ++i) {
-          google.maps.event.removeListener(this.listeners_[i]);
-     }
-};
- 
-// Implement draw
-Label.prototype.draw = function() {
-     var projection = this.getProjection();
-     var position = projection.fromLatLngToDivPixel(this.get('position'));
-     var div = this.div_;
-     div.style.left = (position != null ? position.x : 0) + 'px';
-     div.style.top = (position != null ? position.y : 0) + 'px';
-     div.style.display = 'block';
-     div.style.zIndex = this.get('zIndex'); //ALLOW LABEL TO OVERLAY MARKER
-     //console.log(this);
-     var text = this.get('text') || "...";
-     this.span_.innerHTML = text;
-};
+// Leaflet label implementation - converted from Google Maps overlay
+function createLeafletLabel(options) {
+  var label = L.divIcon({
+    className: 'leaflet-vehicle-label',
+    html: '<span style="position: absolute; left: -18px; top: -38px; white-space: nowrap; color: #000000; padding: 0px 2px 0 3px; font-family: helvetica neue, arial; font-weight: bold; font-size: 8px; background-color: #FFFFFF; border: 1px solid black; border-radius: 5px 3px 3px 5px; text-shadow: none; line-height: 10px;">' + options.text + '</span>',
+    iconSize: [0, 0],
+    iconAnchor: [0, 0]
+  });
+  return label;
+}
 
+// Google Maps overlay methods removed - Leaflet handles labels differently
+
+// Create a modern user location marker (blue dot with white border and shadow)
+function createUserLocationMarker(latlng) {
+  // Create just the main blue dot - no accuracy circle
+  var userDot = L.circleMarker(latlng, {
+    color: 'white',
+    fillColor: '#4285f4',
+    fillOpacity: 1,
+    weight: 3,
+    radius: 8,
+    className: 'user-location-shadow'
+  });
+
+  return userDot;
+}
 
 var Route = {};
 
@@ -90,7 +75,7 @@ Route.Handler = (function(){
 		createRoutes: function() {
 			_.each(Route.List, function(route, list){
 				Route.Items[route.tag] = new Route.Instance({
-					id: route.tag, 
+					id: route.tag,
 					name: route.name,
 					type: route.type,
 					direction: route.direction
@@ -118,7 +103,7 @@ Route.Instance.prototype = {
 		// Update visibility (boolean)
 		if (_.isBoolean(isVisible)){
 			this.isVisible = isVisible;
-			// Call update vehicles 
+			// Call update vehicles
 			this.updateVehicles();
 			return true;
 		} else {
@@ -157,12 +142,8 @@ Route.Instance.prototype = {
 		}
 	},
 	closeInfoWindows: function() {
-		// Close all info windows of vehicles
-		_.each(this.vehicles, function(element, index, list){
-			if (element.infoWindow) {
-				element.infoWindow.close();
-			}
-		});
+		// Popups are now handled globally by the map
+		// No need to iterate through individual vehicles
 	}
 };
 
@@ -179,6 +160,8 @@ Vehicle.Instance.prototype = {
 	marker: {},
 	init: function() {
 		//console.log(this.getDir());
+		// Is this a new Flexity Streetcar? Numbered 4400-4604
+		this.isNewStreetcar = (parseInt(this.id) >= 4400 && parseInt(this.id) <= 4604) ? true : false;
 		this.createMarker();
 		//console.log(this.marker);
 	},
@@ -204,24 +187,27 @@ Vehicle.Instance.prototype = {
 		this.showMarker();
 	},
 	hideMarker: function() {
-		this.marker.label.setMap(null);
-		this.marker.setMap(null);
+		if (this.labelMarker) {
+			window.map.removeLayer(this.labelMarker);
+		}
+		window.map.removeLayer(this.marker);
 	},
 	showMarker: function() {
-		// Check to make sure it's not already on map
-		if (this.marker.getMap() == null) {
-			this.marker.setMap(window.map);	
+		// Add marker to map if not already added
+		if (!window.map.hasLayer(this.marker)) {
+			this.marker.addTo(window.map);
 		}
-		if (this.marker.label.getMap() == null) {
-			this.marker.label.setMap(window.map);	
+		if (this.labelMarker && !window.map.hasLayer(this.labelMarker)) {
+			this.labelMarker.addTo(window.map);
 		}
 	},
 	updateMarkerPosition: function() {
-		//this.marker.position = new google.maps.LatLng(this.lat, this.lng);
-		this.marker.setPosition(new google.maps.LatLng(this.lat, this.lng));
+		this.marker.setLatLng([this.lat, this.lng]);
+		if (this.labelMarker) {
+			this.labelMarker.setLatLng([this.lat, this.lng]);
+		}
 	},
 	updateMarkerInfoWindow: function() {
-		this.marker.title = 'Vehicle #' + this.id;
 		var contentString = '<div class="info-window">' + 
 			'<h1 class="vehicle-id">Vehicle #' + this.id + '</h1>' +
 			'<div class="type">Type: ' + this.type + '</div>' +
@@ -232,16 +218,11 @@ Vehicle.Instance.prototype = {
 			'<div class="headingId">Reported: ' + this.secsSinceReport + ' sec ago</div>' +
 			//'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'</div>';
-		if (!this.infoWindow) {
-			// If it doesn't exist yet create it
-			this.infoWindow = new google.maps.InfoWindow({
-				content: contentString
-			});
-		} else {
-			// Otherwise, just update content
-			this.infoWindow.setContent (contentString);
-		}
-		//console.log(this.infoWindow);
+
+		// Bind popup to marker with offset to align with top of icon
+		this.marker.bindPopup(contentString, {
+			offset: [0, -43] // Negative Y offset to position popup at top of icon
+		});
 	},
 	updateMarkerIcon: function() {
 		if (this.type.toLowerCase ().startsWith ("streetcar")) {
@@ -251,24 +232,44 @@ Vehicle.Instance.prototype = {
 			this.marker.setIcon (this.dirTag == null ? window.markerImageBusGrey : window.markerImageBusDefault);
 		}
 
-		if (this.marker.label == null) {
-			this.marker.label = new Label({
-				map: window.map
-			});
-		}
-		this.marker.label.set('zIndex', this.route);
-		this.marker.label.bindTo('position', this.marker, 'position');
+		// Update marker icon - use streetcar-new for all streetcars
+		var iconUrl = (this.type == "streetcar") ?
+			window.markerImageStreetcarNew : markerImage;
+
+		this.marker.setIcon(L.icon({
+			iconUrl: iconUrl,
+			iconSize: [42, 43],
+			iconAnchor: [21, 43]  // Bottom center anchor
+		}));
+
+		// Set consistent z-index for vehicle icon
+		this.marker.setZIndexOffset(100);
+
+		// Create/update label marker
 		var labelText = this.labelText;
 		if (this.dir != null) labelText += " " + this.dir;
-		this.marker.label.set('text', labelText);
+
+		if (this.labelMarker) {
+			window.map.removeLayer(this.labelMarker);
+		}
+
+		this.labelMarker = L.marker([this.lat, this.lng], {
+			icon: createLeafletLabel({text: labelText}),
+			zIndexOffset: 200  // Always above vehicle icons (which are at 100)
+		});
 	},
 	createMarker: function() {
 		//console.log(this.dir);
 		// Create marker object
-		this.marker = new google.maps.Marker({
-			map: null,
-			icon: window.markerImageStreetcarDefault
+		this.marker = L.marker([this.lat, this.lng], {
+			icon: L.icon({
+				iconUrl: window.markerImageStreetcarDefault,
+				iconSize: [42, 43],
+				iconAnchor: [21, 43]  // Bottom center anchor
+			}),
+			zIndexOffset: 100  // Consistent z-index for all vehicle icons
 		});
+		this.labelMarker = null; // Will hold the label marker
 		// set the marker icon
 		this.updateMarkerIcon();
 		this.updateMarkerPosition();
@@ -279,11 +280,11 @@ Vehicle.Instance.prototype = {
 	addEventListeners: function() {
 		/* Move event listeners from updateMarker method, so we don't add a new listener each time marker is updated. */
 		var that = this;
-		google.maps.event.addListener(this.marker, 'click', function() {
+		this.marker.on('click', function() {
 			// Close any existing info windows first
 			Controls.closeInfoWindows();
 			// Then display the current one!
-  			that.infoWindow.open(window.map, that.marker);
+  			that.marker.openPopup();
 		});
 	},
 	getId: function() {return this.id;},
@@ -359,7 +360,7 @@ var Controls = (function() {
 					$checkbox.click();
 				}
 			});
-			
+
 		},
 		addListeners: function() {
 			var that = this;
@@ -388,20 +389,29 @@ var Controls = (function() {
 
 			// Update user's location on the map
 			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(function(position) {
-				  currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-				  window.userloc.setPosition (currentLocation);
-				}, function() {
-					// ... error ...
-				});
+				navigator.geolocation.getCurrentPosition(
+					function(position) {
+						currentLocation = L.latLng(position.coords.latitude, position.coords.longitude);
+						// Update user location marker if it exists
+						if (window.userloc) {
+							window.userloc.setLatLng(currentLocation);
+						}
+					},
+					function(error) {
+						// Silently fail on periodic updates
+						console.log('Geolocation update failed:', error.message);
+					},
+					{
+						enableHighAccuracy: false,
+						timeout: 5000,
+						maximumAge: 300000
+					}
+				);
 			}
 		},
 		closeInfoWindows: function() {
-			// Used to clean up info windows, probably only allow one at a time for now
-			_.each(Route.Items, function(element, index, list){
-				//console.log(element);
-				element.closeInfoWindows();
-			});
+			// Close all open popups on the map
+			window.map.closePopup();
 		},
 		startAutoUpdate: function() {
 			var that = this;
@@ -424,48 +434,79 @@ var Controls = (function() {
 	// init routes and display on map
 
 
-	var myLatlng = new google.maps.LatLng(43.656967, -79.399651);
-    var myOptions = {
+	// Initialize Leaflet map with Stadia Maps
+    window.map = L.map('map_canvas', {
+      center: [43.656967, -79.399651],
       zoom: 14,
-      center: myLatlng,
-      panControl: false,
       zoomControl: false,
-      mapTypeControl: false,
-      scaleControl: false,
-      streetViewControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    window.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    var currentLocation,
-    	// Bounds rect defined by SW and NE points
-    	torontoBoundsSW = new google.maps.LatLng(43.564, -79.561),
-    	torontoBoundsNE = new google.maps.LatLng(43.930, -79.095),
-    	torontoBounds = new google.maps.LatLngBounds(torontoBoundsSW, torontoBoundsNE);
+      attributionControl: false
+    });
 
-	 // Create a marker for the user's location
-	 window.userloc = new google.maps.Marker({
-		clickable: false,
-		icon: new google.maps.MarkerImage (
-			'//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-			new google.maps.Size(22,22),
-			new google.maps.Point(0,18),
-			new google.maps.Point(11,11)
-		),
-		shadow: null,
-		zIndex: 999,
-		map: 	  map
-	 });
-  
+    // Add Stadia.OSMBright tile layer (no API key needed)
+	L.tileLayer.provider('Stadia.OSMBright').addTo(window.map);
+	
+	// Add compact attribution control
+	L.control.attribution({
+	  prefix: false,  // Remove "Leaflet" prefix
+	  position: 'bottomright'
+	}).addTo(window.map);
+	
+    var currentLocation,
+    // Bounds rect defined by SW and NE points
+    torontoBounds = L.latLngBounds(
+      L.latLng(43.564, -79.561), // SW
+      L.latLng(43.930, -79.095)  // NE
+    );
+
+	 // Initialize user location marker as null (will be created when location is found)
+	 window.userloc = null;
+
     // W3 Geolocation (HTML5)
 	 if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position){
-        currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        if (torontoBounds.contains(currentLocation)) {
-        	map.setCenter(currentLocation);
-		}
-      }, function(){
-      	// ... error ...
-      });
+      console.log('Requesting geolocation...');
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          console.log('Geolocation success:', position.coords.latitude, position.coords.longitude);
+          currentLocation = L.latLng(position.coords.latitude, position.coords.longitude);
+
+          // Create user location marker if it doesn't exist
+          if (!window.userloc) {
+            window.userloc = createUserLocationMarker(currentLocation);
+            window.userloc.addTo(window.map);
+          } else {
+            // Update existing marker position
+            window.userloc.setLatLng(currentLocation);
+          }
+
+          if (torontoBounds.contains(currentLocation)) {
+            window.map.setView(currentLocation, 14);
+          }
+        },
+        function(error) {
+          console.error('Geolocation error:', error);
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              console.warn("User denied geolocation request");
+              break;
+            case error.POSITION_UNAVAILABLE:
+              console.warn("Location information unavailable");
+              break;
+            case error.TIMEOUT:
+              console.warn("Geolocation request timeout");
+              break;
+            default:
+              console.warn("Unknown geolocation error");
+              break;
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 300000
+        }
+      );
+    } else {
+      console.warn('Geolocation not supported by browser');
     }
 
     // Define marker images for each direction as global vars (i.e. attach to window) -- is this the best way?
