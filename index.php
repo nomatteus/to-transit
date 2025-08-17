@@ -65,11 +65,9 @@
     <a href="#" id="about-show">About</a>
     <div id="about-content">
       <div class="desktop-only">
-        Mobile friendly! Just visit totransit.ca
-        on your device.
+        Mobile friendly! Just visit totransit.ca on your device.
       </div>
-      Feedback? Email
-      <a href="mailto:matt@ruten.ca" title="Email matt@ruten.ca">matt@ruten.ca</a>
+      Feedback? Email <a href="mailto:matt@ruten.ca" title="Email matt@ruten.ca">matt@ruten.ca</a> or <a href="https://totransit.sleekplan.app/" target="_blank" title="Vote for ideas">vote for ideas</a>.
     </div>
   </div>
 
