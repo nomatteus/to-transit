@@ -38,11 +38,8 @@ function createLeafletLabel(options) {
   return label;
 }
 
-// Google Maps overlay methods removed - Leaflet handles labels differently
-
-// Create a modern user location marker (blue dot with white border and shadow)
+// Create a user location marker (blue dot with white border and shadow)
 function createUserLocationMarker(latlng) {
-  // Create just the main blue dot - no accuracy circle
   var userDot = L.circleMarker(latlng, {
     color: 'white',
     fillColor: '#4285f4',
@@ -159,11 +156,7 @@ Vehicle.Instance = function(o) {
 Vehicle.Instance.prototype = {
 	marker: {},
 	init: function() {
-		//console.log(this.getDir());
-		// Is this a new Flexity Streetcar? Numbered 4400-4604
-		this.isNewStreetcar = (parseInt(this.id) >= 4400 && parseInt(this.id) <= 4604) ? true : false;
 		this.createMarker();
-		//console.log(this.marker);
 	},
 	update: function(el) {
 		// Save current lat/lon
@@ -462,12 +455,12 @@ var Controls = (function() {
       // Store watch ID so we can clear it later if needed
       window.geolocationWatchId = navigator.geolocation.watchPosition(
         function(position) {
-          console.log('Geolocation update:', position.coords.latitude, position.coords.longitude);
+        //   console.log('Geolocation update:', position.coords.latitude, position.coords.longitude);
           currentLocation = L.latLng(position.coords.latitude, position.coords.longitude);
 
           // Create user location marker if it doesn't exist
           if (!window.userloc) {
-            console.log('Creating initial user location marker');
+            // console.log('Creating initial user location marker');
             window.userloc = createUserLocationMarker(currentLocation);
             window.userloc.addTo(window.map);
             
@@ -477,7 +470,7 @@ var Controls = (function() {
             }
           } else {
             // Update existing marker position
-            console.log('Updating user location marker position');
+            // console.log('Updating user location marker position');
             window.userloc.setLatLng(currentLocation);
           }
         },
