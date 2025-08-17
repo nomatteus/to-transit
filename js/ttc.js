@@ -31,7 +31,7 @@ function Label(opt_options) {
 function createLeafletLabel(options) {
   var label = L.divIcon({
     className: 'leaflet-vehicle-label',
-    html: '<span style="position: absolute; left: -18px; top: -38px; white-space: nowrap; color: #000000; padding: 0px 2px 0 3px; font-family: helvetica neue, arial; font-weight: bold; font-size: 8px; background-color: #FFFFFF; border: 1px solid black; border-radius: 5px 3px 3px 5px; text-shadow: none; line-height: 10px;">' + options.text + '</span>',
+    html: '<span style="position: absolute; left: -18px; top: -38px; white-space: nowrap; color: #000000; padding: 0px 2px 0 3px; font-family: helvetica neue, arial; font-weight: normal; font-size: 8px; background-color: #FFFFFF; border: 1px solid black; border-radius: 5px 3px 3px 5px; text-shadow: none; line-height: 10px;">' + options.text + '</span>',
     iconSize: [0, 0],
     iconAnchor: [0, 0]
   });
@@ -251,9 +251,14 @@ Vehicle.Instance.prototype = {
 		// Set consistent z-index for vehicle icon
 		this.marker.setZIndexOffset(100);
 
-		// Create/update label marker
-		var labelText = this.labelText;
-		if (this.dir != null) labelText += " " + this.dir;
+		// Create/update label marker with CSS classes
+		var labelText = '<span class="route-number">' + this.route + '</span>';
+		if (this.routeBranch != null) {
+			labelText += '<span class="route-branch">' + this.routeBranch + '</span>';
+		}
+		if (this.dir != null) {
+			labelText += ' <span class="route-direction">' + this.dir + '</span>';
+		}
 
 		if (this.labelMarker) {
 			window.map.removeLayer(this.labelMarker);

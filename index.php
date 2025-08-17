@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 <title>TOTransit - View TTC Streetcars and Buses Live on a Map</title>
 <meta name="description" content="See when the next streetcars are coming, and watch them move on a map in real-time. Desktop and mobile friendly!"/>
 <meta property="og:title" content="TOTransit - View TTC Streetcars Live on a Map"/>

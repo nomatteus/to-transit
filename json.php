@@ -99,6 +99,16 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
       break;
   }
 
+  // Extract route branch (single letter after route number)
+  $routeBranch = null;
+  if ($routeSub && stripos($routeSub, $vehicle_route->tag) === 0) {
+    $remainingText = substr($routeSub, strlen($vehicle_route->tag));
+    // Check if it's exactly one alphabetic character (route branch)
+    if (strlen($remainingText) === 1 && ctype_alpha($remainingText)) {
+      $routeBranch = strtoupper($remainingText);
+    }
+  }
+
   if (stripos($routeSub, $vehicle_route->tag) === 0) {
     // Route sub has vehicle route in it at beginning, so show it
     $labelText = $routeSub;
@@ -115,6 +125,8 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     'lng'     			    => (string) $vehicle['lon'],
     'dirTag'            => $dirTag,
     'routeSub' 			    => $routeSub,
+    // Route branch, if it exists. e.g. for route 52B, branch is "B".
+    'routeBranch'       => $routeBranch,
     'dir'     			    => $direction,
     'labelText'         => $labelText,
     'heading' 			    => (string) $vehicle['heading'],
