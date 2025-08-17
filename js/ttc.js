@@ -385,35 +385,10 @@ var Controls = (function() {
 			});
 		},
 		updateVehicles: function() {
-			//console.log(Route.Items);
 			_.each(Route.Items, function(element, index, list){
-				//console.log(element);
 				// Call the Route.Instance updateVehicles method -- this will update all vehicles for route
-				// console.log(element);
 				element.updateVehicles();
 			});
-
-			// Update user's location on the map
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(
-					function(position) {
-						currentLocation = L.latLng(position.coords.latitude, position.coords.longitude);
-						// Update user location marker if it exists
-						if (window.userloc) {
-							window.userloc.setLatLng(currentLocation);
-						}
-					},
-					function(error) {
-						// Silently fail on periodic updates
-						console.log('Geolocation update failed:', error.message);
-					},
-					{
-						enableHighAccuracy: false,
-						timeout: 5000,
-						maximumAge: 300000
-					}
-				);
-			}
 		},
 		closeInfoWindows: function() {
 			// Close all open popups on the map
@@ -470,25 +445,30 @@ var Controls = (function() {
 	 // Initialize user location marker as null (will be created when location is found)
 	 window.userloc = null;
 
-    // W3 Geolocation (HTML5)
+    // W3 Geolocation (HTML5) - Use watchPosition for continuous tracking
 	 if (navigator.geolocation) {
-      console.log('Requesting geolocation...');
-      navigator.geolocation.getCurrentPosition(
+      console.log('Starting geolocation watch...');
+      
+      // Store watch ID so we can clear it later if needed
+      window.geolocationWatchId = navigator.geolocation.watchPosition(
         function(position) {
-          console.log('Geolocation success:', position.coords.latitude, position.coords.longitude);
+          console.log('Geolocation update:', position.coords.latitude, position.coords.longitude);
           currentLocation = L.latLng(position.coords.latitude, position.coords.longitude);
 
           // Create user location marker if it doesn't exist
           if (!window.userloc) {
+            console.log('Creating initial user location marker');
             window.userloc = createUserLocationMarker(currentLocation);
             window.userloc.addTo(window.map);
+            
+            // Only auto-center map on first location, not updates
+            if (torontoBounds.contains(currentLocation)) {
+              window.map.setView(currentLocation, 14);
+            }
           } else {
             // Update existing marker position
+            console.log('Updating user location marker position');
             window.userloc.setLatLng(currentLocation);
-          }
-
-          if (torontoBounds.contains(currentLocation)) {
-            window.map.setView(currentLocation, 14);
           }
         },
         function(error) {
@@ -510,8 +490,8 @@ var Controls = (function() {
         },
         {
           enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 300000
+          timeout: 15000,
+          maximumAge: 30000  // Allow 30 seconds cached position
         }
       );
     } else {
