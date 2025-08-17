@@ -419,11 +419,16 @@ var Controls = (function() {
     window.map = L.map('map_canvas', {
       center: [43.656967, -79.399651],
       zoom: 14,
-      zoomControl: false,
+      zoomControl: false,  // Disable default zoom control
       attributionControl: false,
 	  minZoom: 10,
 	  maxZoom: 20
     });
+    
+    // Add custom zoom control to bottom left
+    L.control.zoom({
+      position: 'bottomleft'
+    }).addTo(window.map);
 
 	// Add Stadia.OSMBright tile layer (no API key needed)
 	// Also consider adding as an option: Stadia.StamenTonerLite
