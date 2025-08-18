@@ -264,8 +264,11 @@ Vehicle.Instance.prototype = {
 
 		this.marker.setIcon(L.icon({
 			iconUrl: iconUrl,
-			iconSize: [42, 43],
-			iconAnchor: [21, 43]  // Bottom center anchor
+			iconSize: [30, 36],
+			iconAnchor: [14, 33],  // Bottom center anchor
+			shadowUrl: window.markerShadow,
+			shadowSize: [30, 36],
+			shadowAnchor: [14, 33]  // Shadow anchor point
 		}));
 
 		// Set consistent z-index for vehicle icon
@@ -295,8 +298,11 @@ Vehicle.Instance.prototype = {
 		this.marker = L.marker([this.lat, this.lng], {
 			icon: L.icon({
 				iconUrl: window.markerImageStreetcarDefault,
-				iconSize: [42, 43],
-				iconAnchor: [21, 43]  // Bottom center anchor
+				iconSize: [21, 22],
+				iconAnchor: [11, 22],  // Bottom center anchor
+				shadowUrl: window.markerShadow,
+				shadowSize: [21, 21],
+				shadowAnchor: [7, 21]  // Shadow anchor point
 			}),
 			zIndexOffset: 100  // Consistent z-index for all vehicle icons
 		});
@@ -565,17 +571,20 @@ var Controls = (function() {
     } else {
       console.warn('Geolocation not supported by browser');
     }
+    // High-res marker images with shadow (@2x)
+    window.markerShadow = 'marker-images/shadow@2x.png';
+    
     // Buses
-    window.markerImageBusDefault = 'marker-images/bus-default.png';
+    window.markerImageBusDefault = 'marker-images/bus-default@2x.png';
 
     // Buses Grey - For possibly out of service/unknown status
-    window.markerImageBusGrey = 'marker-images/bus-grey.png';
+    window.markerImageBusGrey = 'marker-images/bus-grey@2x.png';
 
     // Streetcar Grey - For possibly out of service/unknown status
-    window.markerImageStreetcarGrey = 'marker-images/streetcar-grey.png';
+    window.markerImageStreetcarGrey = 'marker-images/streetcar-grey@2x.png';
 
     // Streetcar marker image
-    window.markerImageStreetcar = 'marker-images/streetcar-default.png';
+    window.markerImageStreetcar = 'marker-images/streetcar-default@2x.png';
     window.markerImageStreetcarDefault = markerImageStreetcar;
 
 	// Init
