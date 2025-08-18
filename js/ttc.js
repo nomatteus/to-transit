@@ -52,6 +52,33 @@ function createUserLocationMarker(latlng) {
   return userDot;
 }
 
+// Animate user location marker to new position
+function animateUserLocationTo(marker, targetLatLng, duration) {
+  var startLatLng = marker.getLatLng();
+  var startTime = Date.now();
+  
+  var animate = function() {
+    var elapsed = Date.now() - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    
+    // Easing function for smooth animation (ease-out)
+    progress = 1 - Math.pow(1 - progress, 3);
+    
+    // Interpolate between start and target positions
+    var lat = startLatLng.lat + (targetLatLng.lat - startLatLng.lat) * progress;
+    var lng = startLatLng.lng + (targetLatLng.lng - startLatLng.lng) * progress;
+    
+    marker.setLatLng([lat, lng]);
+    
+    // Continue animation if not finished
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    }
+  };
+  
+  requestAnimationFrame(animate);
+}
+
 var Route = {};
 
 Route.List = _.sortBy(data.routes, function(route){
@@ -469,9 +496,14 @@ var Controls = (function() {
               window.map.setView(currentLocation, 14);
             }
           } else {
-            // Update existing marker position
-            // console.log('Updating user location marker position');
-            window.userloc.setLatLng(currentLocation);
+            // Animate existing marker to new position
+            var oldLocation = window.userloc.getLatLng();
+            var distance = oldLocation.distanceTo(currentLocation);
+            
+            // Only animate if moved more than 5 meters (avoid micro-movements)
+            if (distance > 5) {
+              animateUserLocationTo(window.userloc, currentLocation, 1000);
+            }
           }
         },
         function(error) {
