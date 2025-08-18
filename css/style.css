@@ -334,6 +334,34 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
   filter: drop-shadow(0 2px 8px rgba(66, 133, 244, 0.4));
 }
 
+/* Locate me button styling */
+.leaflet-touch .leaflet-bar .leaflet-control-locate,
+.leaflet-control-locate {
+  background-color: #fff;
+  /* border: 1px solid rgba(0,0,0,0.2); */
+  background-clip: padding-box;
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 25px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+}
+
+.leaflet-touch .leaflet-bar .leaflet-control-locate:hover,
+.leaflet-control-locate:hover {
+  background-color: #f4f4f4;
+  color: black;
+}
+
+.leaflet-touch .leaflet-bar .leaflet-control-locate:focus,
+.leaflet-control-locate:focus {
+  outline: 2px solid #0078ff;
+}
+
 
 /* Info Window Styles (Leaflet Popups) */
 .leaflet-popup-content-wrapper {

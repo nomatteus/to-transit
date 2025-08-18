@@ -454,6 +454,39 @@ var Controls = (function() {
     L.control.zoom({
       position: 'bottomleft'
     }).addTo(window.map);
+    
+    // Add locate me button
+    var LocateControl = L.Control.extend({
+      options: {
+        position: 'bottomleft'
+      },
+      onAdd: function (map) {
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+        var button = L.DomUtil.create('a', 'leaflet-control-locate', container);
+        button.innerHTML = '⌖';
+        button.href = '#';
+        button.title = 'Show my location';
+        
+        L.DomEvent.on(button, 'click', function(e) {
+          e.preventDefault();
+          if (window.userloc && currentLocation) {
+            window.map.setView(currentLocation, 16);
+          } else {
+            // No location available, request it
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var newLocation = L.latLng(position.coords.latitude, position.coords.longitude);
+                window.map.setView(newLocation, 16);
+              });
+            }
+          }
+        });
+        
+        return container;
+      }
+    });
+    
+    new LocateControl().addTo(window.map);
 
 	// Add Stadia.OSMBright tile layer (no API key needed)
 	// Also consider adding as an option: Stadia.StamenTonerLite
