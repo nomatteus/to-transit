@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=9">
 <title>TOTransit - View TTC Streetcars and Buses Live on a Map</title>
 <meta name="description" content="See when the next streetcars are coming, and watch them move on a map in real-time. Desktop and mobile friendly!"/>
 <meta property="og:title" content="TOTransit - View TTC Streetcars Live on a Map"/>
@@ -36,7 +36,14 @@
       // Load PMTiles library
       var pmtilesScript = document.createElement("script");
       pmtilesScript.src = "https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js";
-      pmtilesScript.onload = init;
+      pmtilesScript.onload = function() {
+        // Load Protomaps basemaps library
+        var protomapsScript = document.createElement("script");
+        protomapsScript.src = "https://unpkg.com/@protomaps/basemaps@5/dist/basemaps.js";
+        protomapsScript.crossOrigin = "anonymous";
+        protomapsScript.onload = init;
+        document.body.appendChild(protomapsScript);
+      };
       document.body.appendChild(pmtilesScript);
     };
     document.body.appendChild(maplibreScript);
@@ -88,6 +95,6 @@
   <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script>
 
   <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
-  <script type="text/javascript" src="js/ttc.js?v=10"></script>
+  <script type="text/javascript" src="js/ttc.js?v=11"></script>
 </body>
 </html>

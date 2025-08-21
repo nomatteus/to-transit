@@ -27,15 +27,13 @@ function Label(opt_options) {
      div.style.cssText = 'position: absolute; display: none';
 };
 
-// Leaflet label implementation - converted from Google Maps overlay
-function createLeafletLabel(options) {
-  var label = L.divIcon({
-    className: 'leaflet-vehicle-label',
-    html: '<span style="position: absolute; left: -18px; top: -38px; white-space: nowrap; color: #000000; padding: 0px 2px 0 3px; font-family: helvetica neue, arial; font-weight: normal; font-size: 8px; background-color: #FFFFFF; border: 1px solid black; border-radius: 5px 3px 3px 5px; text-shadow: none; line-height: 10px;">' + options.text + '</span>',
-    iconSize: [0, 0],
-    iconAnchor: [0, 0]
-  });
-  return label;
+// MapLibre GL label implementation
+function createMapLibreLabel(options) {
+  var labelElement = document.createElement('div');
+  labelElement.className = 'maplibre-vehicle-label';
+  labelElement.style.cssText = 'white-space: nowrap; color: #000000; padding: 0px 2px 0 3px; font-family: helvetica neue, arial; font-weight: normal; font-size: 8px; background-color: #FFFFFF; border: 1px solid black; border-radius: 5px 3px 3px 5px; text-shadow: none; line-height: 10px; pointer-events: none;';
+  labelElement.innerHTML = options.text;
+  return labelElement;
 }
 
 // Create a user location marker (blue dot with white border and shadow)
@@ -208,23 +206,27 @@ Vehicle.Instance.prototype = {
 	},
 	hideMarker: function() {
 		if (this.labelMarker) {
-			window.map.removeLayer(this.labelMarker);
+			this.labelMarker.remove();
 		}
-		window.map.removeLayer(this.marker);
+		if (this.marker) {
+			this.marker.remove();
+		}
 	},
 	showMarker: function() {
 		// Add marker to map if not already added
-		if (!window.map.hasLayer(this.marker)) {
+		if (this.marker) {
 			this.marker.addTo(window.map);
 		}
-		if (this.labelMarker && !window.map.hasLayer(this.labelMarker)) {
+		if (this.labelMarker) {
 			this.labelMarker.addTo(window.map);
 		}
 	},
 	updateMarkerPosition: function() {
-		this.marker.setLatLng([this.lat, this.lng]);
+		if (this.marker) {
+			this.marker.setLngLat([this.lng, this.lat]); // Note: MapLibre uses [lng, lat]
+		}
 		if (this.labelMarker) {
-			this.labelMarker.setLatLng([this.lat, this.lng]);
+			this.labelMarker.setLngLat([this.lng, this.lat]);
 		}
 	},
 	updateMarkerInfoWindow: function() {
@@ -236,25 +238,19 @@ Vehicle.Instance.prototype = {
 			'<div class="headingId">Heading: ' + this.heading + '\u00B0</div>' +
 			'<div class="speed">Speed: ' + this.speed + ' km/h</div>' +
 			'<div class="headingId">Reported: ' + this.secsSinceReport + ' sec ago</div>' +
-			//'<div class="dir-tag">Direction Tag: ' + this.dirTag + '</div>' +
 			'</div>';
 
-		// Check if popup is currently open for this marker
-		var isPopupOpen = this.marker.isPopupOpen();
-
-		// Bind popup to marker with offset to align with top of icon
-		this.marker.bindPopup(contentString, {
-			offset: [0, -43] // Negative Y offset to position popup at top of icon
-		});
-
-		// If popup was open, update its content immediately
-		if (isPopupOpen) {
-			this.marker.openPopup();
+		// Store popup content for MapLibre GL
+		this.popupContent = contentString;
+		
+		// If popup exists and is open, update its content
+		if (this.popup && this.popup.isOpen()) {
+			this.popup.setHTML(contentString);
 		}
 	},
 	updateMarkerIcon: function() {
 		// Use "new" marker image for all streetcars. Use grey versions for vehicles that are likely out of service.
-		var markerImage = (this.type.toLowerCase ().startsWith ("streetcar")) ?
+		var markerImage = (this.type.toLowerCase().startsWith("streetcar")) ?
 			(this.dirTag == null ? window.markerImageStreetcarGrey : window.markerImageStreetcar) :
 			(this.dirTag == null ? window.markerImageBusGrey : window.markerImageBusDefault);
 
@@ -262,19 +258,17 @@ Vehicle.Instance.prototype = {
 		var iconUrl = (this.type == "streetcar") ?
 			window.markerImageStreetcar : markerImage;
 
-		this.marker.setIcon(L.icon({
-			iconUrl: iconUrl,
-			iconSize: [30, 36],
-			iconAnchor: [14, 33],  // Bottom center anchor
-			shadowUrl: window.markerShadow,
-			shadowSize: [30, 36],
-			shadowAnchor: [14, 33]  // Shadow anchor point
-		}));
+		// Create vehicle icon element
+		if (this.marker && this.marker.getElement()) {
+			var iconElement = this.marker.getElement();
+			iconElement.style.backgroundImage = 'url(' + iconUrl + ')';
+			iconElement.style.width = '30px';
+			iconElement.style.height = '36px';
+			iconElement.style.backgroundSize = 'contain';
+			iconElement.style.backgroundRepeat = 'no-repeat';
+		}
 
-		// Set consistent z-index for vehicle icon
-		this.marker.setZIndexOffset(100);
-
-		// Create/update label marker with CSS classes
+		// Create/update label marker
 		var labelText = '<span class="route-number">' + this.route + '</span>';
 		if (this.routeBranch != null) {
 			labelText += '<span class="route-branch">' + this.routeBranch + '</span>';
@@ -284,30 +278,33 @@ Vehicle.Instance.prototype = {
 		}
 
 		if (this.labelMarker) {
-			window.map.removeLayer(this.labelMarker);
+			this.labelMarker.remove();
 		}
 
-		this.labelMarker = L.marker([this.lat, this.lng], {
-			icon: createLeafletLabel({text: labelText}),
-			zIndexOffset: 200  // Always above vehicle icons (which are at 100)
-		});
+		var labelElement = createMapLibreLabel({text: labelText});
+		this.labelMarker = new maplibregl.Marker({
+			element: labelElement,
+			anchor: 'bottom-left',
+			offset: [-20, -30] // Move left 5px and up 35px to position at top-left of vehicle
+		}).setLngLat([this.lng, this.lat]);
 	},
 	createMarker: function() {
-		//console.log(this.dir);
-		// Create marker object
-		this.marker = L.marker([this.lat, this.lng], {
-			icon: L.icon({
-				iconUrl: window.markerImageStreetcarDefault,
-				iconSize: [21, 22],
-				iconAnchor: [11, 22],  // Bottom center anchor
-				shadowUrl: window.markerShadow,
-				shadowSize: [21, 21],
-				shadowAnchor: [7, 21]  // Shadow anchor point
-			}),
-			zIndexOffset: 100  // Consistent z-index for all vehicle icons
-		});
+		// Create vehicle icon element
+		var iconElement = document.createElement('div');
+		iconElement.className = 'maplibre-vehicle-marker';
+		iconElement.style.cssText = 'width: 30px; height: 36px; background-size: contain; background-repeat: no-repeat; cursor: pointer;';
+		iconElement.style.backgroundImage = 'url(' + window.markerImageStreetcarDefault + ')';
+
+		// Create MapLibre GL marker with custom element (this removes the default marker)
+		this.marker = new maplibregl.Marker({
+			element: iconElement,
+			anchor: 'bottom'  // Anchor at bottom like the original Leaflet markers
+		}).setLngLat([this.lng, this.lat]);
+
 		this.labelMarker = null; // Will hold the label marker
-		// set the marker icon
+		this.popup = null; // Will hold the popup
+
+		// Set the marker icon and create popup
 		this.updateMarkerIcon();
 		this.updateMarkerPosition();
 		this.updateMarkerInfoWindow();
@@ -315,14 +312,46 @@ Vehicle.Instance.prototype = {
 		this.addEventListeners();
 	},
 	addEventListeners: function() {
-		/* Move event listeners from updateMarker method, so we don't add a new listener each time marker is updated. */
 		var that = this;
-		this.marker.on('click', function() {
-			// Close any existing info windows first
-			Controls.closeInfoWindows();
-			// Then display the current one!
-  			that.marker.openPopup();
-		});
+		
+		// Wait for marker to be added to map, then add click listener
+		var addClickListener = function() {
+			var element = that.marker.getElement();
+			if (element) {
+				element.addEventListener('click', function(e) {
+					e.stopPropagation(); // Prevent map click
+					
+					// Close any existing popups first
+					Controls.closeInfoWindows();
+					
+					// Create and show popup
+					if (!that.popup) {
+						that.popup = new maplibregl.Popup({
+							anchor: 'bottom',
+							offset: [0, -42], // Offset to position above marker
+							closeButton: true,
+							closeOnClick: true,
+							focusAfterOpen: false,
+							subpixelPositioning: true,
+							className: "streetcar-details-popup"
+						});
+					}
+					
+					that.popup
+						.setLngLat([that.lng, that.lat])
+						.setHTML(that.popupContent)
+						.addTo(window.map);
+				});
+			}
+		};
+		
+		// Add listener immediately if element exists, otherwise wait
+		if (this.marker.getElement()) {
+			addClickListener();
+		} else {
+			// Wait for next tick
+			setTimeout(addClickListener, 0);
+		}
 	},
 	getId: function() {return this.id;},
 	getLat: function() {return this.lat;},
@@ -423,17 +452,15 @@ var Controls = (function() {
 		},
 		closeInfoWindows: function() {
 			// Close all open popups on the map
-			window.map.closePopup();
+			var popups = document.getElementsByClassName('maplibregl-popup');
+			for (var i = 0; i < popups.length; i++) {
+				popups[i].remove();
+			}
 		},
 		startAutoUpdate: function() {
 			var that = this;
 			// Set interval to auto-update every 8 seconds
 			window.interval = window.setInterval(function(){that.updateVehicles();}, 1000*8);
-			// Clear interval after 15 minutes to avoid people leaving window open and refreshing from server for hours
-			/*window.setTimeout(function(){
-				clearInterval(window.interval);
-				alert("This page has been open for 15 minutes, auto-update is now turned off.\nPlease reload to activate auto-update, or hit the update button to manually update.");
-			}, 1000*60*15);*/
 		}
 	}
 })();
@@ -449,58 +476,56 @@ var Controls = (function() {
     let protocol = new pmtiles.Protocol();
     maplibregl.addProtocol("pmtiles", protocol.tile);
 
-    // Initialize MapLibre GL map with PMTiles vector style
+    // Initialize MapLibre GL map with basic style first to debug
     window.map = new maplibregl.Map({
       container: 'map_canvas',
       style: {
         version: 8,
+		// TODO: self-host these? 
+		glyphs:'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf',
+		sprite: "https://protomaps.github.io/basemaps-assets/sprites/v4/light",	
         sources: {
           "toronto": {
             type: "vector",
-            url: "pmtiles://osm-2020-02-10-v3.11_canada_toronto.pmtiles"
+            // url: "pmtiles://osm-2020-02-10-v3.11_canada_toronto.pmtiles"
+			url: "pmtiles://toronto-vector.pmtiles"
           }
         },
-        layers: [
-          {
-            id: "background",
-            type: "background",
-            paint: {
-              "background-color": "#f8f8f8"
-            }
-          },
-          {
-            id: "water",
-            type: "fill",
-            source: "toronto",
-            "source-layer": "water",
-            paint: {
-              "fill-color": "#a8d5f2"
-            }
-          },
-          {
-            id: "roads",
-            type: "line",
-            source: "toronto",
-            "source-layer": "transportation",
-            paint: {
-              "line-color": "#ffffff",
-              "line-width": 2
-            }
-          },
-          {
-            id: "buildings",
-            type: "fill",
-            source: "toronto",
-            "source-layer": "building",
-            paint: {
-              "fill-color": "#e0e0e0"
-            }
-          }
-        ]
+		// TODO: Will either switch to OSM Bright and relevant schema in pmtiles, or modify this style. 
+		layers: basemaps.layers("toronto", basemaps.namedFlavor("light"), { lang: "en" })
+        // layers: [
+        //   {
+        //     id: "background",
+        //     type: "background",
+        //     paint: {
+        //       "background-color": "#f8f8f8"
+        //     }
+        //   },
+        //   {
+        //     id: "water",
+        //     type: "fill",
+        //     source: "toronto",
+        //     "source-layer": "water",
+        //     paint: {
+        //       "fill-color": "#a5bfdd"
+        //     }
+        //   },
+        //   {
+        //     id: "roads",
+        //     type: "line",
+        //     source: "toronto",
+        //     "source-layer": "transportation",
+        //     paint: {
+        //       "line-color": "#ffffff",
+        //       "line-width": 2
+        //     }
+        //   }
+        // ]
       },
       center: [-79.399651, 43.656967], // Note: MapLibre uses [lng, lat] format
-      zoom: 14
+      zoom: 11
     });
+
     
     // Add navigation controls (zoom buttons)
     window.map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
@@ -540,75 +565,6 @@ var Controls = (function() {
     new LocateControl().addTo(window.map);
     */
 	
-    // Commented out for MapLibre GL migration - will re-implement later
-    /*
-    var currentLocation,
-    // Bounds rect defined by SW and NE points
-    torontoBounds = L.latLngBounds(
-      L.latLng(43.564, -79.561), // SW
-      L.latLng(43.930, -79.095)  // NE
-    );
-
-	 // Initialize user location marker as null (will be created when location is found)
-	 window.userloc = null;
-
-    // W3 Geolocation (HTML5) - Use watchPosition for continuous tracking
-	 if (navigator.geolocation) {
-      console.log('Starting geolocation watch...');
-      
-      // Store watch ID so we can clear it later if needed
-      window.geolocationWatchId = navigator.geolocation.watchPosition(
-        function(position) {
-        //   console.log('Geolocation update:', position.coords.latitude, position.coords.longitude);
-          currentLocation = L.latLng(position.coords.latitude, position.coords.longitude);
-
-          // Create user location marker if it doesn't exist
-          if (!window.userloc) {
-            // console.log('Creating initial user location marker');
-            window.userloc = createUserLocationMarker(currentLocation);
-            window.userloc.addTo(window.map);
-            
-            // Only auto-center map on first location, not updates
-            if (torontoBounds.contains(currentLocation)) {
-              window.map.setView(currentLocation, 14);
-            }
-          } else {
-            // Animate existing marker to new position
-            var oldLocation = window.userloc.getLatLng();
-            var distance = oldLocation.distanceTo(currentLocation);
-            
-            // Only animate if moved more than 5 meters (avoid micro-movements)
-            if (distance > 5) {
-              animateUserLocationTo(window.userloc, currentLocation, 1000);
-            }
-          }
-        },
-        function(error) {
-          console.error('Geolocation error:', error);
-          switch(error.code) {
-            case error.PERMISSION_DENIED:
-              console.warn("User denied geolocation request");
-              break;
-            case error.POSITION_UNAVAILABLE:
-              console.warn("Location information unavailable");
-              break;
-            case error.TIMEOUT:
-              console.warn("Geolocation request timeout");
-              break;
-            default:
-              console.warn("Unknown geolocation error");
-              break;
-          }
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 15000,
-          maximumAge: 30000  // Allow 30 seconds cached position
-        }
-      );
-    } else {
-      console.warn('Geolocation not supported by browser');
-    }
     // High-res marker images with shadow (@2x)
     window.markerShadow = 'marker-images/shadow@2x.png';
     
@@ -623,13 +579,11 @@ var Controls = (function() {
 
     // Streetcar marker image
     window.markerImageStreetcar = 'marker-images/streetcar-default@2x.png';
-    window.markerImageStreetcarDefault = markerImageStreetcar;
+    window.markerImageStreetcarDefault = window.markerImageStreetcar;
 
-	// Init
+	// Init routes and controls
 	Route.Handler.init();
-	//Vehicle.Handler.init();
 	Controls.init();
-	*/
 
 }
 

@@ -412,6 +412,30 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 }/*/mediaquery*/
 
 
+/* MapLibre GL Popup Styles */
+.streetcar-details-popup .maplibregl-popup-content {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+  padding: 15px 18px !important;
+}
+
+.streetcar-details-popup .maplibregl-popup-tip {
+  border-top-color: #fff !important;
+}
+
+.streetcar-details-popup .maplibregl-popup-close-button {
+  font-size: 14px;
+
+  /* Increase tap target */
+  padding-left: 8px;
+  padding-bottom: 8px;
+}
+
+.streetcar-details-popup .maplibregl-popup-close-button:hover {
+  background: none;
+  color: #666;
+}
+
 /* iPhone 4, Opera Mobile 11 and other high pixel ratio devices ----------- */
 @media
 only screen and (-webkit-min-device-pixel-ratio: 1.5),
