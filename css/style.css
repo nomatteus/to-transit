@@ -309,13 +309,6 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 /* Map Styling */
 
-
-/* Vehicle label styling */
-.leaflet-vehicle-label {
-  border: none !important;
-  background: transparent !important;
-}
-
 /* Route label text styling */
 .route-number {
   font-weight: bold;
@@ -329,60 +322,41 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
   font-weight: normal;
 }
 
-/* User location marker shadow */
-.user-location-shadow {
-  filter: drop-shadow(0 2px 8px rgba(66, 133, 244, 0.4));
-}
-
 /* Move bottom-left controls up 15px */
 .leaflet-bottom.leaflet-left {
   bottom: 25px;
 }
 
-/* Locate me button styling */
-.leaflet-touch .leaflet-bar .leaflet-control-locate,
-.leaflet-control-locate {
-  background-color: #fff;
-  /* border: 1px solid rgba(0,0,0,0.2); */
-  background-clip: padding-box;
-  color: black;
-  font-size: 20px;
-  text-decoration: none;
-  text-align: center;
-  line-height: 25px;
-  display: block;
-  width: 30px;
-  height: 30px;
-  font-weight: bold;
-}
-
-.leaflet-touch .leaflet-bar .leaflet-control-locate:hover,
-.leaflet-control-locate:hover {
-  background-color: #f4f4f4;
-  color: black;
-}
-
-.leaflet-touch .leaflet-bar .leaflet-control-locate:focus,
-.leaflet-control-locate:focus {
-  outline: 2px solid #0078ff;
-}
-
-
-/* Info Window Styles (Leaflet Popups) */
-.leaflet-popup-content-wrapper {
-  border-radius: 8px;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.15);
-}
-
+/* Info Window Styles */
 .info-window {}
 .info-window h1 {font-size:14px;font-weight:bold;margin:0 0 5px;color:#333;}
 .info-window div {font-size:10px;line-height:16px;color:#666;}
 .info-window a {color:black;font-size:10px;line-height:16px;}
 .info-window .reveal {display:none;}
 
+/* MapLibre GL Popup Styles */
+.streetcar-details-popup .maplibregl-popup-content {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
+  padding: 15px 18px !important;
+}
 
+.streetcar-details-popup .maplibregl-popup-tip {
+  border-top-color: #fff !important;
+}
 
+.streetcar-details-popup .maplibregl-popup-close-button {
+  font-size: 14px;
 
+  /* Increase tap target */
+  padding-left: 8px;
+  padding-bottom: 8px;
+}
+
+.streetcar-details-popup .maplibregl-popup-close-button:hover {
+  background: none;
+  color: #666;
+}
 
 /*
  * Media queries for responsive design https://github.com/shichuan/mobile-html5-boilerplate/wiki/The-Style
@@ -411,30 +385,6 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
 
 }/*/mediaquery*/
 
-
-/* MapLibre GL Popup Styles */
-.streetcar-details-popup .maplibregl-popup-content {
-  border-radius: 12px !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
-  padding: 15px 18px !important;
-}
-
-.streetcar-details-popup .maplibregl-popup-tip {
-  border-top-color: #fff !important;
-}
-
-.streetcar-details-popup .maplibregl-popup-close-button {
-  font-size: 14px;
-
-  /* Increase tap target */
-  padding-left: 8px;
-  padding-bottom: 8px;
-}
-
-.streetcar-details-popup .maplibregl-popup-close-button:hover {
-  background: none;
-  color: #666;
-}
 
 /* iPhone 4, Opera Mobile 11 and other high pixel ratio devices ----------- */
 @media

@@ -4,29 +4,6 @@
  */
 function init() {
 
-
-/*
- *	See: http://www.tdmarketing.co.nz/blog/2011/03/09/create-marker-with-custom-labels-in-google-maps-api-v3/
- *		and http://blog.mridey.com/2009/09/label-overlay-example-for-google-maps.html
-*/
-function Label(opt_options) {
-     // Initialization
-     this.setValues(opt_options);
-
-     // Here go the label styles
-     var span = this.span_ = document.createElement('span');
-     span.style.cssText = 'position: absolute; left: -18px; top: -38px; ' +
-                          'white-space: nowrap;color:#000000;' +
-                          'padding: 0px 2px 0 3px;font-family: helvetica neue, arial; font-weight: bold;' +
-                          'font-size: 8px;background-color: #FFFFFF;border: 1px solid black;' +
-                          'border-radius: 5px 3px 3px 5px;text-shadow: none;line-height:10px;';
-
-
-     var div = this.div_ = document.createElement('div');
-     div.appendChild(span);
-     div.style.cssText = 'position: absolute; display: none';
-};
-
 // MapLibre GL label implementation
 function createMapLibreLabel(options) {
   var labelElement = document.createElement('div');
@@ -34,47 +11,6 @@ function createMapLibreLabel(options) {
   labelElement.style.cssText = 'white-space: nowrap; color: #000000; padding: 0px 2px 0 3px; font-family: helvetica neue, arial; font-weight: normal; font-size: 8px; background-color: #FFFFFF; border: 1px solid black; border-radius: 5px 3px 3px 5px; text-shadow: none; line-height: 10px; pointer-events: none;';
   labelElement.innerHTML = options.text;
   return labelElement;
-}
-
-// Create a user location marker (blue dot with white border and shadow)
-function createUserLocationMarker(latlng) {
-  var userDot = L.circleMarker(latlng, {
-    color: 'white',
-    fillColor: '#4285f4',
-    fillOpacity: 1,
-    weight: 3,
-    radius: 8,
-    className: 'user-location-shadow'
-  });
-
-  return userDot;
-}
-
-// Animate user location marker to new position
-function animateUserLocationTo(marker, targetLatLng, duration) {
-  var startLatLng = marker.getLatLng();
-  var startTime = Date.now();
-  
-  var animate = function() {
-    var elapsed = Date.now() - startTime;
-    var progress = Math.min(elapsed / duration, 1);
-    
-    // Easing function for smooth animation (ease-out)
-    progress = 1 - Math.pow(1 - progress, 3);
-    
-    // Interpolate between start and target positions
-    var lat = startLatLng.lat + (targetLatLng.lat - startLatLng.lat) * progress;
-    var lng = startLatLng.lng + (targetLatLng.lng - startLatLng.lng) * progress;
-    
-    marker.setLatLng([lat, lng]);
-    
-    // Continue animation if not finished
-    if (progress < 1) {
-      requestAnimationFrame(animate);
-    }
-  };
-  
-  requestAnimationFrame(animate);
 }
 
 var Route = {};
@@ -466,13 +402,6 @@ var Controls = (function() {
 	}
 })();
 
-
-	//Route.Handler.init();
-
-	// init map w/ default location/zoom level/etc. (or with geolocation or with prev. saved default)
-
-	// init routes and display on map
-
 	// Add PMTiles protocol
     let protocol = new pmtiles.Protocol();
     maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -492,7 +421,7 @@ var Controls = (function() {
       maxZoom: 20
     });
 
-    
+
     // Add navigation controls (zoom buttons)
     window.map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
     
@@ -519,41 +448,6 @@ var Controls = (function() {
     window.map.on('load', function() {
         geolocate.trigger();
     });
-    
-    // Add locate me button (commented out for now)
-    /*
-    var LocateControl = L.Control.extend({
-      options: {
-        position: 'bottomleft'
-      },
-      onAdd: function (map) {
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
-        var button = L.DomUtil.create('a', 'leaflet-control-locate', container);
-        button.innerHTML = '⌖';
-        button.href = '#';
-        button.title = 'Show my location';
-        
-        L.DomEvent.on(button, 'click', function(e) {
-          e.preventDefault();
-          if (window.userloc && currentLocation) {
-            window.map.setView(currentLocation, 16);
-          } else {
-            // No location available, request it
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                var newLocation = L.latLng(position.coords.latitude, position.coords.longitude);
-                window.map.setView(newLocation, 16);
-              });
-            }
-          }
-        });
-        
-        return container;
-      }
-    });
-    
-    new LocateControl().addTo(window.map);
-    */
 	
     // High-res marker images with shadow (@2x)
     window.markerShadow = 'marker-images/shadow@2x.png';
@@ -574,8 +468,6 @@ var Controls = (function() {
 	// Init routes and controls
 	Route.Handler.init();
 	Controls.init();
-
-
 }
 
 
