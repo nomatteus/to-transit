@@ -488,7 +488,7 @@ var Controls = (function() {
           "toronto": {
             type: "vector",
             // url: "pmtiles://osm-2020-02-10-v3.11_canada_toronto.pmtiles"
-			url: "pmtiles://toronto-vector.pmtiles",
+			url: "pmtiles://toronto.pmtiles",
             attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
           }
         },
@@ -524,6 +524,11 @@ var Controls = (function() {
         // ]
       },
       center: [-79.399651, 43.656967], // Note: MapLibre uses [lng, lat] format
+	  // Restrict map area to Toronto area (we only have tiles for this area, so avoids showing grey unrendered areas of the map)
+	  maxBounds: [
+		[-80.155188,43.190949],
+		[-78.667731,44.115390]
+	  ],
       zoom: 14,
       minZoom: 10,
       maxZoom: 20
