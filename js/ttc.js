@@ -445,23 +445,68 @@ var Controls = (function() {
 
 	// init routes and display on map
 
+	// Add PMTiles protocol
+    let protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
 
-	// Initialize Leaflet map with Stadia Maps
-    window.map = L.map('map_canvas', {
-      center: [43.656967, -79.399651],
-      zoom: 14,
-      zoomControl: false,  // Disable default zoom control
-      attributionControl: false,
-	  minZoom: 10,
-	  maxZoom: 20
+    // Initialize MapLibre GL map with PMTiles vector style
+    window.map = new maplibregl.Map({
+      container: 'map_canvas',
+      style: {
+        version: 8,
+        sources: {
+          "toronto": {
+            type: "vector",
+            url: "pmtiles://osm-2020-02-10-v3.11_canada_toronto.pmtiles"
+          }
+        },
+        layers: [
+          {
+            id: "background",
+            type: "background",
+            paint: {
+              "background-color": "#f8f8f8"
+            }
+          },
+          {
+            id: "water",
+            type: "fill",
+            source: "toronto",
+            "source-layer": "water",
+            paint: {
+              "fill-color": "#a8d5f2"
+            }
+          },
+          {
+            id: "roads",
+            type: "line",
+            source: "toronto",
+            "source-layer": "transportation",
+            paint: {
+              "line-color": "#ffffff",
+              "line-width": 2
+            }
+          },
+          {
+            id: "buildings",
+            type: "fill",
+            source: "toronto",
+            "source-layer": "building",
+            paint: {
+              "fill-color": "#e0e0e0"
+            }
+          }
+        ]
+      },
+      center: [-79.399651, 43.656967], // Note: MapLibre uses [lng, lat] format
+      zoom: 14
     });
     
-    // Add custom zoom control to bottom left
-    L.control.zoom({
-      position: 'bottomleft'
-    }).addTo(window.map);
+    // Add navigation controls (zoom buttons)
+    window.map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
     
-    // Add locate me button
+    // Add locate me button (commented out for now)
+    /*
     var LocateControl = L.Control.extend({
       options: {
         position: 'bottomleft'
@@ -493,17 +538,10 @@ var Controls = (function() {
     });
     
     new LocateControl().addTo(window.map);
-
-	// Add Stadia.OSMBright tile layer (no API key needed)
-	// Also consider adding as an option: Stadia.StamenTonerLite
-	L.tileLayer.provider('Stadia.OSMBright').addTo(window.map);
+    */
 	
-	// Add compact attribution control
-	L.control.attribution({
-	  prefix: false,  // Remove "Leaflet" prefix
-	  position: 'bottomright'
-	}).addTo(window.map);
-	
+    // Commented out for MapLibre GL migration - will re-implement later
+    /*
     var currentLocation,
     // Bounds rect defined by SW and NE points
     torontoBounds = L.latLngBounds(
@@ -591,6 +629,7 @@ var Controls = (function() {
 	Route.Handler.init();
 	//Vehicle.Handler.init();
 	Controls.init();
+	*/
 
 }
 
