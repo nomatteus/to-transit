@@ -488,7 +488,8 @@ var Controls = (function() {
           "toronto": {
             type: "vector",
             // url: "pmtiles://osm-2020-02-10-v3.11_canada_toronto.pmtiles"
-			url: "pmtiles://toronto-vector.pmtiles"
+			url: "pmtiles://toronto-vector.pmtiles",
+            attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
           }
         },
 		// TODO: Will either switch to OSM Bright and relevant schema in pmtiles, or modify this style. 
@@ -523,7 +524,9 @@ var Controls = (function() {
         // ]
       },
       center: [-79.399651, 43.656967], // Note: MapLibre uses [lng, lat] format
-      zoom: 11
+      zoom: 11,
+      minZoom: 10,
+      maxZoom: 20
     });
 
     
