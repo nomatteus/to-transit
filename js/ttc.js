@@ -285,7 +285,8 @@ Vehicle.Instance.prototype = {
 		this.labelMarker = new maplibregl.Marker({
 			element: labelElement,
 			anchor: 'bottom-left',
-			offset: [-20, -30] // Move left 5px and up 35px to position at top-left of vehicle
+			offset: [-20, -30], // Move left 5px and up 35px to position at top-left of vehicle
+			subpixelPositioning: true
 		}).setLngLat([this.lng, this.lat]);
 	},
 	createMarker: function() {
