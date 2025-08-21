@@ -221,7 +221,7 @@ Vehicle.Instance.prototype = {
 		this.labelMarker = new maplibregl.Marker({
 			element: labelElement,
 			anchor: 'bottom-left',
-			offset: [-20, -30], // Move left 5px and up 35px to position at top-left of vehicle
+			offset: [-20, -30],
 			subpixelPositioning: true
 		}).setLngLat([this.lng, this.lat]);
 	},
@@ -235,7 +235,7 @@ Vehicle.Instance.prototype = {
 		// Create MapLibre GL marker with custom element (this removes the default marker)
 		this.marker = new maplibregl.Marker({
 			element: iconElement,
-			anchor: 'bottom'  // Anchor at bottom like the original Leaflet markers
+			anchor: 'bottom'
 		}).setLngLat([this.lng, this.lat]);
 
 		this.labelMarker = null; // Will hold the label marker
