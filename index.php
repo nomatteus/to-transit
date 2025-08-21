@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=12">
 <title>TOTransit - View TTC Streetcars and Buses Live on a Map</title>
 <meta name="description" content="See when the next streetcars are coming, and watch them move on a map in real-time. Desktop and mobile friendly!"/>
 <meta property="og:title" content="TOTransit - View TTC Streetcars Live on a Map"/>
@@ -20,26 +20,33 @@
 <script src="https://cdn.usefathom.com/script.js" data-site="KEGFOCCK" defer></script>
 
 <script type="text/javascript">
-  // Loads Leaflet and runs callback function (init()) when done
+  // Loads MapLibre GL JS and runs callback function (init()) when done
   function loadScript() {
-    // Load Leaflet CSS
+    // Load MapLibre GL CSS
     var cssLink = document.createElement("link");
     cssLink.rel = "stylesheet";
-    cssLink.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    cssLink.href = "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css";
     document.head.appendChild(cssLink);
 
-    // Load Leaflet JS
-    var leafletScript = document.createElement("script");
-    leafletScript.type = "text/javascript";
-    leafletScript.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
-    leafletScript.onload = function() {
-      // Load leaflet-providers plugin for Stadia Maps
-      var providersScript = document.createElement("script");
-      providersScript.src = "https://unpkg.com/leaflet-providers@2.0.0/leaflet-providers.js";
-      providersScript.onload = init;
-      document.body.appendChild(providersScript);
+    // Load MapLibre GL JS
+    var maplibreScript = document.createElement("script");
+    maplibreScript.type = "text/javascript";
+    maplibreScript.src = "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
+    maplibreScript.onload = function() {
+      // Load PMTiles library
+      var pmtilesScript = document.createElement("script");
+      pmtilesScript.src = "https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js";
+      pmtilesScript.onload = function() {
+        // Load Protomaps basemaps library
+        var protomapsScript = document.createElement("script");
+        protomapsScript.src = "https://unpkg.com/@protomaps/basemaps@5/dist/basemaps.js";
+        protomapsScript.crossOrigin = "anonymous";
+        protomapsScript.onload = init;
+        document.body.appendChild(protomapsScript);
+      };
+      document.body.appendChild(pmtilesScript);
     };
-    document.body.appendChild(leafletScript);
+    document.body.appendChild(maplibreScript);
 
     // For iphone
     window.top.scrollTo(0, 1);
@@ -88,6 +95,6 @@
   <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script>
 
   <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
-  <script type="text/javascript" src="js/ttc.js?v=10"></script>
+  <script type="text/javascript" src="js/ttc.js?v=19"></script>
 </body>
 </html>
