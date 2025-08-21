@@ -4,8 +4,9 @@ Live at: [totransit.ca](http://totransit.ca)
 
 ## 🗺️ Map Technology
 
-- **Tiles:** Stadia Maps
-- **Library:** Leaflet.js
+- **Tiles:** OpenStreetMap via PMTiles (served locally)
+- **Library:** MapLibre GL JS
+- **Basemap Style:** OSM Bright
 
 ## 🚀 Local Development
 
@@ -32,7 +33,12 @@ Live at: [totransit.ca](http://totransit.ca)
    docker-compose up --build
    ```
 
-3. **Access the app** at [https://localhost](https://localhost)
+3. **Generate the PMTiles file** (required for map tiles):
+   ```
+   TODO: Add instructions for generating toronto-osm.pmtiles
+   ```
+
+4. **Access the app** at [https://localhost](https://localhost)
 
 ### Local Dev Features
 
@@ -49,20 +55,26 @@ Live at: [totransit.ca](http://totransit.ca)
 ## 🛠️ Development
 
 The app consists of:
-- `index.php` - Main HTML structure
-- `js/ttc.js` - Core JavaScript functionality
-- `css/style.css` - Styling
+- `index.php` - Main HTML structure with MapLibre GL setup
+- `js/ttc.js` - Core JavaScript functionality with MapLibre GL markers
+- `css/style.css` - Styling including MapLibre GL popup styles
 - `json.php` - Vehicle data API endpoint
+- `map-styles/osm-bright.json` - MapLibre GL style configuration
+- `toronto-osm.pmtiles` - Local PMTiles vector data for Toronto area
 
 ### File Structure
 ```
 ├── index.php          # Main page
 ├── js/
-│   └── ttc.js         # Core app logic
+│   └── ttc.js         # Core app logic with MapLibre GL
 ├── css/
 │   └── style.css      # Styling
 ├── json.php           # Data endpoint
 ├── routes.json        # Route definitions
+├── map-styles/
+│   └── osm-bright.json # MapLibre GL style
+├── toronto-osm.pmtiles # Local vector tiles (generate manually)
+├── marker-images/     # Vehicle marker icons (@2x)
 ├── Dockerfile         # Docker configuration
 ├── docker-compose.yml # Docker services
 └── docker/
