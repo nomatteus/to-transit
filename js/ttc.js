@@ -479,50 +479,7 @@ var Controls = (function() {
     // Initialize MapLibre GL map with basic style first to debug
     window.map = new maplibregl.Map({
       container: 'map_canvas',
-      style: {
-        version: 8,
-		// TODO: self-host these? 
-		glyphs:'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf',
-		sprite: "https://protomaps.github.io/basemaps-assets/sprites/v4/light",	
-        sources: {
-          "toronto": {
-            type: "vector",
-            // url: "pmtiles://osm-2020-02-10-v3.11_canada_toronto.pmtiles"
-			url: "pmtiles://toronto.pmtiles",
-            attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-          }
-        },
-		// TODO: Will either switch to OSM Bright and relevant schema in pmtiles, or modify this style. 
-		layers: basemaps.layers("toronto", basemaps.namedFlavor("light"), { lang: "en" })
-        // layers: [
-        //   {
-        //     id: "background",
-        //     type: "background",
-        //     paint: {
-        //       "background-color": "#f8f8f8"
-        //     }
-        //   },
-        //   {
-        //     id: "water",
-        //     type: "fill",
-        //     source: "toronto",
-        //     "source-layer": "water",
-        //     paint: {
-        //       "fill-color": "#a5bfdd"
-        //     }
-        //   },
-        //   {
-        //     id: "roads",
-        //     type: "line",
-        //     source: "toronto",
-        //     "source-layer": "transportation",
-        //     paint: {
-        //       "line-color": "#ffffff",
-        //       "line-width": 2
-        //     }
-        //   }
-        // ]
-      },
+      style: 'map-styles/osm-bright.json',
       center: [-79.399651, 43.656967], // Note: MapLibre uses [lng, lat] format
 	  // Restrict map area to Toronto area (we only have tiles for this area, so avoids showing grey unrendered areas of the map)
 	  maxBounds: [
