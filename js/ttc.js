@@ -524,7 +524,7 @@ var Controls = (function() {
         // ]
       },
       center: [-79.399651, 43.656967], // Note: MapLibre uses [lng, lat] format
-      zoom: 11,
+      zoom: 14,
       minZoom: 10,
       maxZoom: 20
     });
@@ -532,6 +532,30 @@ var Controls = (function() {
     
     // Add navigation controls (zoom buttons)
     window.map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
+    
+    // Add geolocation control (current location button)
+    var geolocate = new maplibregl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 30000
+        },
+		fitBoundsOptions: {
+			// Limit zoom to this maxZoom when moving to user's current location
+			maxZoom: 14,
+		},
+        trackUserLocation: true,
+		showUserLocation: true,
+        showUserHeading: false,
+        showAccuracyCircle: false
+    });
+    
+    window.map.addControl(geolocate, 'bottom-left');
+    
+    // Automatically trigger geolocation on map load
+    window.map.on('load', function() {
+        geolocate.trigger();
+    });
     
     // Add locate me button (commented out for now)
     /*
@@ -587,6 +611,7 @@ var Controls = (function() {
 	// Init routes and controls
 	Route.Handler.init();
 	Controls.init();
+
 
 }
 
