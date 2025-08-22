@@ -1,7 +1,23 @@
 {
+  "name": "OSM Bright Toronto",
+  "metadata": {
+    "name": "OSM Bright Toronto",
+    "attribution": "© <a href='https://www.openstreetmap.org/copyright' target=_blank>OpenStreetMap</a> contributors"
+  },
+  "version": 8,
+  "pitch": 0.0,
   "bearing": 0.0,
+  "zoom": 14,
   "center": [-79.399651, 43.656967],
-  "glyphs": "./map-styles/fonts/{fontstack}/{range}.pbf",
+  "glyphs": "https://to-transit-map-assets.sfo3.digitaloceanspaces.com/map-styles/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://to-transit-map-assets.sfo3.digitaloceanspaces.com/map-styles/osm-bright/sprite",
+  "sources": {
+    "openmaptiles": {
+      "type": "vector",
+      "url": "pmtiles://https://to-transit-map-assets.sfo3.digitaloceanspaces.com/toronto-osm.pmtiles",
+      "attribution": "© <a href='https://www.openstreetmap.org/copyright' target=_blank>OpenStreetMap</a> contributors"
+    }
+  },
   "layers": [
     {
       "id": "background",
@@ -2528,19 +2544,5 @@
         "text-halo-width": 2
       }
     }
-  ],
-  "metadata": {
-    "name": "OSM Bright Toronto"
-  },
-  "name": "OSM Bright Toronto",
-  "pitch": 0.0,
-  "sources": {
-    "openmaptiles": {
-      "type": "vector",
-      "url": "pmtiles://toronto-osm.pmtiles"
-    }
-  },
-  "sprite": "./map-styles/osm-bright/sprite",
-  "version": 8,
-  "zoom": 14
+  ]
 }

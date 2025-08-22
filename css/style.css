@@ -368,6 +368,17 @@ body { height: 100%; margin: 0px; padding: 0px; font:normal 11px/22px Arial, san
   #about-content {display:none;}
   .mobile-only {display:block;}
   .desktop-only {display:none;}
+  
+  /* Add margin to MapLibre controls to account for rounded phone edges in app mode */
+  .maplibregl-ctrl-bottom-left {
+    margin-bottom: 15px;
+    margin-left: 10px;
+  }
+  
+  .maplibregl-ctrl-bottom-right {
+    margin-bottom: 15px;
+    margin-right: 10px;
+  }
 }
 /* Small Screens & Landscape: Format the menus to be wider and not as tall */
 @media screen and (max-device-width: 480px) and (orientation:landscape) {

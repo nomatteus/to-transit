@@ -420,8 +420,7 @@ var Controls = (function() {
       minZoom: 10,
       maxZoom: 20
     });
-
-
+    
     // Add navigation controls (zoom buttons)
     window.map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
     
