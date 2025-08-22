@@ -164,6 +164,10 @@ Vehicle.Instance.prototype = {
 		if (this.labelMarker) {
 			this.labelMarker.setLngLat([this.lng, this.lat]);
 		}
+		// Update popup position if it's open
+		if (this.popup && this.popup.isOpen()) {
+			this.popup.setLngLat([this.lng, this.lat]);
+		}
 	},
 	updateMarkerInfoWindow: function() {
 		var contentString = '<div class="info-window">' + 
