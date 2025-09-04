@@ -118,23 +118,31 @@ foreach ($vehicle_locations_xml->vehicle as $vehicle) {
     $labelText = $vehicle_route->tag;
   }
 
-  $vehicles[] = array(
-    // Need to cast attributes to a (string), else it will be treated as an object
-    'id'      			    => (string) $vehicle['id'],
-    'lat'     			    => (string) $vehicle['lat'],
-    'lng'     			    => (string) $vehicle['lon'],
-    'dirTag'            => $dirTag,
-    'routeSub' 			    => $routeSub,
-    // Route branch, if it exists. e.g. for route 52B, branch is "B".
-    'routeBranch'       => $routeBranch,
-    'dir'     			    => $direction,
-    'labelText'         => $labelText,
-    'heading' 			    => (string) $vehicle['heading'],
-    'speed' 	  		    => (string) $vehicle['speedKmHr'],
-    'secsSinceReport' 	=> (string) $vehicle['secsSinceReport'],
-    'type'              => ucfirst ($type),
-    'route'             => (string) $vehicle_route->tag
-  );
+  // Filter out vehicles that don't match the requested route
+  // Handle route variations like 501A, 501B - extract base route number for comparison
+  $requested_route_base = preg_replace('/[A-Za-z]$/', '', $r_get);
+  $vehicle_route_base = preg_replace('/[A-Za-z]$/', '', $vehicle_route->tag);
+  
+  // Only include vehicles that match the requested route
+  if ($r_get === 'all' || $vehicle_route_base === $requested_route_base) {
+    $vehicles[] = array(
+      // Need to cast attributes to a (string), else it will be treated as an object
+      'id'      			    => (string) $vehicle['id'],
+      'lat'     			    => (string) $vehicle['lat'],
+      'lng'     			    => (string) $vehicle['lon'],
+      'dirTag'            => $dirTag,
+      'routeSub' 			    => $routeSub,
+      // Route branch, if it exists. e.g. for route 52B, branch is "B".
+      'routeBranch'       => $routeBranch,
+      'dir'     			    => $direction,
+      'labelText'         => $labelText,
+      'heading' 			    => (string) $vehicle['heading'],
+      'speed' 	  		    => (string) $vehicle['speedKmHr'],
+      'secsSinceReport' 	=> (string) $vehicle['secsSinceReport'],
+      'type'              => ucfirst ($type),
+      'route'             => (string) $vehicle_route->tag
+    );
+  }
 }
 
 $vehicles_json = json_encode(array("vehicles" => $vehicles));
