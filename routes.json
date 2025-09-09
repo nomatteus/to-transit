@@ -1,408 +1,6 @@
 {
   "routes": [
     {
-      "tag": "501",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Queen"
-    },
-    {
-      "tag": "503",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Kingston Rd"
-    },
-    {
-      "tag": "504",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "King"
-    },
-    {
-      "tag": "505",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Dundas"
-    },
-    {
-      "tag": "506",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Carlton"
-    },
-    {
-      "tag": "507",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Long Branch"
-    },
-    {
-      "tag": "508",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Lake Shore"
-    },
-    {
-      "tag": "509",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "Harbourfront"
-    },
-    {
-      "tag": "510",
-      "type": "streetcar",
-      "direction": "NorthSouth",
-      "name": "Spadina"
-    },
-    {
-      "tag": "511",
-      "type": "streetcar",
-      "direction": "NorthSouth",
-      "name": "Bathurst"
-    },
-    {
-      "tag": "512",
-      "type": "streetcar",
-      "direction": "EastWest",
-      "name": "St Clair"
-    },
-    {
-      "tag": "10",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Van Horne"
-    },
-    {
-      "tag": "12",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Kingston Rd"
-    },
-    {
-      "tag": "14",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Glencairn"
-    },
-    {
-      "tag": "15",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Evans"
-    },
-    {
-      "tag": "20",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Cliffside"
-    },
-    {
-      "tag": "26",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Dupont"
-    },
-    {
-      "tag": "28",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Davisville"
-    },
-    {
-      "tag": "30",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lambton"
-    },
-    {
-      "tag": "32",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Eglinton West"
-    },
-    {
-      "tag": "34",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Eglinton East"
-    },
-    {
-      "tag": "36",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Finch West"
-    },
-    {
-      "tag": "38",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Highland Creek"
-    },
-    {
-      "tag": "39",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Finch East"
-    },
-    {
-      "tag": "40",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Junction"
-    },
-    {
-      "tag": "42",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Cummer"
-    },
-    {
-      "tag": "48",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Rathburn"
-    },
-    {
-      "tag": "49",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Bloor West"
-    },
-    {
-      "tag": "50",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Burnhamthorpe"
-    },
-    {
-      "tag": "52",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lawrence West"
-    },
-    {
-      "tag": "53",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Steeles East"
-    },
-    {
-      "tag": "54",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lawrence East"
-    },
-    {
-      "tag": "59",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Maple Leaf"
-    },
-    {
-      "tag": "60",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Steeles West"
-    },
-    {
-      "tag": "62",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Mortimer"
-    },
-    {
-      "tag": "70",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "O'Connor"
-    },
-    {
-      "tag": "78",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "St Andrews"
-    },
-    {
-      "tag": "80",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Queensway"
-    },
-    {
-      "tag": "82",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Rosedale"
-    },
-    {
-      "tag": "84",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Sheppard West"
-    },
-    {
-      "tag": "85",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Sheppard East"
-    },
-    {
-      "tag": "86",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Scarborough"
-    },
-    {
-      "tag": "87",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Cosburn"
-    },
-    {
-      "tag": "88",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "South Leaside"
-    },
-    {
-      "tag": "94",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Wellesley"
-    },
-    {
-      "tag": "95",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "York Mills"
-    },
-    {
-      "tag": "96",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Wilson"
-    },
-    {
-      "tag": "98",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Willowdale - Senlac"
-    },
-    {
-      "tag": "101",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Downsview Park"
-    },
-    {
-      "tag": "108",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Downsview"
-    },
-    {
-      "tag": "113",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Danforth"
-    },
-    {
-      "tag": "115",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Silver Hills"
-    },
-    {
-      "tag": "116",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Morningside"
-    },
-    {
-      "tag": "120",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Calvington"
-    },
-    {
-      "tag": "122",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Graydon Hall"
-    },
-    {
-      "tag": "124",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Sunnybrook"
-    },
-    {
-      "tag": "125",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Drewry"
-    },
-    {
-      "tag": "127",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Davenport"
-    },
-    {
-      "tag": "131",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Nugget"
-    },
-    {
-      "tag": "132",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Milner"
-    },
-    {
-      "tag": "135",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Gerrard"
-    },
-    {
-      "tag": "161",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Rogers Rd"
-    },
-    {
-      "tag": "162",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lawrence - Donway"
-    },
-    {
-      "tag": "165",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Weston Rd North"
-    },
-    {
-      "tag": "169",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Huntingwood"
-    },
-    {
-      "tag": "13",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Avenue Rd"
-    },
-    {
-      "tag": "19",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Bay"
-    },
-    {
       "tag": "7",
       "type": "bus",
       "direction": "NorthSouth",
@@ -421,10 +19,40 @@
       "name": "Bellamy"
     },
     {
+      "tag": "10",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Van Horne"
+    },
+    {
       "tag": "11",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Bayview"
+    },
+    {
+      "tag": "12",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Kingston Rd"
+    },
+    {
+      "tag": "13",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Avenue Rd"
+    },
+    {
+      "tag": "14",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Glencairn"
+    },
+    {
+      "tag": "15",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Evans"
     },
     {
       "tag": "16",
@@ -437,6 +65,18 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Birchmount"
+    },
+    {
+      "tag": "19",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bay"
+    },
+    {
+      "tag": "20",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cliffside"
     },
     {
       "tag": "21",
@@ -469,10 +109,28 @@
       "name": "Don Mills"
     },
     {
+      "tag": "26",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Dupont"
+    },
+    {
+      "tag": "28",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Davisville"
+    },
+    {
       "tag": "29",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Dufferin"
+    },
+    {
+      "tag": "30",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lambton"
     },
     {
       "tag": "31",
@@ -481,10 +139,22 @@
       "name": "Greenwood"
     },
     {
+      "tag": "32",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton West"
+    },
+    {
       "tag": "33",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Forest Hill"
+    },
+    {
+      "tag": "34",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton East"
     },
     {
       "tag": "35",
@@ -493,16 +163,46 @@
       "name": "Jane"
     },
     {
+      "tag": "36",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch West"
+    },
+    {
       "tag": "37",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Islington"
     },
     {
+      "tag": "38",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Highland Creek"
+    },
+    {
+      "tag": "39",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch East"
+    },
+    {
+      "tag": "40",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Junction"
+    },
+    {
       "tag": "41",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Keele"
+    },
+    {
+      "tag": "42",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cummer"
     },
     {
       "tag": "43",
@@ -535,10 +235,46 @@
       "name": "Lansdowne"
     },
     {
+      "tag": "48",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Rathburn"
+    },
+    {
+      "tag": "49",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Bloor West"
+    },
+    {
+      "tag": "50",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Burnhamthorpe"
+    },
+    {
       "tag": "51",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Leslie"
+    },
+    {
+      "tag": "52",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence West"
+    },
+    {
+      "tag": "53",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles East"
+    },
+    {
+      "tag": "54",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence East"
     },
     {
       "tag": "55",
@@ -559,10 +295,28 @@
       "name": "Midland"
     },
     {
+      "tag": "59",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Maple Leaf"
+    },
+    {
+      "tag": "60",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles West"
+    },
+    {
       "tag": "61",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Avenue Road North"
+    },
+    {
+      "tag": "62",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Mortimer"
     },
     {
       "tag": "63",
@@ -607,6 +361,12 @@
       "name": "Warden South"
     },
     {
+      "tag": "70",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "O'Connor"
+    },
+    {
       "tag": "71",
       "type": "bus",
       "direction": "NorthSouth",
@@ -649,16 +409,64 @@
       "name": "Swansea"
     },
     {
+      "tag": "78",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "St Andrews"
+    },
+    {
       "tag": "79",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Scarlett Rd"
     },
     {
+      "tag": "80",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Queensway"
+    },
+    {
+      "tag": "82",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Rosedale"
+    },
+    {
       "tag": "83",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Jones"
+    },
+    {
+      "tag": "84",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard West"
+    },
+    {
+      "tag": "85",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard East"
+    },
+    {
+      "tag": "86",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Scarborough"
+    },
+    {
+      "tag": "87",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cosburn"
+    },
+    {
+      "tag": "88",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "South Leaside"
     },
     {
       "tag": "89",
@@ -691,10 +499,34 @@
       "name": "Parkview Hills"
     },
     {
+      "tag": "94",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wellesley"
+    },
+    {
+      "tag": "95",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "York Mills"
+    },
+    {
+      "tag": "96",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wilson"
+    },
+    {
       "tag": "97",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Yonge"
+    },
+    {
+      "tag": "98",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Willowdale - Senlac"
     },
     {
       "tag": "99",
@@ -707,6 +539,12 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Flemingdon Park"
+    },
+    {
+      "tag": "101",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Downsview Park"
     },
     {
       "tag": "102",
@@ -739,6 +577,12 @@
       "name": "Keele North"
     },
     {
+      "tag": "108",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Downsview"
+    },
+    {
       "tag": "109",
       "type": "bus",
       "direction": "NorthSouth",
@@ -763,10 +607,28 @@
       "name": "West Mall"
     },
     {
+      "tag": "113",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Danforth"
+    },
+    {
       "tag": "114",
       "type": "bus",
       "direction": "EastWest",
       "name": "Queens Quay East"
+    },
+    {
+      "tag": "115",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Silver Hills"
+    },
+    {
+      "tag": "116",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Morningside"
     },
     {
       "tag": "118",
@@ -781,10 +643,22 @@
       "name": "Torbarrie"
     },
     {
+      "tag": "120",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Calvington"
+    },
+    {
       "tag": "121",
       "type": "bus",
       "direction": "EastWest",
       "name": "Fort York-Esplanade"
+    },
+    {
+      "tag": "122",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Graydon Hall"
     },
     {
       "tag": "123",
@@ -793,10 +667,28 @@
       "name": "Shorncliffe"
     },
     {
+      "tag": "124",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sunnybrook"
+    },
+    {
+      "tag": "125",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Drewry"
+    },
+    {
       "tag": "126",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Christie"
+    },
+    {
+      "tag": "127",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Davenport"
     },
     {
       "tag": "128",
@@ -817,6 +709,18 @@
       "name": "Middlefield"
     },
     {
+      "tag": "131",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Nugget"
+    },
+    {
+      "tag": "132",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Milner"
+    },
+    {
       "tag": "133",
       "type": "bus",
       "direction": "NorthSouth",
@@ -829,10 +733,34 @@
       "name": "Progress"
     },
     {
+      "tag": "135",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Gerrard"
+    },
+    {
       "tag": "160",
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Bathurst North"
+    },
+    {
+      "tag": "161",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Rogers Rd"
+    },
+    {
+      "tag": "162",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence - Donway"
+    },
+    {
+      "tag": "165",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Weston Rd North"
     },
     {
       "tag": "167",
@@ -845,6 +773,12 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Symington"
+    },
+    {
+      "tag": "169",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Huntingwood"
     },
     {
       "tag": "171",
@@ -887,156 +821,6 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Cherry Beach"
-    },
-    {
-      "tag": "900",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Airport Express"
-    },
-    {
-      "tag": "902",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Markham Rd Express"
-    },
-    {
-      "tag": "903",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Kennedy-Scarborough Centre Express"
-    },
-    {
-      "tag": "905",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Eglinton East Express"
-    },
-    {
-      "tag": "924",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Victoria Park Express"
-    },
-    {
-      "tag": "925",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Don Mills Express"
-    },
-    {
-      "tag": "927",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Highway 27 Express"
-    },
-    {
-      "tag": "929",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Dufferin Express"
-    },
-    {
-      "tag": "935",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Jane Express"
-    },
-    {
-      "tag": "937",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Islington Express"
-    },
-    {
-      "tag": "939",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Finch Express"
-    },
-    {
-      "tag": "941",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Keele Express"
-    },
-    {
-      "tag": "944",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Kipling South Express"
-    },
-    {
-      "tag": "945",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Kipling Express"
-    },
-    {
-      "tag": "952",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lawrence Express"
-    },
-    {
-      "tag": "953",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Steeles East Express"
-    },
-    {
-      "tag": "954",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Lawrence East Express"
-    },
-    {
-      "tag": "960",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Steeles West Express"
-    },
-    {
-      "tag": "968",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Warden Express"
-    },
-    {
-      "tag": "984",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Sheppard West Express"
-    },
-    {
-      "tag": "989",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Weston Express"
-    },
-    {
-      "tag": "985",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Sheppard East Express"
-    },
-    {
-      "tag": "986",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Scarborough Express"
-    },
-    {
-      "tag": "995",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "York Mills Express"
-    },
-    {
-      "tag": "996",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Wilson Express"
     },
     {
       "tag": "300",
@@ -1223,6 +1007,222 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Wilson"
+    },
+    {
+      "tag": "501",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Queen"
+    },
+    {
+      "tag": "503",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Kingston Rd"
+    },
+    {
+      "tag": "504",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "King"
+    },
+    {
+      "tag": "505",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Dundas"
+    },
+    {
+      "tag": "506",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Carlton"
+    },
+    {
+      "tag": "507",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Long Branch"
+    },
+    {
+      "tag": "508",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Lake Shore"
+    },
+    {
+      "tag": "509",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Harbourfront"
+    },
+    {
+      "tag": "510",
+      "type": "streetcar",
+      "direction": "NorthSouth",
+      "name": "Spadina"
+    },
+    {
+      "tag": "511",
+      "type": "streetcar",
+      "direction": "NorthSouth",
+      "name": "Bathurst"
+    },
+    {
+      "tag": "512",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "St Clair"
+    },
+    {
+      "tag": "900",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Airport Express"
+    },
+    {
+      "tag": "902",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Markham Rd Express"
+    },
+    {
+      "tag": "903",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kennedy-Scarborough Centre Express"
+    },
+    {
+      "tag": "905",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Eglinton East Express"
+    },
+    {
+      "tag": "924",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Victoria Park Express"
+    },
+    {
+      "tag": "925",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Don Mills Express"
+    },
+    {
+      "tag": "927",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Highway 27 Express"
+    },
+    {
+      "tag": "929",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Dufferin Express"
+    },
+    {
+      "tag": "935",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jane Express"
+    },
+    {
+      "tag": "937",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Islington Express"
+    },
+    {
+      "tag": "939",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Finch Express"
+    },
+    {
+      "tag": "941",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Keele Express"
+    },
+    {
+      "tag": "944",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kipling South Express"
+    },
+    {
+      "tag": "945",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kipling Express"
+    },
+    {
+      "tag": "952",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence Express"
+    },
+    {
+      "tag": "953",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles East Express"
+    },
+    {
+      "tag": "954",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Lawrence East Express"
+    },
+    {
+      "tag": "960",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Steeles West Express"
+    },
+    {
+      "tag": "968",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Warden Express"
+    },
+    {
+      "tag": "984",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard West Express"
+    },
+    {
+      "tag": "985",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard East Express"
+    },
+    {
+      "tag": "986",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Scarborough Express"
+    },
+    {
+      "tag": "989",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Weston Express"
+    },
+    {
+      "tag": "995",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "York Mills Express"
+    },
+    {
+      "tag": "996",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Wilson Express"
     }
   ]
 }
