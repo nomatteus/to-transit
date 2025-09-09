@@ -118,7 +118,7 @@
       "tag": "28",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Davisville"
+      "name": "Bayview South"
     },
     {
       "tag": "29",
@@ -130,7 +130,7 @@
       "tag": "30",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Lambton"
+      "name": "High Park North"
     },
     {
       "tag": "31",
@@ -190,7 +190,7 @@
       "tag": "40",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Junction"
+      "name": "Junction-Dundas West"
     },
     {
       "tag": "41",
@@ -310,7 +310,7 @@
       "tag": "61",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Avenue Road North"
+      "name": "Avenue Rd North"
     },
     {
       "tag": "62",
@@ -388,7 +388,7 @@
       "tag": "74",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Mt Pleasant"
+      "name": "Mount Pleasant"
     },
     {
       "tag": "75",
@@ -526,13 +526,13 @@
       "tag": "98",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Willowdale - Senlac"
+      "name": "Willowdale-Senlac"
     },
     {
       "tag": "99",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Arrow Road"
+      "name": "Arrow Rd"
     },
     {
       "tag": "100",
@@ -568,19 +568,19 @@
       "tag": "106",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "York University"
+      "name": "Sentinel"
     },
     {
       "tag": "107",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Keele North"
+      "name": "York University Heights"
     },
     {
       "tag": "108",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Downsview"
+      "name": "Driftwood"
     },
     {
       "tag": "109",
@@ -631,6 +631,12 @@
       "name": "Morningside"
     },
     {
+      "tag": "117",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Birchmount South"
+    },
+    {
       "tag": "118",
       "type": "bus",
       "direction": "EastWest",
@@ -652,7 +658,7 @@
       "tag": "121",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Fort York-Esplanade"
+      "name": "Esplanade-River"
     },
     {
       "tag": "122",
@@ -664,7 +670,7 @@
       "tag": "123",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Shorncliffe"
+      "name": "Sherway"
     },
     {
       "tag": "124",
@@ -739,6 +745,18 @@
       "name": "Gerrard"
     },
     {
+      "tag": "149",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Etobicoke-Bloor"
+    },
+    {
+      "tag": "154",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Curran Hall"
+    },
+    {
       "tag": "160",
       "type": "bus",
       "direction": "NorthSouth",
@@ -754,7 +772,7 @@
       "tag": "162",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Lawrence - Donway"
+      "name": "Lawrence-Donway"
     },
     {
       "tag": "165",
@@ -787,16 +805,16 @@
       "name": "Mount Dennis"
     },
     {
-      "tag": "176",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Mimico GO"
-    },
-    {
       "tag": "184",
       "type": "bus",
       "direction": "EastWest",
       "name": "Ancaster Park"
+    },
+    {
+      "tag": "185",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Sheppard Central"
     },
     {
       "tag": "189",
@@ -826,7 +844,7 @@
       "tag": "300",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Bloor - Danforth"
+      "name": "Bloor-Danforth"
     },
     {
       "tag": "301",
@@ -838,13 +856,19 @@
       "tag": "302",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Danforth Rd - McCowan"
+      "name": "Kingston Rd-McCowan"
     },
     {
       "tag": "304",
       "type": "streetcar",
       "direction": "EastWest",
       "name": "King"
+    },
+    {
+      "tag": "305",
+      "type": "streetcar",
+      "direction": "EastWest",
+      "name": "Dundas"
     },
     {
       "tag": "306",
@@ -866,15 +890,15 @@
     },
     {
       "tag": "312",
-      "type": "bus",
+      "type": "streetcar",
       "direction": "EastWest",
-      "name": "St Clair-Junction"
+      "name": "St Clair"
     },
     {
       "tag": "315",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Evans - Brown's Line"
+      "name": "Evans-Brown's Line"
     },
     {
       "tag": "320",
@@ -941,6 +965,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Finch East"
+    },
+    {
+      "tag": "340",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Junction"
     },
     {
       "tag": "341",
@@ -1090,7 +1120,13 @@
       "tag": "903",
       "type": "bus",
       "direction": "NorthSouth",
-      "name": "Kennedy-Scarborough Centre Express"
+      "name": "Kennedy Stn-Scarborough Express"
+    },
+    {
+      "tag": "904",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Sheppard-Kennedy Express"
     },
     {
       "tag": "905",
@@ -1162,7 +1198,7 @@
       "tag": "952",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Lawrence Express"
+      "name": "Lawrence West Express"
     },
     {
       "tag": "953",

@@ -71,6 +71,8 @@ The app consists of:
 │   └── style.css      # Styling
 ├── json.php           # Data endpoint
 ├── routes.json        # Route definitions
+├── scripts/
+│   └── update-routes.rb # Script to update routes.json
 ├── map-styles/
 │   └── osm-bright.json # MapLibre GL style
 ├── toronto-osm.pmtiles # Local vector tiles (generate manually)
@@ -86,6 +88,25 @@ The app consists of:
 **TTC Real-Time Next Vehicle Arrival (NVAS)**
 - Open Data: [TTC Real-Time NVAS Dataset](https://open.toronto.ca/dataset/ttc-real-time-next-vehicle-arrival-nvas/) (retired)
 - NextBus XML Feed: [Documentation](http://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf)
+
+### Updating Routes
+
+To update the `routes.json` file with the latest TTC route data:
+
+```bash
+ruby scripts/update-routes.rb
+```
+
+The script will:
+- Fetch the latest route list from the TTC XML feed
+- Compare with existing routes and warn about any missing routes
+- Give you options to keep existing routes or remove missing ones
+- Update route information while preserving manual corrections
+
+**Options when routes are missing:**
+- `k` - Keep existing routes and update others (recommended for temporary outages)
+- `r` - Remove missing routes and update
+- `c` - Cancel update
 
 ## 📝 License
 
