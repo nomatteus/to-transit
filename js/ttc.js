@@ -169,20 +169,35 @@ Vehicle.Instance.prototype = {
 			this.popup.setLngLat([this.lng, this.lat]);
 		}
 	},
+	getOccupancyLabel: function(occupancyStatus) {
+		if (!occupancyStatus) return null;
+
+		if (occupancyStatus === 'EMPTY') {
+			return 'Not Crowded';
+		} else if (occupancyStatus === 'FEW_SEATS_AVAILABLE') {
+			return 'Somewhat Crowded';
+		} else if (occupancyStatus === 'FULL') {
+			return 'Crowded';
+		}
+		return null;
+	},
 	updateMarkerInfoWindow: function() {
-		var contentString = '<div class="info-window">' + 
+		var occupancyLabel = this.getOccupancyLabel(this.occupancyStatus);
+
+		var contentString = '<div class="info-window">' +
 			'<h1 class="vehicle-id">Vehicle #' + this.id + '</h1>' +
 			'<div class="type">Type: ' + this.type + '</div>' +
 			(this.routeSub != null ? '<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' : '') +
 			(this.dir != null ? '<div class="dir-tag">Direction: ' + this.dir + '</div>' : '') +
 			'<div class="headingId">Heading: ' + this.heading + '\u00B0</div>' +
 			'<div class="speed">Speed: ' + this.speed + ' km/h</div>' +
+			(occupancyLabel != null ? '<div class="occupancy">Occupancy: ' + occupancyLabel + '</div>' : '') +
 			'<div class="headingId">Reported: ' + this.secsSinceReport + ' sec ago</div>' +
 			'</div>';
 
 		// Store popup content for MapLibre GL
 		this.popupContent = contentString;
-		
+
 		// If popup exists and is open, update its content
 		if (this.popup && this.popup.isOpen()) {
 			this.popup.setHTML(contentString);
@@ -254,17 +269,17 @@ Vehicle.Instance.prototype = {
 	},
 	addEventListeners: function() {
 		var that = this;
-		
+
 		// Wait for marker to be added to map, then add click listener
 		var addClickListener = function() {
 			var element = that.marker.getElement();
 			if (element) {
 				element.addEventListener('click', function(e) {
 					e.stopPropagation(); // Prevent map click
-					
+
 					// Close any existing popups first
 					Controls.closeInfoWindows();
-					
+
 					// Create and show popup
 					if (!that.popup) {
 						that.popup = new maplibregl.Popup({
@@ -277,7 +292,7 @@ Vehicle.Instance.prototype = {
 							className: "streetcar-details-popup"
 						});
 					}
-					
+
 					that.popup
 						.setLngLat([that.lng, that.lat])
 						.setHTML(that.popupContent)
@@ -285,7 +300,7 @@ Vehicle.Instance.prototype = {
 				});
 			}
 		};
-		
+
 		// Add listener immediately if element exists, otherwise wait
 		if (this.marker.getElement()) {
 			addClickListener();
@@ -424,10 +439,10 @@ var Controls = (function() {
       minZoom: 10,
       maxZoom: 20
     });
-    
+
     // Add navigation controls (zoom buttons)
     window.map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
-    
+
     // Add geolocation control (current location button)
     var geolocate = new maplibregl.GeolocateControl({
         positionOptions: {
@@ -444,17 +459,17 @@ var Controls = (function() {
         showUserHeading: false,
         showAccuracyCircle: false
     });
-    
+
     window.map.addControl(geolocate, 'bottom-left');
-    
+
     // Automatically trigger geolocation on map load
     window.map.on('load', function() {
         geolocate.trigger();
     });
-	
+
     // High-res marker images with shadow (@2x)
     window.markerShadow = 'marker-images/shadow@2x.png';
-    
+
     // Buses
     window.markerImageBusDefault = 'marker-images/bus-default@2x.png';
 
