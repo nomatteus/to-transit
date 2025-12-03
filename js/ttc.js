@@ -183,6 +183,19 @@ Vehicle.Instance.prototype = {
 	},
 	updateMarkerInfoWindow: function() {
 		var occupancyLabel = this.getOccupancyLabel(this.occupancyStatus);
+		var occupancyHTML = '';
+
+		if (occupancyLabel != null) {
+			var occupancyColor = '';
+			if (this.occupancyStatus === 'EMPTY') {
+				occupancyColor = '#4CAF50'; // Green
+			} else if (this.occupancyStatus === 'FEW_SEATS_AVAILABLE') {
+				occupancyColor = '#FF9800'; // Orange
+			} else if (this.occupancyStatus === 'FULL') {
+				occupancyColor = '#F44336'; // Red
+			}
+			occupancyHTML = '<div class="occupancy">Occupancy: <span style="color: ' + occupancyColor + '; font-weight: bold;">' + occupancyLabel + '</span></div>';
+		}
 
 		var contentString = '<div class="info-window">' +
 			'<h1 class="vehicle-id">Vehicle #' + this.id + '</h1>' +
@@ -191,7 +204,7 @@ Vehicle.Instance.prototype = {
 			(this.dir != null ? '<div class="dir-tag">Direction: ' + this.dir + '</div>' : '') +
 			'<div class="headingId">Heading: ' + this.heading + '\u00B0</div>' +
 			'<div class="speed">Speed: ' + this.speed + ' km/h</div>' +
-			(occupancyLabel != null ? '<div class="occupancy">Occupancy: ' + occupancyLabel + '</div>' : '') +
+			occupancyHTML +
 			'<div class="headingId">Reported: ' + this.secsSinceReport + ' sec ago</div>' +
 			'</div>';
 
@@ -231,12 +244,29 @@ Vehicle.Instance.prototype = {
 		if (this.dir != null) {
 			labelText += ' <span class="route-direction">' + this.dir + '</span>';
 		}
+		labelText += '<span class="route-spacer"></span>'
+
+		// Add occupancy dot badge inside the label
+		var occupancyBadge = '';
+		if (this.occupancyStatus) {
+			var occupancyClass = '';
+			// Only show dot for somewhat crowded or crowded (not for empty/not crowded)
+			if (this.occupancyStatus === 'FEW_SEATS_AVAILABLE') {
+				occupancyClass = 'somewhat-crowded';
+			} else if (this.occupancyStatus === 'FULL') {
+				occupancyClass = 'crowded';
+			}
+
+			if (occupancyClass) {
+				occupancyBadge = '<span class="occupancy-badge ' + occupancyClass + '"></span>';
+			}
+		}
 
 		if (this.labelMarker) {
 			this.labelMarker.remove();
 		}
 
-		var labelElement = createMapLibreLabel({text: labelText});
+		var labelElement = createMapLibreLabel({text: labelText + occupancyBadge});
 		this.labelMarker = new maplibregl.Marker({
 			element: labelElement,
 			anchor: 'bottom-left',
