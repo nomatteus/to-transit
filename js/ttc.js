@@ -13,6 +13,20 @@ function createMapLibreLabel(options) {
   return labelElement;
 }
 
+// Function to get direction arrow based on heading
+function getDirectionArrow(heading) {
+  // Convert heading to 0-360 range
+  var h = parseFloat(heading) % 360;
+  if (h < 0) h += 360;
+
+  // Return arrow pointing in the direction of travel
+  // Using 4 cardinal directions for simplicity and consistency
+  if (h >= 315 || h < 45) return '▲';      // North
+  else if (h >= 45 && h < 135) return '▶'; // East
+  else if (h >= 135 && h < 225) return '▼'; // South
+  else return '◀'; // West
+}
+
 var Route = {};
 
 Route.List = _.sortBy(data.routes, function(route){
@@ -243,6 +257,9 @@ Vehicle.Instance.prototype = {
 		}
 		if (this.dir != null) {
 			labelText += ' <span class="route-direction">' + this.dir + '</span>';
+		} else if (this.heading != null) {
+			// Show direction arrow as fallback when direction text is not available
+			labelText += ' <span class="route-direction-arrow">' + getDirectionArrow(this.heading) + '</span>';
 		}
 		labelText += '<span class="route-spacer"></span>'
 
