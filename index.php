@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="css/style.css?v=14">
+<link rel="stylesheet" href="css/style.css?v=15">
 <title>TOTransit - View TTC Streetcars and Buses Live on a Map</title>
 <meta name="description" content="See when the next streetcars are coming, and watch them move on a map in real-time. Desktop and mobile friendly!"/>
 <meta property="og:title" content="TOTransit - View TTC Streetcars Live on a Map"/>
@@ -80,12 +80,37 @@
 
   <!-- Notification Panel on the bottom: Use for downtime announcements or similar. -->
   <!-- (Also remember to temporarily remove bookmark_bubble.js if using this as they are both positioned at the bottom of the screen) -->
-  <!-- <div id="notification">
-    <strong>Announcement Title</strong>
+  <div id="notification" style="display: none;">
+    <strong>December 2025 Update 🎄</strong>
     <div id="notifiction-content">
-      Announcment content...
+      TOTransit now uses a new data feed, as the previous one is no longer supported.
+      Data quality has improved, and all surface routes are now supported (e.g. 508).
+      Please let me know if you notice any issues.
     </div>
-  </div> -->
+  </div>
+  <script>
+    // Show notification only until specified date and only once per user
+    (function() {
+      var notificationId = 'dec2025update'; // Change this ID for each new notification
+      var expiryDate = new Date('2025-12-17T23:59:59');
+      var now = new Date();
+
+      // Check if user has already seen this notification
+      var hasSeenNotification = localStorage.getItem('notification_' + notificationId);
+
+      if (now < expiryDate && !hasSeenNotification) {
+        document.getElementById('notification').style.display = 'block';
+
+        // Mark as seen when user views it
+        localStorage.setItem('notification_' + notificationId, 'true');
+      }
+
+      // Click to dismiss notification
+      document.getElementById('notification').addEventListener('click', function() {
+        this.style.display = 'none';
+      });
+    })();
+  </script>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.5.2.min.js">\x3C/script>')</script>
@@ -95,6 +120,6 @@
   <script type="text/javascript" src="js/libs/bookmark_bubble.js"></script>
 
   <!--<script type="text/javascript" src="js/libs/underscore.string.js"></script>-->
-  <script type="text/javascript" src="js/ttc.js?v=21"></script>
+  <script type="text/javascript" src="js/ttc.js?v=22"></script>
 </body>
 </html>
