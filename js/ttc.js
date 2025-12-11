@@ -21,10 +21,10 @@ function getDirectionArrow(heading) {
 
   // Return arrow pointing in the direction of travel
   // Using 4 cardinal directions for simplicity and consistency
-  if (h >= 315 || h < 45) return '▲';      // North
-  else if (h >= 45 && h < 135) return '▶'; // East
-  else if (h >= 135 && h < 225) return '▼'; // South
-  else return '◀'; // West
+  if (h >= 315 || h < 45) return '↑';      // North
+  else if (h >= 45 && h < 135) return '→'; // East
+  else if (h >= 135 && h < 225) return '↓'; // South
+  else return '←'; // West
 }
 
 var Route = {};
