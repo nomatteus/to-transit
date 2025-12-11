@@ -83,16 +83,17 @@
   <div id="notification" style="display: none;">
     <strong>December 2025 Update 🎄</strong>
     <div id="notifiction-content">
-      TOTransit now uses a new data feed, as the previous one is no longer supported.
-      Data quality has improved, and all surface routes are now supported (e.g. 508).
-      Please let me know if you notice any issues.
+      TOTransit now uses a new data source with improved data quality.
+      All surface routes are now supported (e.g. 508).
+      Orange or red occupancy indicators will now be shown on vehicles that are somewhat or very crowded.
+      Please <a href="mailto:matt@ruten.ca">let me know</a> if you notice any issues.
     </div>
   </div>
   <script>
     // Show notification only until specified date and only once per user
     (function() {
-      var notificationId = 'dec2025update'; // Change this ID for each new notification
-      var expiryDate = new Date('2025-12-17T23:59:59');
+      var notificationId = '2025_dec11_update'; // Change this ID for each new notification
+      var expiryDate = new Date('2025-12-18T23:59:59');
       var now = new Date();
 
       // Check if user has already seen this notification
