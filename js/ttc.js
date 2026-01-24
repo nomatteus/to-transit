@@ -14,6 +14,7 @@ function createMapLibreLabel(options) {
 }
 
 // Function to get direction arrow based on heading
+// (Used as a backup option when direction is not returned from data source, which seems to happen periodically)
 function getDirectionArrow(heading) {
   // Convert heading to 0-360 range
   var h = parseFloat(heading) % 360;
