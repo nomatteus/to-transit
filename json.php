@@ -3,6 +3,12 @@
  * File to convert GTFS-RT feeds to JSON format for our script
  */
 
+define('TRIP_CACHE_TTL', 86400);        // 1 day (GTFS static data)
+define('VEHICLE_CACHE_TTL', 10);        // 10 seconds (Vehicle live positions)
+// All streetcars in Toronto are 5xx
+define('STREETCAR_ROUTE_MIN', 500);
+define('STREETCAR_ROUTE_MAX', 600);
+
 /* All route info */
 $routes = json_decode(file_get_contents("./routes.json"))->routes;
 
@@ -17,12 +23,16 @@ function get_route($tag, $routes) {
   return null;
 }
 
+function get_route_base($route_id) {
+  return preg_replace('/[A-Za-z]$/', '', $route_id);
+}
+
 // Load trip variants mapping (trip_id -> route variant like "A", "B", "C")
 function load_trip_variants($route_id = null) {
   $cache_file = "cache/trip_variants." . ($route_id ? $route_id : "all") . ".json";
 
   // Refresh cache daily
-  if (!file_exists($cache_file) || ((time() - filemtime($cache_file)) >= 86400)) {
+  if (!file_exists($cache_file) || ((time() - filemtime($cache_file)) >= TRIP_CACHE_TTL)) {
     error_log("Refreshing trip variants cache...");
 
     $zip_file = "cache/ttc_gtfs.zip";
@@ -139,7 +149,7 @@ $trip_variants = load_trip_variants($route_id);
 $filename = "cache/vehicleLocations.".(is_null($route) ? "all" : $route->tag).".txt";
 
 // Cache data for X seconds
-if (!file_exists($filename) || ((time() - filemtime($filename)) >= 10)) {
+if (!file_exists($filename) || ((time() - filemtime($filename)) >= VEHICLE_CACHE_TTL)) {
   $file_contents = @file_get_contents("https://bustime.ttc.ca/gtfsrt/vehicles?debug");
   if ($file_contents === false) {
     header('Content-Type: application/json; charset=utf-8');
@@ -158,8 +168,8 @@ if (!file_exists($filename) || ((time() - filemtime($filename)) >= 10)) {
       preg_match('/route_id: "([^"]+)"/', $entity_text, $route_id_match);
       if ($route_id_match) {
         $entity_route_id = $route_id_match[1];
-        $requested_route_base = preg_replace('/[A-Za-z]$/', '', $r_get);
-        $entity_route_base = preg_replace('/[A-Za-z]$/', '', $entity_route_id);
+        $requested_route_base = get_route_base($r_get);
+        $entity_route_base = get_route_base($entity_route_id);
 
         if ($entity_route_base === $requested_route_base) {
           $filtered_entities[] = $entity_text;
@@ -233,8 +243,8 @@ foreach ($entities as $entity_text) {
   $vehicle_route = $route_id ? get_route($route_id, $routes) : null;
 
   // Filter by requested route
-  $requested_route_base = preg_replace('/[A-Za-z]$/', '', $r_get);
-  $vehicle_route_base = $route_id ? preg_replace('/[A-Za-z]$/', '', $route_id) : '';
+  $requested_route_base = get_route_base($r_get);
+  $vehicle_route_base = $route_id ? get_route_base($route_id) : '';
 
   if ($r_get !== 'all' && $vehicle_route_base !== $requested_route_base) {
     continue;
@@ -254,7 +264,7 @@ foreach ($entities as $entity_text) {
 
   // Determine type (streetcar for 500-series routes)
   $route_num = intval($route_id);
-  $type = ($route_num >= 500 && $route_num < 600) ? "Streetcar" : "Bus";
+  $type = ($route_num >= STREETCAR_ROUTE_MIN && $route_num < STREETCAR_ROUTE_MAX) ? "Streetcar" : "Bus";
 
   // Use vehicle_route type if available
   if ($vehicle_route) {
