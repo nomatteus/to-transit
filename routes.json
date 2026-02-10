@@ -67,6 +67,12 @@
       "name": "Birchmount"
     },
     {
+      "tag": "18",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Caledonia"
+    },
+    {
       "tag": "19",
       "type": "bus",
       "direction": "NorthSouth",
@@ -115,6 +121,12 @@
       "name": "Dupont"
     },
     {
+      "tag": "27",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Jane South"
+    },
+    {
       "tag": "28",
       "type": "bus",
       "direction": "EastWest",
@@ -154,7 +166,7 @@
       "tag": "34",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Eglinton East"
+      "name": "Eglinton"
     },
     {
       "tag": "35",
@@ -281,12 +293,6 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Warren Park"
-    },
-    {
-      "tag": "56",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Leaside"
     },
     {
       "tag": "57",
@@ -751,10 +757,22 @@
       "name": "Etobicoke-Bloor"
     },
     {
+      "tag": "151",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Leslie North"
+    },
+    {
       "tag": "154",
       "type": "bus",
       "direction": "EastWest",
       "name": "Curran Hall"
+    },
+    {
+      "tag": "158",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Trethewey"
     },
     {
       "tag": "160",
@@ -853,12 +871,6 @@
       "name": "Queen"
     },
     {
-      "tag": "302",
-      "type": "bus",
-      "direction": "NorthSouth",
-      "name": "Kingston Rd-McCowan"
-    },
-    {
       "tag": "304",
       "type": "streetcar",
       "direction": "EastWest",
@@ -901,6 +913,12 @@
       "name": "Evans-Brown's Line"
     },
     {
+      "tag": "316",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Kingston Rd-McCowan"
+    },
+    {
       "tag": "320",
       "type": "bus",
       "direction": "NorthSouth",
@@ -931,16 +949,10 @@
       "name": "Dufferin"
     },
     {
-      "tag": "332",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Eglinton West"
-    },
-    {
       "tag": "334",
       "type": "bus",
       "direction": "EastWest",
-      "name": "Eglinton East"
+      "name": "Eglinton"
     },
     {
       "tag": "335",
@@ -1111,10 +1123,22 @@
       "name": "St Clair"
     },
     {
+      "tag": "805",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Line 5 Shuttle"
+    },
+    {
       "tag": "806",
       "type": "bus",
       "direction": "EastWest",
       "name": "Line 6 Shuttle"
+    },
+    {
+      "tag": "830",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Henry Kelsey - Middlefield"
     },
     {
       "tag": "900",
@@ -1145,6 +1169,12 @@
       "type": "bus",
       "direction": "EastWest",
       "name": "Eglinton East Express"
+    },
+    {
+      "tag": "906",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Airport-Humber College Express"
     },
     {
       "tag": "924",

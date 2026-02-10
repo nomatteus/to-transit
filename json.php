@@ -23,8 +23,92 @@ function get_route($tag, $routes) {
   return null;
 }
 
+// Strip trailing letter suffix to get base route number
+// e.g. "501A" -> "501", "60" -> "60"
 function get_route_base($route_id) {
   return preg_replace('/[A-Za-z]$/', '', $route_id);
+}
+
+// Download GTFS static data ZIP, returns true on success
+function download_gtfs_zip($zip_file) {
+  if (!is_dir('cache')) {
+    mkdir('cache', 0755, true);
+  }
+
+  $gtfs_data = @file_get_contents("https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/bd4809dd-e289-4de8-bbde-c5c00dafbf4f/resource/28514055-d011-4ed7-8bb0-97961dfe2b66/download/SurfaceGTFS.zip");
+  if ($gtfs_data === false) {
+    error_log("Failed to download GTFS data");
+    return false;
+  }
+  file_put_contents($zip_file, $gtfs_data);
+  return true;
+}
+
+// Extract and parse trips.txt from GTFS ZIP into trip_variants array
+function parse_trips_from_zip($zip_file, $route_id = null) {
+  $zip = new ZipArchive;
+  if ($zip->open($zip_file) !== TRUE) {
+    error_log("Failed to open ZIP file");
+    return null;
+  }
+
+  $trips_content = $zip->getFromName('trips.txt');
+  $zip->close();
+
+  if ($trips_content === false) {
+    error_log("Failed to extract trips.txt from ZIP");
+    return null;
+  }
+
+  $trip_variants = array();
+  $lines = explode("\n", $trips_content);
+  if (count($lines) == 0) {
+    error_log("trips.txt is empty");
+    return null;
+  }
+
+  $headers = str_getcsv(array_shift($lines)); // Get headers
+
+  // Find column indices
+  $trip_id_idx = array_search('trip_id', $headers);
+  $route_id_idx = array_search('route_id', $headers);
+  $variant_idx = array_search('trip_short_name', $headers);
+  $direction_idx = array_search('direction_id', $headers);
+
+  if ($trip_id_idx === false) {
+    error_log("Could not find trip_id column in trips.txt");
+    return null;
+  }
+
+  error_log("Parsing trips.txt for route '$route_id': trip_id_idx=$trip_id_idx, route_id_idx=$route_id_idx, variant_idx=$variant_idx, direction_idx=$direction_idx");
+
+  $variant_count = 0;
+  foreach ($lines as $line) {
+    if (empty(trim($line))) continue;
+    $fields = str_getcsv($line);
+    if (count($fields) > $trip_id_idx) {
+      // Filter by route_id if specified
+      if ($route_id && $route_id_idx !== false && count($fields) > $route_id_idx) {
+        $trip_route_id = $fields[$route_id_idx];
+        if ($trip_route_id !== $route_id) {
+          continue;
+        }
+      }
+
+      $trip_id = $fields[$trip_id_idx];
+      $variant = ($variant_idx !== false && count($fields) > $variant_idx) ? $fields[$variant_idx] : '';
+      $direction_id = ($direction_idx !== false && count($fields) > $direction_idx) ? $fields[$direction_idx] : null;
+
+      $trip_variants[$trip_id] = array(
+        'variant' => $variant,
+        'direction_id' => $direction_id
+      );
+      $variant_count++;
+    }
+  }
+
+  error_log("Found $variant_count trips with variants");
+  return $trip_variants;
 }
 
 // Load trip variants mapping (trip_id -> route variant like "A", "B", "C")
@@ -37,93 +121,22 @@ function load_trip_variants($route_id = null) {
 
     $zip_file = "cache/ttc_gtfs.zip";
 
-    // Ensure cache directory exists
-    if (!is_dir('cache')) {
-      mkdir('cache', 0755, true);
-    }
-
-    // Download GTFS static data
-    $gtfs_data = @file_get_contents("https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/bd4809dd-e289-4de8-bbde-c5c00dafbf4f/resource/28514055-d011-4ed7-8bb0-97961dfe2b66/download/SurfaceGTFS.zip");
-    if ($gtfs_data === false) {
-      error_log("Failed to download GTFS data, using existing cache if available");
+    if (!download_gtfs_zip($zip_file)) {
+      // Fall back to existing cache if available
       if (file_exists($cache_file)) {
         $cached = file_get_contents($cache_file);
         return json_decode($cached, true);
       }
       return array();
     }
-    file_put_contents($zip_file, $gtfs_data);
 
-    // Extract trips.txt from ZIP
-    $zip = new ZipArchive;
-    if ($zip->open($zip_file) === TRUE) {
-      $trips_content = $zip->getFromName('trips.txt');
-      $zip->close();
-
-      if ($trips_content === false) {
-        error_log("Failed to extract trips.txt from ZIP");
-        return array();
-      }
-
-      // Parse trips.txt to build mapping
-      $trip_variants = array();
-      $lines = explode("\n", $trips_content);
-      if (count($lines) == 0) {
-        error_log("trips.txt is empty");
-        return array();
-      }
-
-      $headers = str_getcsv(array_shift($lines)); // Get headers
-
-      // Find column indices
-      $trip_id_idx = array_search('trip_id', $headers);
-      $route_id_idx = array_search('route_id', $headers);
-      $variant_idx = array_search('trip_short_name', $headers);
-      $direction_idx = array_search('direction_id', $headers);
-
-      if ($trip_id_idx === false) {
-        error_log("Could not find trip_id column in trips.txt");
-        return array();
-      }
-
-      error_log("Parsing trips.txt for route '$route_id': trip_id_idx=$trip_id_idx, route_id_idx=$route_id_idx, variant_idx=$variant_idx, direction_idx=$direction_idx");
-
-      $variant_count = 0;
-      foreach ($lines as $line) {
-        if (empty(trim($line))) continue;
-        $fields = str_getcsv($line);
-        if (count($fields) > $trip_id_idx) {
-          // Filter by route_id if specified
-          if ($route_id && $route_id_idx !== false && count($fields) > $route_id_idx) {
-            $trip_route_id = $fields[$route_id_idx];
-            // Skip if this trip doesn't match our route
-            if ($trip_route_id !== $route_id) {
-              continue;
-            }
-          }
-
-          $trip_id = $fields[$trip_id_idx];
-          $variant = ($variant_idx !== false && count($fields) > $variant_idx) ? $fields[$variant_idx] : '';
-          $direction_id = ($direction_idx !== false && count($fields) > $direction_idx) ? $fields[$direction_idx] : null;
-
-          // Store trip data (variant and/or direction_id)
-          $trip_variants[$trip_id] = array(
-            'variant' => $variant,
-            'direction_id' => $direction_id
-          );
-          $variant_count++;
-        }
-      }
-
-      error_log("Found $variant_count trips with variants");
-
-      // Save to cache
-      file_put_contents($cache_file, json_encode($trip_variants));
-      return $trip_variants;
-    } else {
-      error_log("Failed to open ZIP file");
+    $trip_variants = parse_trips_from_zip($zip_file, $route_id);
+    if ($trip_variants === null) {
       return array();
     }
+
+    file_put_contents($cache_file, json_encode($trip_variants));
+    return $trip_variants;
   }
 
   // Load from cache
