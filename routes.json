@@ -141,7 +141,7 @@
     {
       "tag": "30",
       "type": "bus",
-      "direction": "EastWest",
+      "direction": "NorthSouth",
       "name": "High Park North"
     },
     {
@@ -549,7 +549,7 @@
     {
       "tag": "101",
       "type": "bus",
-      "direction": "EastWest",
+      "direction": "NorthSouth",
       "name": "Downsview Park"
     },
     {
@@ -579,7 +579,7 @@
     {
       "tag": "106",
       "type": "bus",
-      "direction": "NorthSouth",
+      "direction": "EastWest",
       "name": "Sentinel"
     },
     {
@@ -657,7 +657,7 @@
     {
       "tag": "119",
       "type": "bus",
-      "direction": "NorthSouth",
+      "direction": "EastWest",
       "name": "Torbarrie"
     },
     {
@@ -769,6 +769,12 @@
       "name": "Curran Hall"
     },
     {
+      "tag": "156",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Millwood"
+    },
+    {
       "tag": "158",
       "type": "bus",
       "direction": "EastWest",
@@ -857,6 +863,30 @@
       "type": "bus",
       "direction": "NorthSouth",
       "name": "Underhill"
+    },
+    {
+      "tag": "200",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Toronto Zoo"
+    },
+    {
+      "tag": "201",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bluffer's Park"
+    },
+    {
+      "tag": "202",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Cherry Beach"
+    },
+    {
+      "tag": "203",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "High Park"
     },
     {
       "tag": "300",
@@ -1121,18 +1151,6 @@
       "type": "streetcar",
       "direction": "EastWest",
       "name": "St Clair"
-    },
-    {
-      "tag": "805",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Line 5 Shuttle"
-    },
-    {
-      "tag": "806",
-      "type": "bus",
-      "direction": "EastWest",
-      "name": "Line 6 Shuttle"
     },
     {
       "tag": "830",
