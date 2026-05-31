@@ -154,6 +154,7 @@ Vehicle.Instance.prototype = {
 
 		// Make sure marker is showing
 		this.showMarker();
+		this.updateMarkerZIndex();
 	},
 	hideMarker: function() {
 		if (this.labelMarker) {
@@ -182,6 +183,19 @@ Vehicle.Instance.prototype = {
 		// Update popup position if it's open
 		if (this.popup && this.popup.isOpen()) {
 			this.popup.setLngLat([this.lng, this.lat]);
+		}
+		this.updateMarkerZIndex();
+	},
+	updateMarkerZIndex: function() {
+		// Vehicles further south (lower lat) appear lower on screen and should overlap those behind them.
+		// Higher z-index = rendered on top. Subtracting lat from 90 gives higher values for lower latitudes.
+		var zIndex = Math.round((90 - parseFloat(this.lat)) * 100000);
+		if (this.marker && this.marker.getElement()) {
+			this.marker.getElement().style.zIndex = zIndex;
+		}
+		if (this.labelMarker && this.labelMarker.getElement()) {
+			// Label gets +1 so it always renders above its own vehicle icon
+			this.labelMarker.getElement().style.zIndex = zIndex + 1;
 		}
 	},
 	getOccupancyLabel: function(occupancyStatus) {
@@ -313,6 +327,7 @@ Vehicle.Instance.prototype = {
 		this.updateMarkerPosition();
 		this.updateMarkerInfoWindow();
 		this.showMarker();
+		this.updateMarkerZIndex();
 		this.addEventListeners();
 	},
 	addEventListeners: function() {
