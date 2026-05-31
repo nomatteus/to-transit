@@ -81,7 +81,7 @@
   <!-- Notification Panel on the bottom: Use for downtime announcements or similar. -->
   <!-- (Also remember to temporarily remove bookmark_bubble.js if using this as they are both positioned at the bottom of the screen) -->
   <div id="notification" style="display: none;">
-    <strong>February 2026 Update</strong>
+    <strong>June 2026 Update</strong>
     <div id="notifiction-content">
       TOTransit now uses a new data source with improved data quality.
       All surface routes are now supported (e.g. 508).
@@ -92,8 +92,8 @@
   <script>
     // Show notification only until specified date and only once per user
     (function() {
-      var notificationId = '2026_feb10_update'; // Change this ID for each new notification
-      var expiryDate = new Date('2026-02-10T23:59:59');
+      var notificationId = '2026_june1_update'; // Change this ID for each new notification
+      var expiryDate = new Date('2026-06-15T23:59:59');
       var now = new Date();
 
       // Check if user has already seen this notification
