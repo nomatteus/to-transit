@@ -13,6 +13,21 @@ function createMapLibreLabel(options) {
   return labelElement;
 }
 
+// Function to get direction arrow based on heading
+// (Used as a backup option when direction is not returned from data source, which seems to happen periodically)
+function getDirectionArrow(heading) {
+  // Convert heading to 0-360 range
+  var h = parseFloat(heading) % 360;
+  if (h < 0) h += 360;
+
+  // Return arrow pointing in the direction of travel
+  // Using 4 cardinal directions for simplicity and consistency
+  if (h >= 315 || h < 45) return '↑';      // North
+  else if (h >= 45 && h < 135) return '→'; // East
+  else if (h >= 135 && h < 225) return '↓'; // South
+  else return '←'; // West
+}
+
 var Route = {};
 
 Route.List = _.sortBy(data.routes, function(route){
@@ -169,20 +184,48 @@ Vehicle.Instance.prototype = {
 			this.popup.setLngLat([this.lng, this.lat]);
 		}
 	},
+	getOccupancyLabel: function(occupancyStatus) {
+		if (!occupancyStatus) return null;
+
+		if (occupancyStatus === 'EMPTY') {
+			return 'Not Crowded';
+		} else if (occupancyStatus === 'FEW_SEATS_AVAILABLE') {
+			return 'Somewhat Crowded';
+		} else if (occupancyStatus === 'FULL') {
+			return 'Crowded';
+		}
+		return null;
+	},
 	updateMarkerInfoWindow: function() {
-		var contentString = '<div class="info-window">' + 
+		var occupancyLabel = this.getOccupancyLabel(this.occupancyStatus);
+		var occupancyHTML = '';
+
+		if (occupancyLabel != null) {
+			var occupancyColor = '';
+			if (this.occupancyStatus === 'EMPTY') {
+				occupancyColor = '#4CAF50'; // Green
+			} else if (this.occupancyStatus === 'FEW_SEATS_AVAILABLE') {
+				occupancyColor = '#FF9800'; // Orange
+			} else if (this.occupancyStatus === 'FULL') {
+				occupancyColor = '#F44336'; // Red
+			}
+			occupancyHTML = '<div class="occupancy">Occupancy: <span style="color: ' + occupancyColor + '; font-weight: bold;">' + occupancyLabel + '</span></div>';
+		}
+
+		var contentString = '<div class="info-window">' +
 			'<h1 class="vehicle-id">Vehicle #' + this.id + '</h1>' +
 			'<div class="type">Type: ' + this.type + '</div>' +
 			(this.routeSub != null ? '<div class="route-sub">Route Sub: ' + this.routeSub + '</div>' : '') +
 			(this.dir != null ? '<div class="dir-tag">Direction: ' + this.dir + '</div>' : '') +
 			'<div class="headingId">Heading: ' + this.heading + '\u00B0</div>' +
 			'<div class="speed">Speed: ' + this.speed + ' km/h</div>' +
+			occupancyHTML +
 			'<div class="headingId">Reported: ' + this.secsSinceReport + ' sec ago</div>' +
 			'</div>';
 
 		// Store popup content for MapLibre GL
 		this.popupContent = contentString;
-		
+
 		// If popup exists and is open, update its content
 		if (this.popup && this.popup.isOpen()) {
 			this.popup.setHTML(contentString);
@@ -215,13 +258,33 @@ Vehicle.Instance.prototype = {
 		}
 		if (this.dir != null) {
 			labelText += ' <span class="route-direction">' + this.dir + '</span>';
+		} else if (this.heading != null) {
+			// Show direction arrow as fallback when direction text is not available
+			labelText += ' <span class="route-direction-arrow">' + getDirectionArrow(this.heading) + '</span>';
+		}
+		labelText += '<span class="route-spacer"></span>'
+
+		// Add occupancy dot badge inside the label
+		var occupancyBadge = '';
+		if (this.occupancyStatus) {
+			var occupancyClass = '';
+			// Only show dot for somewhat crowded or crowded (not for empty/not crowded)
+			if (this.occupancyStatus === 'FEW_SEATS_AVAILABLE') {
+				occupancyClass = 'somewhat-crowded';
+			} else if (this.occupancyStatus === 'FULL') {
+				occupancyClass = 'crowded';
+			}
+
+			if (occupancyClass) {
+				occupancyBadge = '<span class="occupancy-badge ' + occupancyClass + '"></span>';
+			}
 		}
 
 		if (this.labelMarker) {
 			this.labelMarker.remove();
 		}
 
-		var labelElement = createMapLibreLabel({text: labelText});
+		var labelElement = createMapLibreLabel({text: labelText + occupancyBadge});
 		this.labelMarker = new maplibregl.Marker({
 			element: labelElement,
 			anchor: 'bottom-left',
@@ -254,17 +317,17 @@ Vehicle.Instance.prototype = {
 	},
 	addEventListeners: function() {
 		var that = this;
-		
+
 		// Wait for marker to be added to map, then add click listener
 		var addClickListener = function() {
 			var element = that.marker.getElement();
 			if (element) {
 				element.addEventListener('click', function(e) {
 					e.stopPropagation(); // Prevent map click
-					
+
 					// Close any existing popups first
 					Controls.closeInfoWindows();
-					
+
 					// Create and show popup
 					if (!that.popup) {
 						that.popup = new maplibregl.Popup({
@@ -277,7 +340,7 @@ Vehicle.Instance.prototype = {
 							className: "streetcar-details-popup"
 						});
 					}
-					
+
 					that.popup
 						.setLngLat([that.lng, that.lat])
 						.setHTML(that.popupContent)
@@ -285,7 +348,7 @@ Vehicle.Instance.prototype = {
 				});
 			}
 		};
-		
+
 		// Add listener immediately if element exists, otherwise wait
 		if (this.marker.getElement()) {
 			addClickListener();
@@ -424,10 +487,10 @@ var Controls = (function() {
       minZoom: 10,
       maxZoom: 20
     });
-    
+
     // Add navigation controls (zoom buttons)
     window.map.addControl(new maplibregl.NavigationControl(), 'bottom-left');
-    
+
     // Add geolocation control (current location button)
     var geolocate = new maplibregl.GeolocateControl({
         positionOptions: {
@@ -444,17 +507,17 @@ var Controls = (function() {
         showUserHeading: false,
         showAccuracyCircle: false
     });
-    
+
     window.map.addControl(geolocate, 'bottom-left');
-    
+
     // Automatically trigger geolocation on map load
     window.map.on('load', function() {
         geolocate.trigger();
     });
-	
+
     // High-res marker images with shadow (@2x)
     window.markerShadow = 'marker-images/shadow@2x.png';
-    
+
     // Buses
     window.markerImageBusDefault = 'marker-images/bus-default@2x.png';
 
