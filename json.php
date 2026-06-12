@@ -159,45 +159,20 @@ $route = get_route($r_get, $routes);
 $route_id = ($r_get !== 'all' && $route) ? $route->tag : null;
 $trip_variants = load_trip_variants($route_id);
 
-$filename = "cache/vehicleLocations.".(is_null($route) ? "all" : $route->tag).".txt";
+$raw_cache_file = "cache/vehicleLocations.raw.txt";
 
-// Cache data for X seconds
-if (!file_exists($filename) || ((time() - filemtime($filename)) >= VEHICLE_CACHE_TTL)) {
+// Cache the full raw feed once, shared across all route requests
+if (!file_exists($raw_cache_file) || ((time() - filemtime($raw_cache_file)) >= VEHICLE_CACHE_TTL)) {
   $file_contents = @file_get_contents("https://bustime.ttc.ca/gtfsrt/vehicles?debug");
   if ($file_contents === false) {
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(array("error" => "Failed to fetch GTFS-RT data", "vehicles" => array()));
     exit;
   }
-
-  // Filter entities by route before caching
-  if ($r_get !== 'all') {
-    $entities = preg_split('/^entity \{$/m', $file_contents);
-    $header = array_shift($entities); // Keep the header
-    $filtered_entities = array();
-
-    foreach ($entities as $entity_text) {
-      // Extract route_id to filter
-      preg_match('/route_id: "([^"]+)"/', $entity_text, $route_id_match);
-      if ($route_id_match) {
-        $entity_route_id = $route_id_match[1];
-        $requested_route_base = get_route_base($r_get);
-        $entity_route_base = get_route_base($entity_route_id);
-
-        if ($entity_route_base === $requested_route_base) {
-          $filtered_entities[] = $entity_text;
-        }
-      }
-    }
-
-    // Reconstruct the debug format with only filtered entities
-    $file_contents = $header . 'entity {' . implode('entity {', $filtered_entities);
-  }
-
-  file_put_contents($filename, $file_contents);
+  file_put_contents($raw_cache_file, $file_contents);
 }
 
-$gtfsrt_data = file_get_contents($filename);
+$gtfsrt_data = file_get_contents($raw_cache_file);
 
 $vehicles = array();
 
