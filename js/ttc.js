@@ -189,7 +189,8 @@ Vehicle.Instance.prototype = {
 	updateMarkerZIndex: function() {
 		// Vehicles further south (lower lat) appear lower on screen and should overlap those behind them.
 		// Higher z-index = rendered on top. Subtracting lat from 90 gives higher values for lower latitudes.
-		var zIndex = Math.round((90 - parseFloat(this.lat)) * 100000);
+		// Multiplier of 10 gives z-indexes ~464 for Toronto, safely below UI elements at 1000+
+		var zIndex = Math.round((90 - parseFloat(this.lat)) * 10);
 		if (this.marker && this.marker.getElement()) {
 			this.marker.getElement().style.zIndex = zIndex;
 		}
