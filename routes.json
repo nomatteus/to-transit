@@ -925,10 +925,22 @@
       "name": "Bathurst"
     },
     {
+      "tag": "309",
+      "type": "bus",
+      "direction": "EastWest",
+      "name": "Harbourfront"
+    },
+    {
       "tag": "310",
       "type": "streetcar",
       "direction": "NorthSouth",
       "name": "Spadina"
+    },
+    {
+      "tag": "311",
+      "type": "bus",
+      "direction": "NorthSouth",
+      "name": "Bathurst"
     },
     {
       "tag": "312",
