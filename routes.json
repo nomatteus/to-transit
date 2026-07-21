@@ -1106,7 +1106,7 @@
     },
     {
       "tag": "503",
-      "type": "streetcar",
+      "type": "bus",
       "direction": "EastWest",
       "name": "Kingston Rd"
     },

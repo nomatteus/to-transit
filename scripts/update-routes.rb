@@ -10,6 +10,12 @@ require 'set'
 GTFS_ZIP_URL = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/bd4809dd-e289-4de8-bbde-c5c00dafbf4f/resource/28514055-d011-4ed7-8bb0-97961dfe2b66/download/SurfaceGTFS.zip'
 ROUTES_FILE = './routes.json'
 
+# Manual overrides for routes where actual service doesn't match GTFS static data.
+# Remove an entry once GTFS reflects the real-world type (or the change is confirmed permanent).
+ROUTE_TYPE_OVERRIDES = {
+  '503' => 'bus' # Running with buses as of summer 2026; GTFS still lists it as a streetcar route.
+}
+
 def download_file(url, dest)
   uri = URI(url)
   Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
@@ -80,6 +86,18 @@ def parse_gtfs_routes(tmpdir)
     next if tag.nil? || name.nil?
 
     type = route_type == 0 ? 'streetcar' : 'bus'
+
+    # TEMPORARY: delete this block (and ROUTE_TYPE_OVERRIDES) once no overrides are needed.
+    if ROUTE_TYPE_OVERRIDES.key?(tag)
+      override_type = ROUTE_TYPE_OVERRIDES[tag]
+      if type == override_type
+        puts "Note: Route #{tag} override to '#{override_type}' is now redundant - GTFS reports '#{type}' directly. Consider removing it from ROUTE_TYPE_OVERRIDES."
+      else
+        puts "Overriding route #{tag} type: GTFS says '#{type}', using '#{override_type}' instead (see ROUTE_TYPE_OVERRIDES)"
+      end
+      type = override_type
+    end
+
     direction = direction_map[route_id]
 
     if direction.nil?

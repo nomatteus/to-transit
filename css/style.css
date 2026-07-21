@@ -726,6 +726,34 @@ body {
   background-color: #F44336;
 }
 
+/* Occupancy bars - used in the vehicle info window in place of a text label */
+.occupancy-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  vertical-align: middle;
+}
+
+.occupancy-bar {
+  display: inline-block;
+  width: 4px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: #ccc;
+}
+
+.occupancy-bar.not-crowded {
+  background-color: #4CAF50;
+}
+
+.occupancy-bar.somewhat-crowded {
+  background-color: #FF9800;
+}
+
+.occupancy-bar.crowded {
+  background-color: #F44336;
+}
+
 /* Keep MapLibre built-in controls above vehicle markers */
 .maplibregl-ctrl-bottom-left,
 .maplibregl-ctrl-bottom-right,

@@ -216,15 +216,24 @@ Vehicle.Instance.prototype = {
 		var occupancyHTML = '';
 
 		if (occupancyLabel != null) {
-			var occupancyColor = '';
+			var filledBars = 0;
+			var filledClass = '';
 			if (this.occupancyStatus === 'EMPTY') {
-				occupancyColor = '#4CAF50'; // Green
+				filledBars = 1;
+				filledClass = 'not-crowded';
 			} else if (this.occupancyStatus === 'FEW_SEATS_AVAILABLE') {
-				occupancyColor = '#FF9800'; // Orange
+				filledBars = 2;
+				filledClass = 'somewhat-crowded';
 			} else if (this.occupancyStatus === 'FULL') {
-				occupancyColor = '#F44336'; // Red
+				filledBars = 3;
+				filledClass = 'crowded';
 			}
-			occupancyHTML = '<div class="occupancy">Occupancy: <span style="color: ' + occupancyColor + '; font-weight: bold;">' + occupancyLabel + '</span></div>';
+
+			var barsHTML = '';
+			for (var i = 1; i <= 3; i++) {
+				barsHTML += '<span class="occupancy-bar' + (i <= filledBars ? ' ' + filledClass : '') + '"></span>';
+			}
+			occupancyHTML = '<div class="occupancy">Occupancy: <span class="occupancy-bars" title="' + occupancyLabel + '">' + barsHTML + '</span></div>';
 		}
 
 		var contentString = '<div class="info-window">' +
